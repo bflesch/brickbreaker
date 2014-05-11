@@ -19,21 +19,29 @@ class TouchSurfaceView extends GLSurfaceView {
     private float[] unprojectViewMatrix = new float[16];
     private float[] unprojectProjMatrix = new float[16];
     
+    private static float ratio = 0.0f;
+    
 
     private class Renderer implements GLSurfaceView.Renderer {
 
-        private Quad quad;
+        private Paddle paddle;
+        private int framecounter = 0;
 
 
         public Renderer() {
-            quad = new Quad();
+            paddle = new Paddle();
         }
 
 
         @Override
         public void onDrawFrame( GL10 gl ) {
             gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
-            quad.draw( gl );
+            framecounter += 1;
+            if (framecounter >= 30){
+            	framecounter = 1;
+            }
+            paddle.updatePosition();
+        	paddle.draw( gl );
         }
 
 
@@ -43,10 +51,11 @@ class TouchSurfaceView extends GLSurfaceView {
             screenWidth = width;
             screenHeight = height;
 
-            float ratio = (float) width / height;
+            ratio = (float) width / height;
             gl.glMatrixMode( GL10.GL_PROJECTION );
             gl.glLoadIdentity();
             gl.glOrthof( -ratio, ratio, -1.0f, 1.0f, -1.0f, 1.0f );
+            //gl.glOrthof(LEFT, RIGHT, BOTTOM, TOP, NEAR, FAR);
 
             Matrix.orthoM( unprojectProjMatrix, 0, -ratio, ratio, -1.0f, 1.0f, -1.0f, 1.0f );
             Matrix.setIdentityM( unprojectViewMatrix, 0 );
@@ -65,11 +74,12 @@ class TouchSurfaceView extends GLSurfaceView {
         }
 
 
-        public void updateQuadPosition( final float x, final float y ) {
+        public void updatePaddleSpeed( final float x, final float y ) {
             queueEvent( new Runnable() {
                 @Override
                 public void run() {
-                    quad.setPosition( x, y );
+                    paddle.setDestination( x, -1.0f );
+                    paddle.updatePosition();
                 }
             } );
         }
@@ -104,10 +114,15 @@ class TouchSurfaceView extends GLSurfaceView {
                 resultWorldPos[2] /= resultWorldPos[3];
                 resultWorldPos[3] = 1.0f;
 
-                renderer.updateQuadPosition( resultWorldPos[0], resultWorldPos[1] );
+                renderer.updatePaddleSpeed( resultWorldPos[0], resultWorldPos[1] );
                 break;
         }
 
         return true;
     }
+
+
+	public static float getRatio() {
+		return ratio;
+	}
 }
