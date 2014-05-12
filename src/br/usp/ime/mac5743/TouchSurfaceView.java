@@ -21,27 +21,30 @@ class TouchSurfaceView extends GLSurfaceView {
     
     private static float ratio = 0.0f;
     
+    private static boolean gameStarted = false;
+    
 
     private class Renderer implements GLSurfaceView.Renderer {
 
         private Paddle paddle;
-        private int framecounter = 0;
+        private Ball ball;
+        private World world;
 
 
         public Renderer() {
             paddle = new Paddle();
+            ball = new Ball();
+            world = new World(paddle,ball);
         }
 
 
         @Override
         public void onDrawFrame( GL10 gl ) {
             gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
-            framecounter += 1;
-            if (framecounter >= 30){
-            	framecounter = 1;
-            }
             paddle.updatePosition();
-        	paddle.draw( gl );
+            ball.updatePosition(world);
+        	paddle.draw(gl);
+            ball.draw(gl);
         }
 
 
@@ -83,6 +86,12 @@ class TouchSurfaceView extends GLSurfaceView {
                 }
             } );
         }
+
+
+		public void startGame() {
+			ball.launch();
+			gameStarted = true;
+		}
     }
 
 
@@ -115,6 +124,9 @@ class TouchSurfaceView extends GLSurfaceView {
                 resultWorldPos[3] = 1.0f;
 
                 renderer.updatePaddleSpeed( resultWorldPos[0], resultWorldPos[1] );
+                if(!gameStarted){
+                	renderer.startGame();
+                }
                 break;
         }
 

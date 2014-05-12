@@ -6,37 +6,36 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-class Paddle {
+class Ball {
     private float posX = 0.0f;
-    private float posY = -1.0f;
+    private float posY = -0.89f;
 
     private FloatBuffer vertexBuffer;
     private FloatBuffer colorBuffer;
     
-    private float speed = 0.0f;
-    private float destinationX = 0.0f;
+	private float speedX = 0.0f;
+	private float speedY = 0.0f;
     
     private static final float[] vertices = {
-        -1.0f,  0.0f,
+        -1.0f,  -1.0f,
         -1.0f,  1.0f,
-         1.0f,  0.0f,
+         1.0f,  -1.0f,
          1.0f,  1.0f,
      //   X      Y 
     };
     
     private static final float[] colors = {
-        0.0f,  1.0f,  1.0f,  1.0f,
-        1.0f,  0.0f,  0.0f,  1.0f,
-        0.0f,  0.0f,  1.0f,  1.0f,
-        0.0f,  1.0f,  0.0f,  1.0f,
+        0.7f,  0.7f,  0.7f,  1.0f,
+        0.7f,  0.7f,  0.7f,  1.0f,
+        0.7f,  0.7f,  0.7f,  1.0f,
+        0.7f,  0.7f,  0.7f,  1.0f,
      // R       G      B      A 
     };
     
     private static final int FLOAT_SIZE_BYTES = Float.SIZE / 8;
-	private static float max_speed = 0;
     
     
-    public Paddle() {
+    public Ball() {
         ByteBuffer vbb = ByteBuffer.allocateDirect( vertices.length * FLOAT_SIZE_BYTES );
         vbb.order( ByteOrder.nativeOrder() );
         vertexBuffer = vbb.asFloatBuffer();
@@ -50,50 +49,43 @@ class Paddle {
         colorBuffer.position( 0 );
     }
     
-    
-    public void setDestination( float x, float y ) {
-    	float ratio = TouchSurfaceView.getRatio();
-    	max_speed = ratio/150.0f;
-
-    	destinationX = x;
-    	
-    	if (posX > destinationX) {
-    		speed = -max_speed;
-    	}
-    	else{
-    		speed =  max_speed;
-    	}
-    	
-        this.posY = y;
+    public void launch(){
+    	speedX = 1.0f/150.0f;
+    	speedY = speedX;
     }
     
-    public boolean reachesOrPassesDestination(){
-    	return (Math.abs(posX - destinationX) < Math.abs(speed));
-    }
-    
-    public void updatePosition(){
-    	if (reachesOrPassesDestination()){
-    		posX = destinationX;
+    public void updatePosition(World world){
+    	float futurePosX = posX + speedX;
+    	float futurePosY = posY + speedY;
+    	if(isOutOfBoundsX(futurePosX)){
+    		speedX = -speedX;
     	}
-    	else
-    		posX = posX+speed;
-    }
-    
-    public boolean contains(float x, float y){
-    	if (x > (posX - 0.1) && x < (posX + 0.1)){
-    		if(y > (posY) && y < (posY + 0.1))
-    			return true;
+    	if(isOutOfBoundsY(futurePosY)){
+    		speedY = -speedY;
     	}
-    	return false;
+    	if(world.getPaddle().contains(futurePosX,futurePosY)){
+    		if(!world.getPaddle().contains(posX, posY)){
+    			speedY = -speedY;
+    		}
+    	}
+    	posX = posX+speedX;
+    	posY = posY+speedY;
     }
 
+    private boolean isOutOfBoundsY(float futurePosY) {
+    	return ((futurePosY > 1.0f) || (futurePosY < -1.0f));
+	}
 
-    public void draw( GL10 gl ) {
+	private boolean isOutOfBoundsX(float futurePosX) {
+		return ((futurePosX > TouchSurfaceView.getRatio()) || (futurePosX < -TouchSurfaceView.getRatio()));
+	}
+
+	public void draw( GL10 gl ) {
         gl.glMatrixMode( GL10.GL_MODELVIEW );
         gl.glPushMatrix();
         gl.glLoadIdentity();
         gl.glTranslatef( posX, posY, 0.0f );
-        gl.glScalef( 0.1f, 0.1f, 0.1f );
+        gl.glScalef( 0.01f, 0.01f, 0.01f );
 
         gl.glEnableClientState( GL10.GL_VERTEX_ARRAY );
         gl.glEnableClientState( GL10.GL_COLOR_ARRAY );
