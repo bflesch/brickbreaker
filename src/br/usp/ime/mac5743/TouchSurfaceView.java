@@ -21,8 +21,6 @@ class TouchSurfaceView extends GLSurfaceView {
     
     private static float ratio = 0.0f;
     
-    private static boolean gameStarted = false;
-    
 
     private class Renderer implements GLSurfaceView.Renderer {
 
@@ -90,9 +88,9 @@ class TouchSurfaceView extends GLSurfaceView {
         }
 
 
-		public void startGame() {
-			ball.launch();
-			gameStarted = true;
+		public void startBallIfNotStarted() {
+			if (ball.stopped())
+			     ball.launch();
 		}
     }
 
@@ -126,10 +124,11 @@ class TouchSurfaceView extends GLSurfaceView {
                 resultWorldPos[3] = 1.0f;
 
                 renderer.updatePaddleSpeed( resultWorldPos[0], resultWorldPos[1] );
-                if(!gameStarted){
-                	renderer.startGame();
-                }
                 break;
+            case MotionEvent.ACTION_UP:   
+                renderer.startBallIfNotStarted();
+                break;
+                
         }
 
         return true;

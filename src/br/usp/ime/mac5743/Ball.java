@@ -48,6 +48,11 @@ class Ball {
     	speedY = speedX;
     }
     
+    public boolean stopped() {
+    	return ( -0.00001f < speedX && speedX < 0.00001f && // 
+    			  -0.00001f < speedY && speedY < 0.00001f);
+    }
+    
     public void updatePosition(){
     	float futurePosX = posX + speedX;
     	float futurePosY = posY + speedY;
