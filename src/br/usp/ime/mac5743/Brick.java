@@ -9,7 +9,8 @@ import javax.microedition.khronos.opengles.GL10;
 
 class Brick {
 
-
+    public boolean isAlive = true;
+	
 	protected float posX = 0.0f;
 	protected float posY = 0.0f;
 
@@ -42,7 +43,9 @@ class Brick {
 		vertexBuffer.position(0);
 	}    
 	
-	private void collide () {}
+	public void collide () {
+		isAlive = false;
+	}
 
 	private float distance(float[] a, float[] b) {
 		float d = (a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]);
@@ -125,8 +128,10 @@ class Brick {
 				return true;
 			}
 
-		if(gotHitOnCorner(ball,direction))
+		if(gotHitOnCorner(ball,direction)) {
+			this.collide();
 			return true;
+		}
 
 		direction[0] = direction[1] = 0;
 		return false;

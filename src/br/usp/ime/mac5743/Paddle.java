@@ -26,6 +26,9 @@ public class Paddle extends Brick {
 		buildGlBuffer();
 	}
 
+	@Override
+	public void collide () {
+	}
 
 	public void setDestination( float x ) {
 		float ratio = TouchSurfaceView.getRatio();

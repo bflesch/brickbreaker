@@ -31,13 +31,14 @@ class BrickList {
 
 	public boolean gotHit(Ball ball, float[] direction) {
         for(int i=0;i<bricks;i++)
-        	if (brickV[i].gotHit(ball,direction))
+        	if (brickV[i].isAlive && brickV[i].gotHit(ball,direction))
         		return true;
         return false;			
 	}
 
 	public void draw( GL10 gl ) {
         for(int i=0;i<bricks;i++)
-        	brickV[i].draw(gl);
+        	if (brickV[i].isAlive)
+        	    brickV[i].draw(gl);
 	}
 }
