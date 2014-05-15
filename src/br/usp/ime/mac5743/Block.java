@@ -3,6 +3,7 @@ package br.usp.ime.mac5743;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -54,7 +55,6 @@ class Block {
     private void normalize(float[] vec) {
     	float size = vec[0]*vec[0]+vec[1]*vec[1];
     	size = (float) Math.sqrt(size);
-    	//TODO maybe check this /= operator
     	vec[0] /= size; vec[1] /= size;
     }
     
@@ -67,35 +67,20 @@ class Block {
     	float[] corner3 = {posX + width/2,posY - height/2};
     	float[] corner4 = {posX - width/2,posY - height/2};
     	
-    	//TODO put in a for loop
-    	if (distance(corner1,center) < radius) {
-    		direction[0] = center[0]-corner1[0];
-    		direction[1] = center[1]-corner1[1];
-    		normalize(direction);
-    		return true;
-    	}
+    	ArrayList<float[]> corners = new ArrayList<float[]> ();
+    	corners.add(corner1);corners.add(corner2);
+    	corners.add(corner3);corners.add(corner4);
     	
-    	if (distance(corner2,center) < radius) {
-    		direction[0] = center[0]-corner2[0];
-    		direction[1] = center[1]-corner2[1];
-    		normalize(direction);
-    		return true;
+    	for (int i=0; i < 4; i++) {
+    		float[] corner = corners.get(i);
+        	if (distance(corner,center) < radius) {
+        		direction[0] = center[0]-corner[0];
+        		direction[1] = center[1]-corner[1];
+        		normalize(direction);
+        		return true;
+        	}
     	}
-    	
-    	if (distance(corner3,center) < radius) {
-    		direction[0] = center[0]-corner3[0];
-    		direction[1] = center[1]-corner3[1];
-    		normalize(direction);
-    		return true;
-    	}
-    	
-    	if (distance(corner4,center) < radius) {
-    		direction[0] = center[0]-corner4[0];
-    		direction[1] = center[1]-corner4[1];
-    		normalize(direction);
-    		return true;
-    	}
-    	
+
     	direction[0] = direction[1] = 0;
     	return false;
     }
@@ -109,6 +94,7 @@ class Block {
     	float x_min = posX - width/2;
     	float y_max = posY + height/2;
     	float y_min = posY - height/2;
+    	
     	
     	//collide with the bottom
     	if (y_max > y + r && y + r > y_min)
