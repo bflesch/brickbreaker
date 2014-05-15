@@ -4,9 +4,9 @@ public class World {
 
 	private Paddle paddle;
 	private Ball ball;
-	private Block block;
+	private Brick block;
 	
-	public World(Paddle paddle, Ball ball, Block block){
+	public World(Paddle paddle, Ball ball, Brick block){
 		this.paddle = paddle;
 		this.ball = ball;
 		this.block = block;
@@ -19,9 +19,11 @@ public class World {
 	public void step() {
         paddle.updatePosition();
         //TODO remove reference
-        ball.updatePosition(this);
+        ball.updatePosition();
         float [] normalForceDirection = {0f,0f};
         if (block.gotHit(ball,normalForceDirection)) 
+        	ball.deflect(normalForceDirection);
+        if (paddle.gotHit(ball,normalForceDirection)) 
         	ball.deflect(normalForceDirection);
         
         	

@@ -28,14 +28,14 @@ class TouchSurfaceView extends GLSurfaceView {
 
         private Paddle paddle;
         private Ball ball;
-        private Block block;
+        private Brick block;
         private World world;
 
 
         public Renderer() {
             paddle = new Paddle();
             ball = new Ball();
-            block = new Block();
+            block = new Brick();
             world = new World(paddle,ball,block);
         }
 
@@ -83,7 +83,7 @@ class TouchSurfaceView extends GLSurfaceView {
             queueEvent( new Runnable() {
                 @Override
                 public void run() {
-                    paddle.setDestination( x, -1.0f );
+                    paddle.setDestination( x );
                     paddle.updatePosition();
                 }
             } );

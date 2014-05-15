@@ -48,7 +48,7 @@ class Ball {
     	speedY = speedX;
     }
     
-    public void updatePosition(World world){
+    public void updatePosition(){
     	float futurePosX = posX + speedX;
     	float futurePosY = posY + speedY;
     	if(isOutOfBoundsX(futurePosX)){
@@ -56,11 +56,6 @@ class Ball {
     	}
     	if(isOutOfBoundsY(futurePosY)){
     		speedY = -speedY;
-    	}
-    	if(world.getPaddle().contains(futurePosX,futurePosY)){
-    		if(!world.getPaddle().contains(posX, posY)){
-    			speedY = -speedY;
-    		}
     	}
     	posX = posX+speedX;
     	posY = posY+speedY;
@@ -103,7 +98,7 @@ class Ball {
         gl.glColor4f(1.0f,0.0f,0.0f, 1.0f);
         
         gl.glVertexPointer( 2, GL10.GL_FLOAT, 0, vertexBuffer );
-        //cor, draw, declaracao, radius
+
         gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, points+2);
         
         gl.glDisableClientState( GL10.GL_VERTEX_ARRAY );
