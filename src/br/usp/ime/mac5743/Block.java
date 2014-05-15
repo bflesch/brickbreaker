@@ -46,7 +46,59 @@ class Block {
     
     private void collide () {}
 
+    private float distance(float[] a, float[] b) {
+    	float d = (a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]);
+    	return (float) Math.sqrt(d);
+    }
     
+    private void normalize(float[] vec) {
+    	float size = vec[0]*vec[0]+vec[1]*vec[1];
+    	size = (float) Math.sqrt(size);
+    	//TODO maybe check this /= operator
+    	vec[0] /= size; vec[1] /= size;
+    }
+    
+    private boolean gotHitOnCorner(Ball ball, float[] direction) {
+    	float radius = ball.radius ;
+    	float[] center =  {ball.posX,ball.posY};
+    	
+    	float[] corner1 = {posX + width/2,posY + height/2};
+    	float[] corner2 = {posX - width/2,posY + height/2};
+    	float[] corner3 = {posX + width/2,posY - height/2};
+    	float[] corner4 = {posX - width/2,posY - height/2};
+    	
+    	//TODO put in a for loop
+    	if (distance(corner1,center) < radius) {
+    		direction[0] = center[0]-corner1[0];
+    		direction[1] = center[1]-corner1[1];
+    		normalize(direction);
+    		return true;
+    	}
+    	
+    	if (distance(corner2,center) < radius) {
+    		direction[0] = center[0]-corner2[0];
+    		direction[1] = center[1]-corner2[1];
+    		normalize(direction);
+    		return true;
+    	}
+    	
+    	if (distance(corner3,center) < radius) {
+    		direction[0] = center[0]-corner3[0];
+    		direction[1] = center[1]-corner3[1];
+    		normalize(direction);
+    		return true;
+    	}
+    	
+    	if (distance(corner4,center) < radius) {
+    		direction[0] = center[0]-corner4[0];
+    		direction[1] = center[1]-corner4[1];
+    		normalize(direction);
+    		return true;
+    	}
+    	
+    	direction[0] = direction[1] = 0;
+    	return false;
+    }
     
     public boolean gotHit(Ball ball, float[] direction) {
     	float r = ball.radius ;
@@ -90,6 +142,10 @@ class Block {
     		    return true;
     	    }
    
+    	if(gotHitOnCorner(ball,direction))
+    		return true;
+
+    	direction[0] = direction[1] = 0;
     	return false;
     }
 
