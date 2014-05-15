@@ -18,8 +18,7 @@ public class Paddle extends Brick {
 
 
 	public Paddle(Ball ball) {
-		posX = 0.0f;
-		posY = -0.8f;
+		super(0f,-.8f);
 		height = .1f;
 		width = .4f;
 		this.ball = ball;

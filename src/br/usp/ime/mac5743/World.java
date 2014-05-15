@@ -4,12 +4,12 @@ public class World {
 
 	private Paddle paddle;
 	private Ball ball;
-	private Brick block;
+	private BrickList bricks;
 	
-	public World(Paddle paddle, Ball ball, Brick block){
+	public World(Paddle paddle, Ball ball, BrickList bricks){
 		this.ball = ball;
 		this.paddle = paddle;
-		this.block = block;
+		this.bricks = bricks;
 	}
 	
 	public Paddle getPaddle(){
@@ -21,7 +21,7 @@ public class World {
         //TODO remove reference
         ball.updatePosition();
         float [] normalForceDirection = {0f,0f};
-        if (block.gotHit(ball,normalForceDirection)) 
+        if (bricks.gotHit(ball,normalForceDirection)) 
         	ball.deflect(normalForceDirection);
         if (paddle.gotHit(ball,normalForceDirection)) 
         	ball.deflect(normalForceDirection);

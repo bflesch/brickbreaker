@@ -26,15 +26,15 @@ class TouchSurfaceView extends GLSurfaceView {
 
         private Paddle paddle;
         private Ball ball;
-        private Brick block;
+        private BrickList bricks;
         private World world;
 
 
         public Renderer() {
             ball = new Ball();
-            block = new Brick();
+            bricks = new BrickList();
             paddle = new Paddle(ball);
-            world = new World(paddle,ball,block);
+            world = new World(paddle,ball,bricks);
         }
 
 
@@ -44,7 +44,7 @@ class TouchSurfaceView extends GLSurfaceView {
             world.step();
         	paddle.draw(gl);
             ball.draw(gl);
-            block.draw(gl);
+            bricks.draw(gl);
         }
 
 

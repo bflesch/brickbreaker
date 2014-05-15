@@ -15,13 +15,14 @@ class Brick {
 
 	private FloatBuffer vertexBuffer;
 
-	protected float height = .2f;
-	protected float width = .8f;
+	protected float height = .05f;
+	protected float width = .15f;
 
 
 	private static final int FLOAT_SIZE_BYTES = Float.SIZE / 8;
 
-	public Brick(){
+	public Brick(float x, float y){
+		posX = x; posY=y;
 		buildGlBuffer();
 	}
 	protected void buildGlBuffer () {
@@ -40,7 +41,7 @@ class Brick {
 		vertexBuffer.put(vertices);
 		vertexBuffer.position(0);
 	}    
-
+	
 	private void collide () {}
 
 	private float distance(float[] a, float[] b) {
