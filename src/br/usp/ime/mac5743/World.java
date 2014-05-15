@@ -7,8 +7,8 @@ public class World {
 	private Brick block;
 	
 	public World(Paddle paddle, Ball ball, Brick block){
-		this.paddle = paddle;
 		this.ball = ball;
+		this.paddle = paddle;
 		this.block = block;
 	}
 	

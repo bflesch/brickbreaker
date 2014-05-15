@@ -14,13 +14,16 @@ public class Paddle extends Brick {
 	private float speed = 0.0f;
 	private float destinationX = 0.0f;
 	private static float max_speed = 0;
+	private Ball ball;
 
 
-	public Paddle() {
+	public Paddle(Ball ball) {
 		posX = 0.0f;
 		posY = -0.8f;
 		height = .1f;
 		width = .4f;
+		this.ball = ball;
+		ball.setPosition(posX, posY+(height/2)+ball.radius);
 		buildGlBuffer();
 	}
 
@@ -49,6 +52,8 @@ public class Paddle extends Brick {
 		}
 		else
 			posX = posX+speed;
+		if (ball.stopped())
+			ball.comeWithMe(posX);
 	}
 	
 }

@@ -11,8 +11,8 @@ class Ball {
 	private int points = 70;
 	public float radius=.05f;
 	
-    public float posX = 0.0f;
-    public float posY = -0.89f;
+    public float posX; //To be set by the paddle
+    public float posY;
 
     private FloatBuffer vertexBuffer;
     
@@ -48,10 +48,21 @@ class Ball {
     	speedY = speedX;
     }
     
+    public void comeWithMe(float posXNew) {
+    	posX = posXNew;
+    }
+    
+    public void setPosition(float posXNew, float posYNew) {
+    	posY = posYNew;
+    	posX = posXNew;
+    }
+    
     public boolean stopped() {
     	return ( -0.00001f < speedX && speedX < 0.00001f && // 
     			  -0.00001f < speedY && speedY < 0.00001f);
     }
+    
+ 
     
     public void updatePosition(){
     	float futurePosX = posX + speedX;

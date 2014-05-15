@@ -31,9 +31,9 @@ class TouchSurfaceView extends GLSurfaceView {
 
 
         public Renderer() {
-            paddle = new Paddle();
             ball = new Ball();
             block = new Brick();
+            paddle = new Paddle(ball);
             world = new World(paddle,ball,block);
         }
 
