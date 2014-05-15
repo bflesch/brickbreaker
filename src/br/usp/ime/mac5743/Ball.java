@@ -9,10 +9,10 @@ import javax.microedition.khronos.opengles.GL10;
 class Ball {
 	
 	private int points = 70;
-	private float radius=.05f;
+	public float radius=.05f;
 	
-    private float posX = 0.0f;
-    private float posY = -0.89f;
+    public float posX = 0.0f;
+    public float posY = -0.89f;
 
     private FloatBuffer vertexBuffer;
     
@@ -65,6 +65,11 @@ class Ball {
     	posX = posX+speedX;
     	posY = posY+speedY;
     }
+    
+    public void updateSpeed(float aDiretion) {
+    	float projected_x; //direction perpendicular to normal direction
+    	float projected_y; //normal direction
+    }
 
     private boolean isOutOfBoundsY(float futurePosY) {
     	return ((futurePosY > 1.0f) || (futurePosY < -1.0f));
@@ -74,6 +79,18 @@ class Ball {
 		return ((futurePosX > TouchSurfaceView.getRatio()) || (futurePosX < -TouchSurfaceView.getRatio()));
 	}
 
+	public void deflect(float[] normalForceDirection) {
+		float normalX = normalForceDirection[0];
+		float normalY = normalForceDirection[1];
+		float dotproduct = this.speedX*normalX + //
+				            this.speedY*normalY;
+		if (dotproduct < 0) {
+            this.speedX -= 2*dotproduct*normalX;
+            this.speedY -= 2*dotproduct*normalY;
+		}
+			
+	}
+	
 	public void draw( GL10 gl ) {
         gl.glMatrixMode( GL10.GL_MODELVIEW );
         gl.glPushMatrix();

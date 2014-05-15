@@ -28,23 +28,25 @@ class TouchSurfaceView extends GLSurfaceView {
 
         private Paddle paddle;
         private Ball ball;
+        private Block block;
         private World world;
 
 
         public Renderer() {
             paddle = new Paddle();
             ball = new Ball();
-            world = new World(paddle,ball);
+            block = new Block();
+            world = new World(paddle,ball,block);
         }
 
 
         @Override
         public void onDrawFrame( GL10 gl ) {
             gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
-            paddle.updatePosition();
-            ball.updatePosition(world);
+            world.step();
         	paddle.draw(gl);
             ball.draw(gl);
+            block.draw(gl);
         }
 
 
