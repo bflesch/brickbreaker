@@ -24,10 +24,10 @@ class TouchSurfaceView extends GLSurfaceView {
 
 	private class Renderer implements GLSurfaceView.Renderer {
 
-		World world;
+		WorldOfTwo world;
 
 		public Renderer() {
-			world = new World();
+			world = new WorldOfTwo();
 		}
 
 
@@ -76,11 +76,9 @@ class TouchSurfaceView extends GLSurfaceView {
 	}
 
 
-	@Override
-	public boolean onTouchEvent( MotionEvent e ) {
-
-		final float screenX = e.getX();
-		final float screenY = screenHeight - e.getY();
+	private void handleTouch( MotionEvent e, int index) {
+		final float screenX = e.getX(index);
+		final float screenY = screenHeight - e.getY(index);
 
 		final int[] viewport = {
 				0, 0, screenWidth, screenHeight
@@ -95,15 +93,17 @@ class TouchSurfaceView extends GLSurfaceView {
 		resultWorldPos[1] /= resultWorldPos[3];
 		resultWorldPos[2] /= resultWorldPos[3];
 		resultWorldPos[3] = 1.0f;
-		
-		switch ( e.getAction() ) {
-		case MotionEvent.ACTION_MOVE:
-			renderer.world.updatePaddleSpeed( resultWorldPos[0], resultWorldPos[1] );
-			break;
-		case MotionEvent.ACTION_UP:
-			renderer.world.startBallIfNotStarted(resultWorldPos[1]);
-			break;
-		}
+
+		renderer.world.updatePaddleSpeed( resultWorldPos[0], resultWorldPos[1] );
+	}
+
+
+
+	@Override
+	public boolean onTouchEvent( MotionEvent e ) {
+
+		for(int i=0; i< e.getPointerCount(); i++)
+			handleTouch(e,i);
 		return true;
 	}
 

@@ -10,6 +10,8 @@ class Ball {
 	
 	private int points = 70;
 	public float radius=.05f;
+	//TODO unificar a cor cinza em um lugar
+	public float[] color = {201f/256f, 192f/256f, 187f/256f,1};
 	
     public float posX; //To be set by the paddle
     public float posY;
@@ -111,7 +113,7 @@ class Ball {
         //gl.glScalef( 0.01f, 0.01f, 0.01f );
 
         gl.glEnableClientState( GL10.GL_VERTEX_ARRAY );
-        gl.glColor4f(1.0f,0.0f,0.0f, 1.0f);
+        gl.glColor4f(color[0],color[1],color[2],color[3]);
         
         gl.glVertexPointer( 2, GL10.GL_FLOAT, 0, vertexBuffer );
 

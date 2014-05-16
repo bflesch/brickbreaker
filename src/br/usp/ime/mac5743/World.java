@@ -14,11 +14,7 @@ public class World {
 		paddle = new Paddle(ball);
 	}
 	
-	public void startBallIfNotStarted(float y) {
-         startBallIfNotStarted();
-	}
-	
-	private void startBallIfNotStarted() {
+	public void startBallIfNotStarted() {
 		if (ball.stopped())
 		     ball.launch();
 	}

@@ -18,9 +18,13 @@ class Brick {
 
 	protected float height = .05f;
 	protected float width = .15f;
+	protected float[] color = {1.0f,0.0f,0.0f, 1.0f};
 
 
 	private static final int FLOAT_SIZE_BYTES = Float.SIZE / 8;
+	private static final int WITH_TOP = 143223411;
+	private static final int WITH_BOTTOM = 342382131;
+	private static final int WITH_UNUSED = 312120762;
 
 	public Brick(float x, float y){
 		posX = x; posY=y;
@@ -43,7 +47,7 @@ class Brick {
 		vertexBuffer.position(0);
 	}    
 	
-	public void collide () {
+	public void collide (int side, Ball ball) {
 		isAlive = false;
 	}
 
@@ -99,7 +103,7 @@ class Brick {
 		//collide with the bottom
 		if (y_max > y + r && y + r > y_min)
 			if ( x_min < x  && x < x_max) {
-				this.collide();
+				this.collide(WITH_BOTTOM,ball);
 				direction[0] = 0f; direction[1] = -1f;
 				return true;
 			}
@@ -107,7 +111,7 @@ class Brick {
 		//collide with the top
 		if (y_max > y - r && y - r > y_min)
 			if ( x_min < x  && x < x_max) {
-				this.collide();
+				this.collide(WITH_TOP,ball);
 				direction[0] = 0f; direction[1] = 1f;
 				return true;
 			}
@@ -115,7 +119,7 @@ class Brick {
 		//collide with the left
 		if (x_max > x + r && x + r > x_min)
 			if ( y_min < y  && y < y_max) {
-				this.collide();
+				this.collide(WITH_UNUSED,ball);
 				direction[0] = -1f; direction[1] = 0f;
 				return true;
 			}
@@ -123,13 +127,13 @@ class Brick {
 		//collide with the right
 		if (x_max > x - r && x - r > x_min)
 			if ( y_min < y  && y < y_max) {
-				this.collide();
+				this.collide(WITH_UNUSED,ball);
 				direction[0] = 1f; direction[1] = 0f;
 				return true;
 			}
 
 		if(gotHitOnCorner(ball,direction)) {
-			this.collide();
+			this.collide(WITH_UNUSED,ball);
 			return true;
 		}
 
@@ -146,14 +150,14 @@ class Brick {
 		//gl.glScalef( 0.01f, 0.01f, 0.01f );
 
 		gl.glEnableClientState( GL10.GL_VERTEX_ARRAY );
-		gl.glColor4f(1.0f,0.0f,0.0f, 1.0f);
+		gl.glColor4f(color[0],color[1],color[2],color[3]);
+				
 
 		gl.glVertexPointer( 2, GL10.GL_FLOAT, 0, vertexBuffer );
 
 		gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, 6);
 
 		gl.glDisableClientState( GL10.GL_VERTEX_ARRAY );
-		gl.glDisableClientState( GL10.GL_COLOR_ARRAY );
 
 		gl.glPopMatrix();
 	}
