@@ -1,19 +1,36 @@
 package br.usp.ime.mac5743;
 
+import javax.microedition.khronos.opengles.GL10;
+
 public class World {
 
 	private Paddle paddle;
 	private Ball ball;
 	private BrickList bricks;
 	
-	public World(Paddle paddle, Ball ball, BrickList bricks){
-		this.ball = ball;
-		this.paddle = paddle;
-		this.bricks = bricks;
+	public World(){
+		ball = new Ball();
+		bricks = new BrickList();
+		paddle = new Paddle(ball);
 	}
 	
-	public Paddle getPaddle(){
-		return paddle;
+	public void startBallIfNotStarted(float y) {
+         startBallIfNotStarted();
+	}
+	
+	private void startBallIfNotStarted() {
+		if (ball.stopped())
+		     ball.launch();
+	}
+	
+	public void updatePaddleSpeed( float x, float y ) {
+		paddle.setDestination( x );
+	}
+	
+	public void draw(GL10 gl) {
+		paddle.draw(gl);
+		ball.draw(gl);
+		bricks.draw(gl);
 	}
 	
 	public void step() {
@@ -25,7 +42,5 @@ public class World {
         	ball.deflect(normalForceDirection);
         if (paddle.gotHit(ball,normalForceDirection)) 
         	ball.deflect(normalForceDirection);
-        
-        	
 	} 
 }

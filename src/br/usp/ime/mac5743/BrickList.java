@@ -29,6 +29,13 @@ class BrickList {
 	}
 
 
+	public boolean finished() {
+		for(int i=0;i<bricks;i++)
+        	if (brickV[i].isAlive)
+        		return false;
+		return true;
+	}
+	
 	public boolean gotHit(Ball ball, float[] direction) {
         for(int i=0;i<bricks;i++)
         	if (brickV[i].isAlive && brickV[i].gotHit(ball,direction))

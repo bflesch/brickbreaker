@@ -32,7 +32,7 @@ public class Paddle extends Brick {
 
 	public void setDestination( float x ) {
 		float ratio = TouchSurfaceView.getRatio();
-		max_speed = ratio/150.0f;
+		max_speed = 3*ratio/150.0f;
 
 		destinationX = x;
 
@@ -52,8 +52,9 @@ public class Paddle extends Brick {
 		if (reachesOrPassesDestination()){
 			posX = destinationX;
 		}
-		else
+		else {
 			posX = posX+speed;
+		}
 		if (ball.stopped())
 			ball.comeWithMe(posX);
 	}
