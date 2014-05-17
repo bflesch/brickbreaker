@@ -36,7 +36,7 @@ class BrickList {
 		brickV = new Brick[bricks];
 		brickV[0] = new TwoPlayerBrick (-.4f,0);
 		brickV[1] = new TwoPlayerBrick (.4f,0);
-		brickV[2] = new TwoPlayerBrick (-.4f,-.4f);
+		brickV[2] = new TwoPlayerBrick (0f,0f);
 
 	}
     //never been used. Don't trust me
@@ -53,6 +53,11 @@ class BrickList {
         	if (brickV[i].isAlive && brickV[i].gotHit(ball,direction))
         		return true;
         return false;			
+	}
+	
+	public void step() {
+        for(int i=0;i<bricks;i++)
+        	brickV[i].step();	
 	}
 
 	public void draw( GL10 gl ) {

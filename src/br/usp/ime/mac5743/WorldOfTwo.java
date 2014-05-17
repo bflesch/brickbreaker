@@ -9,6 +9,7 @@ public class WorldOfTwo {
 	private Ball ball;
 	public static float[] colorPlayerInTheHighSide = {1f,0f,0f,0f};
 	public static float[] colorPlayerInTheLowSide = {0f,0f,1f,0f};
+	public static float[] colorNeutral ={201f/256f,192f/256f,187f/256f,1};
 	
 	private BrickList brickList;
 	
@@ -45,7 +46,9 @@ public class WorldOfTwo {
 		Paddle paddle2 = paddleLowSide;
         paddle1.updatePosition();
         paddle2.updatePosition();
-        //TODO remove reference
+        
+        brickList.step();
+        
         ball.updatePosition();
         float [] normalForceDirection = {0f,0f};
         if (paddle1.gotHit(ball,normalForceDirection)){ 

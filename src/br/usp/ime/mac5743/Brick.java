@@ -22,9 +22,9 @@ class Brick {
 
 
 	private static final int FLOAT_SIZE_BYTES = Float.SIZE / 8;
-	private static final int WITH_TOP = 143223411;
-	private static final int WITH_BOTTOM = 342382131;
-	private static final int WITH_UNUSED = 312120762;
+	protected static final int WITH_TOP = 143223411;
+	protected static final int WITH_BOTTOM = 342382131;
+	protected static final int WITH_UNUSED = 312120762;
 
 	public Brick(float x, float y){
 		posX = x; posY=y;
@@ -47,6 +47,9 @@ class Brick {
 		vertexBuffer.position(0);
 	}    
 	
+	public void step() {
+	}
+	
 	public void collide (int side, Ball ball) {
 		isAlive = false;
 	}
@@ -56,7 +59,7 @@ class Brick {
 		return (float) Math.sqrt(d);
 	}
 
-	private void normalize(float[] vec) {
+	protected void normalize(float[] vec) {
 		float size = vec[0]*vec[0]+vec[1]*vec[1];
 		size = (float) Math.sqrt(size);
 		vec[0] /= size; vec[1] /= size;
@@ -81,6 +84,10 @@ class Brick {
 				direction[0] = center[0]-corner[0];
 				direction[1] = center[1]-corner[1];
 				normalize(direction);
+				if(i < 2)
+					collide(Brick.WITH_TOP,ball);
+				else
+					collide(Brick.WITH_BOTTOM,ball);
 				return true;
 			}
 		}
@@ -133,7 +140,6 @@ class Brick {
 			}
 
 		if(gotHitOnCorner(ball,direction)) {
-			this.collide(WITH_UNUSED,ball);
 			return true;
 		}
 

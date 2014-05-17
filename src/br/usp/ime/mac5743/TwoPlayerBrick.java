@@ -9,16 +9,39 @@ import javax.microedition.khronos.opengles.GL10;
 
 class TwoPlayerBrick extends Brick {
 
-    public TwoPlayerBrick(float x, float y) {
-    	super(x,y);
-    	//TODO unificar a cor cinza em um lugar
-    	color[0] = 201f/256f;
-    	color[1] = 192f/256f; 
-       	color[2] = 187f/256f;
-    	color[3] = 1;
-    }
-	
+	float speed;
+	static float max_speed = 1.0f/150.0f;
+	static float UP = max_speed;
+	static float DOWN = -max_speed;
+
+	public TwoPlayerBrick(float x, float y) {
+		super(x,y);
+		color = WorldOfTwo.colorNeutral;
+	}
+
+	private boolean equal_colors(float[] a, float[] b) {
+		for(int i=0; i<4; i++)
+			if (a[i] != b[i])
+				return false;
+		return true;
+	}
+
+	public void step() {
+		this.posY += speed;
+	}
+
 	public void collide (int side, Ball ball) {
-		this.color = ball.color;
+		
+		if (side == WITH_TOP && //
+				equal_colors(ball.color,WorldOfTwo.colorPlayerInTheHighSide)){
+			speed = DOWN;
+			this.color = ball.color;
+		}
+
+		if (side == WITH_BOTTOM && //
+				equal_colors(ball.color,WorldOfTwo.colorPlayerInTheLowSide)){
+			speed = UP;
+			this.color = ball.color;
+		}
 	}
 }

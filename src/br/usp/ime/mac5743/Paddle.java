@@ -15,6 +15,8 @@ public class Paddle extends Brick {
 	private float destinationX = 0.0f;
 	private static float max_speed = 0;
 	private Ball ball = null;
+	int lastCollisionSide;
+	float downPoint = -1.4f;
 
     //on a one player game. Needs a ball, knows where to start
 	public Paddle(Ball ball) {
@@ -36,12 +38,24 @@ public class Paddle extends Brick {
 	}
 
 	@Override
-	public void collide (int unused,Ball unused2) {
+	public void collide (int side,Ball unused2) {
+		lastCollisionSide = side;
 	}
 
+	public boolean gotHit(Ball ball, float[] direction) {
+		lastCollisionSide = Brick.WITH_UNUSED;
+		boolean ans = super.gotHit(ball,direction);
+		if (lastCollisionSide == Brick.WITH_TOP) {
+			direction[0] = ball.posX - this.posX;
+			direction[1] = ball.posY - downPoint;
+			normalize(direction);
+		}
+		return ans;
+	}
+	
 	public void setDestination( float x ) {
 		float ratio = TouchSurfaceView.getRatio();
-		max_speed = 3*ratio/150.0f;
+		max_speed = 5*ratio/150.0f;
 
 		destinationX = x;
 
