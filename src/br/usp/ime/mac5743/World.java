@@ -7,7 +7,12 @@ public class World {
 	private Paddle paddle;
 	private Ball ball;
 	private BrickList bricks;
+	private HitBrickHandler hitBrickHandler;
 	
+	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
+		this.hitBrickHandler = hitBrickHandler;
+	}
+
 	public World(){
 		ball = new Ball();
 		bricks = new BrickList();
@@ -38,8 +43,12 @@ public class World {
         //TODO remove reference
         ball.updatePosition();
         float [] normalForceDirection = {0f,0f};
-        if (bricks.gotHit(ball,normalForceDirection)) 
+        if (bricks.gotHit(ball,normalForceDirection)){
         	ball.deflect(normalForceDirection);
+        	if(hitBrickHandler != null){
+        		hitBrickHandler.onHit();
+        	}
+        }
         if (paddle.gotHit(ball,normalForceDirection)) 
         	ball.deflect(normalForceDirection);
 	} 
