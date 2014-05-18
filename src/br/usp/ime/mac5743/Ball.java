@@ -32,7 +32,7 @@ class Ball {
         }
     	
         
-          ByteBuffer bBuff=ByteBuffer.allocateDirect(vertices.length*4);    
+          ByteBuffer bBuff=ByteBuffer.allocateDirect(vertices.length*FLOAT_SIZE_BYTES);    
           bBuff.order(ByteOrder.nativeOrder());
           vertexBuffer=bBuff.asFloatBuffer();
           vertexBuffer.put(vertices);
@@ -73,11 +73,6 @@ class Ball {
     	posY = posY+speedY;
     }
     
-    public void updateSpeed(float aDiretion) {
-    	float projected_x; //direction perpendicular to normal direction
-    	float projected_y; //normal direction
-    }
-
     private boolean isOutOfBoundsY(float futurePosY) {
     	return ((futurePosY > 1.0f) || (futurePosY < -1.0f));
 	}

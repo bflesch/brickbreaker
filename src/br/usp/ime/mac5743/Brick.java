@@ -1,7 +1,5 @@
 package br.usp.ime.mac5743;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -170,18 +168,13 @@ class Brick {
 		gl.glEnableClientState( GL10.GL_VERTEX_ARRAY );
 		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 
-		//gl.glColor4f(1.0f,0.0f,0.0f, 1.0f);
-
 		gl.glVertexPointer( 2, GL10.GL_FLOAT, 0, vertexBuffer );
 		gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, textureBuffer);
 
-		
 		gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, 4);
 
 		gl.glDisableClientState( GL10.GL_VERTEX_ARRAY );
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-
-		//gl.glDisableClientState( GL10.GL_COLOR_ARRAY );
 
 		gl.glPopMatrix();
 	}
