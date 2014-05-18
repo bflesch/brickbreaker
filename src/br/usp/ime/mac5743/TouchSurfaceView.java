@@ -94,7 +94,7 @@ class TouchSurfaceView extends GLSurfaceView {
 		resultWorldPos[2] /= resultWorldPos[3];
 		resultWorldPos[3] = 1.0f;
 
-		renderer.world.updatePaddleSpeed( resultWorldPos[0], resultWorldPos[1] );
+		renderer.world.handleTouch(e ,resultWorldPos[0], resultWorldPos[1] );
 	}
 
 

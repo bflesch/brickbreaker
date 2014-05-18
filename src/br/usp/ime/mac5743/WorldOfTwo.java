@@ -2,6 +2,8 @@ package br.usp.ime.mac5743;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.view.MotionEvent;
+
 public class WorldOfTwo {
 
 	private Paddle paddleHighSide;
@@ -26,7 +28,7 @@ public class WorldOfTwo {
 		     ball.launch();
 	}
 	
-	public void updatePaddleSpeed( float x, float y ) {
+	public void handleTouch(MotionEvent unused, float x, float y ) {
 		if (y > 0)
 		   paddleHighSide.setDestination( x );
 		if (y < 0)
