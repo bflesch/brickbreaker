@@ -73,6 +73,7 @@ class TouchSurfaceView extends GLSurfaceView {
 		super( context );
 		renderer = new Renderer();
 		setRenderer( renderer );
+		renderer.world.setHitBrickHandler((MainActivity) context);
 	}
 
 
