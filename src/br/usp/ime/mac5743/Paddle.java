@@ -37,7 +37,7 @@ public class Paddle extends Brick {
 		buildGlBuffer();
 	}
 
-	@Override
+	/*@Override
 	public void collide (int side,Ball unused2) {
 		lastCollisionSide = side;
 	}
@@ -51,7 +51,7 @@ public class Paddle extends Brick {
 			normalize(direction);
 		}
 		return ans;
-	}
+	}*/
 	
 	public void setDestination( float x ) {
 		float ratio = TouchSurfaceView.getRatio();

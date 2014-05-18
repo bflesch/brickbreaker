@@ -49,6 +49,19 @@ class Brick {
 	
 	public void step() {
 	}
+	//TODO return speed ?
+	//Sets speed of the ball according to simple reflection
+	public void deflect(float[] normalForceDirection, float[] newSpeed, Ball ball) {
+		float normalX = normalForceDirection[0];
+		float normalY = normalForceDirection[1];
+		float dotproduct = ball.speedX*normalX + //
+				            ball.speedY*normalY;
+		if (dotproduct < 0) {
+            newSpeed[0] = ball.speedX - 2*dotproduct*normalX;
+            newSpeed[1] = ball.speedY - 2*dotproduct*normalY;
+		}
+			
+	}
 	
 	public void collide (int side, Ball ball) {
 		isAlive = false;
@@ -65,9 +78,11 @@ class Brick {
 		vec[0] /= size; vec[1] /= size;
 	}
 
-	private boolean gotHitOnCorner(Ball ball, float[] direction) {
+	private boolean gotHitOnCorner(Ball ball, float[] newSpeed) {
 		float radius = ball.radius ;
 		float[] center =  {ball.posX,ball.posY};
+		
+		float normal[] = {0,0};
 
 		float[] corner1 = {posX + width/2,posY + height/2};
 		float[] corner2 = {posX - width/2,posY + height/2};
@@ -81,37 +96,41 @@ class Brick {
 		for (int i=0; i < 4; i++) {
 			float[] corner = corners.get(i);
 			if (distance(corner,center) < radius) {
-				direction[0] = center[0]-corner[0];
-				direction[1] = center[1]-corner[1];
-				normalize(direction);
-				if(i < 2)
+				normal[0] = center[0]-corner[0];
+				normal[1] = center[1]-corner[1];
+				normalize(normal);
+				if(i < 2) {
+					deflect(normal, newSpeed, ball); 
 					collide(Brick.WITH_TOP,ball);
-				else
+				}
+				else {
+					deflect(normal, newSpeed, ball); 
 					collide(Brick.WITH_BOTTOM,ball);
+				}
 				return true;
 			}
 		}
-
-		direction[0] = direction[1] = 0;
 		return false;
 	}
 
-	public boolean gotHit(Ball ball, float[] direction) {
+	public boolean gotHit(Ball ball, float[] newSpeed) {
 		float r = ball.radius ;
 		float x = ball.posX;
 		float y = ball.posY;
-
+		
 		float x_max = posX + width/2;
 		float x_min = posX - width/2;
 		float y_max = posY + height/2;
 		float y_min = posY - height/2;
 
+		float normal[] = {0,0};
 
 		//collide with the bottom
 		if (y_max > y + r && y + r > y_min)
 			if ( x_min < x  && x < x_max) {
 				this.collide(WITH_BOTTOM,ball);
-				direction[0] = 0f; direction[1] = -1f;
+				normal[0] = 0f; normal[1] = -1f;
+				deflect(normal,newSpeed,ball);
 				return true;
 			}
 
@@ -119,7 +138,8 @@ class Brick {
 		if (y_max > y - r && y - r > y_min)
 			if ( x_min < x  && x < x_max) {
 				this.collide(WITH_TOP,ball);
-				direction[0] = 0f; direction[1] = 1f;
+				normal[0] = 0f; normal[1] = 1f;
+				deflect(normal,newSpeed,ball);
 				return true;
 			}
 
@@ -127,7 +147,8 @@ class Brick {
 		if (x_max > x + r && x + r > x_min)
 			if ( y_min < y  && y < y_max) {
 				this.collide(WITH_UNUSED,ball);
-				direction[0] = -1f; direction[1] = 0f;
+				normal[0] = -1f; normal[1] = 0f;
+				deflect(normal,newSpeed,ball);
 				return true;
 			}
 
@@ -135,15 +156,16 @@ class Brick {
 		if (x_max > x - r && x - r > x_min)
 			if ( y_min < y  && y < y_max) {
 				this.collide(WITH_UNUSED,ball);
-				direction[0] = 1f; direction[1] = 0f;
+				normal[0] = 1f; normal[1] = 0f;
+				deflect(normal,newSpeed,ball);
 				return true;
 			}
 
-		if(gotHitOnCorner(ball,direction)) {
+		if(gotHitOnCorner(ball,newSpeed)) {
 			return true;
 		}
 
-		direction[0] = direction[1] = 0;
+		normal[0] = normal[1] = 0;
 		return false;
 	}
 

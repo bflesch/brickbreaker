@@ -11,6 +11,7 @@ public class World {
 	private BrickList bricks;
 	private HitBrickHandler hitBrickHandler;
 	
+	//TODO ask Breno: does this deal only with sound ?
 	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
 		this.hitBrickHandler = hitBrickHandler;
 	}
@@ -51,14 +52,17 @@ public class World {
         paddle.updatePosition();
         //TODO remove reference
         ball.updatePosition();
-        float [] normalForceDirection = {0f,0f};
-        if (bricks.gotHit(ball,normalForceDirection)){
-        	ball.deflect(normalForceDirection);
+        float [] newSpeed = {0f,0f};
+        if (bricks.gotHit(ball,newSpeed)){
+        	ball.speedX = newSpeed[0];
+        	ball.speedY = newSpeed[1];
         	if(hitBrickHandler != null){
         		hitBrickHandler.onHit();
         	}
         }
-        if (paddle.gotHit(ball,normalForceDirection)) 
-        	ball.deflect(normalForceDirection);
+        if (paddle.gotHit(ball,newSpeed)) {
+        	ball.speedX = newSpeed[0];
+        	ball.speedY = newSpeed[1];
+        }
 	} 
 }

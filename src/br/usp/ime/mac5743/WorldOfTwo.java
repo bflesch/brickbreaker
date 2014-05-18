@@ -57,17 +57,17 @@ public class WorldOfTwo {
         brickList.step();
         
         ball.updatePosition();
-        float [] normalForceDirection = {0f,0f};
-        if (paddle1.gotHit(ball,normalForceDirection)){ 
-        	ball.deflect(normalForceDirection);
+        float [] newSpeed = {0f,0f};
+        if (paddle1.gotHit(ball,newSpeed)){ 
+        	ball.speedX = newSpeed[0];ball.speedY = newSpeed[1];
         	ball.color = paddle1.color;
         }
-        if (paddle2.gotHit(ball,normalForceDirection)){ 
-        	ball.deflect(normalForceDirection);
+        if (paddle2.gotHit(ball,newSpeed)){ 
+        	ball.speedX = newSpeed[0];ball.speedY = newSpeed[1];
         	ball.color = paddle2.color;
         }
-        if (brickList.gotHit(ball,normalForceDirection)){ 
-        	ball.deflect(normalForceDirection);
+        if (brickList.gotHit(ball,newSpeed)){ 
+        	ball.speedX = newSpeed[0];ball.speedY = newSpeed[1];
         }
 	} 
 }

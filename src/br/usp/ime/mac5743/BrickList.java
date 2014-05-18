@@ -1,10 +1,5 @@
 package br.usp.ime.mac5743;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.util.ArrayList;
-
 import javax.microedition.khronos.opengles.GL10;
 
 class BrickList {
@@ -48,11 +43,16 @@ class BrickList {
 	}
 	//TODO maybe combine many collision directions
 	//TODO maybe allow the ball to hit many targets
-	public boolean gotHit(Ball ball, float[] direction) {
+	public boolean gotHit(Ball ball, float[] newSpeed) {
+		boolean gotHit = false;
         for(int i=0;i<bricks;i++)
-        	if (brickV[i].isAlive && brickV[i].gotHit(ball,direction))
-        		return true;
-        return false;			
+        	if (brickV[i].isAlive && 
+        	    brickV[i].gotHit(ball,newSpeed)) {
+        		ball.speedX = newSpeed[0];
+        		ball.speedY = newSpeed[1];
+        		gotHit = true;
+        	}
+        return gotHit;			
 	}
 	
 	public void step() {
