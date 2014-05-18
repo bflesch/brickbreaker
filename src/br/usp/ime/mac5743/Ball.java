@@ -19,8 +19,6 @@ class Ball {
 	private float speedX = 0.0f;
 	private float speedY = 0.0f;
     
-    
-    
     private static final int FLOAT_SIZE_BYTES = Float.SIZE / 8;
     
     public Ball(){
@@ -39,8 +37,6 @@ class Ball {
           vertexBuffer=bBuff.asFloatBuffer();
           vertexBuffer.put(vertices);
           vertexBuffer.position(0);
-
-
     }    
     
     public void launch(){
@@ -58,7 +54,7 @@ class Ball {
     }
     
     public boolean stopped() {
-    	return ( -0.00001f < speedX && speedX < 0.00001f && // 
+    	return ( -0.00001f < speedX && speedX < 0.00001f && 
     			  -0.00001f < speedY && speedY < 0.00001f);
     }
     

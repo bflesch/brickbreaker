@@ -60,11 +60,14 @@ class TouchSurfaceView extends GLSurfaceView {
 		public void onSurfaceCreated( GL10 gl, EGLConfig config ) {
 			gl.glDisable( GL10.GL_DITHER );
 			gl.glHint( GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_FASTEST );
+			gl.glEnable(GL10.GL_TEXTURE_2D);
 
+			gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_BLEND);
 			gl.glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
 			gl.glDisable( GL10.GL_CULL_FACE );
 			gl.glShadeModel( GL10.GL_SMOOTH );
 			gl.glDisable( GL10.GL_DEPTH_TEST );
+			Brick.loadGLTexture(gl, getContext().getApplicationContext());
 		}
 	}
 

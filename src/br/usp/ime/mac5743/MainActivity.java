@@ -14,6 +14,8 @@ public class MainActivity extends Activity implements HitBrickHandler {
     private SoundPool sfxPool;
     private int hitSoundId;
     
+    private final int SOUND_POOL_SIZE = 2;
+    
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
@@ -27,8 +29,8 @@ public class MainActivity extends Activity implements HitBrickHandler {
         bgmPlayer = MediaPlayer.create(this, R.raw.wallpaper);
         bgmPlayer.setLooping(true);
         
-        sfxPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
-        hitSoundId = sfxPool.load(this, R.raw.fwoop, 1);
+        sfxPool = new SoundPool(SOUND_POOL_SIZE, AudioManager.STREAM_MUSIC, 0);
+        hitSoundId = sfxPool.load(this, R.raw.tchuc, 1);
         
         bgmPlayer.start();
     }
@@ -50,7 +52,7 @@ public class MainActivity extends Activity implements HitBrickHandler {
     }
     
     protected void playHit() {
-    	sfxPool.play(hitSoundId, 100.0f, 100.0f, 1, 0, 1);
+    	sfxPool.play(hitSoundId, 50.0f, 50.0f, 1, 0, 1);
     }
 
 	@Override
