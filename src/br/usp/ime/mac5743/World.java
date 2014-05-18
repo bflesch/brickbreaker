@@ -2,6 +2,8 @@ package br.usp.ime.mac5743;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.view.MotionEvent;
+
 public class World {
 
 	private Paddle paddle;
@@ -22,6 +24,17 @@ public class World {
 	public void startBallIfNotStarted() {
 		if (ball.stopped())
 		     ball.launch();
+	}
+
+	public void handleTouch(MotionEvent e, float x, float y) {
+		switch ( e.getAction() ) {
+		case MotionEvent.ACTION_MOVE:
+			updatePaddleSpeed( x, y );
+			break;
+		case MotionEvent.ACTION_UP:
+			startBallIfNotStarted();
+			break;
+		}
 	}
 	
 	public void updatePaddleSpeed( float x, float y ) {

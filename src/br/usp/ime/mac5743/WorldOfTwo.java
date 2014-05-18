@@ -13,6 +13,7 @@ public class WorldOfTwo {
 	public static float[] colorPlayerInTheLowSide = {0f,0f,1f,0f};
 	public static float[] colorNeutral ={201f/256f,192f/256f,187f/256f,1};
 	
+	
 	private BrickList brickList;
 	
 	public WorldOfTwo(){
@@ -20,6 +21,10 @@ public class WorldOfTwo {
 		paddleHighSide = new twoPlayerPaddle(0f,0.8f,colorPlayerInTheHighSide);
 		paddleLowSide = new twoPlayerPaddle(0f,-0.8f,colorPlayerInTheLowSide);
 	    brickList = new BrickList(2);
+	}
+	
+	
+	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
 	}
 
 	
