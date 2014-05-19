@@ -57,10 +57,12 @@ class TouchSurfaceView extends GLSurfaceView {
 
 
 		@Override
-		public void onSurfaceCreated( GL10 gl, EGLConfig config ) {
+		public void onSurfaceCreated( GL10 gl, EGLConfig config ) { 
 			gl.glDisable( GL10.GL_DITHER );
 			gl.glHint( GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_FASTEST );
+			gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 			gl.glEnable(GL10.GL_TEXTURE_2D);
+			gl.glEnable(GL10.GL_BLEND);
 
 			gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_BLEND);
 			gl.glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );

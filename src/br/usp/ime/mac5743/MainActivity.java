@@ -1,11 +1,14 @@
 package br.usp.ime.mac5743;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.opengl.GLSurfaceView;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends Activity implements HitBrickHandler {
 
@@ -16,7 +19,9 @@ public class MainActivity extends Activity implements HitBrickHandler {
     
     private final int SOUND_POOL_SIZE = 2;
     
-    @Override
+
+	@SuppressLint("NewApi")
+	@Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
 
@@ -31,6 +36,12 @@ public class MainActivity extends Activity implements HitBrickHandler {
         
         sfxPool = new SoundPool(SOUND_POOL_SIZE, AudioManager.STREAM_MUSIC, 0);
         hitSoundId = sfxPool.load(this, R.raw.tchuc, 1);
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        	View decorView = getWindow().getDecorView();
+        	int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        	decorView.setSystemUiVisibility(uiOptions);
+        }
         
         bgmPlayer.start();
     }

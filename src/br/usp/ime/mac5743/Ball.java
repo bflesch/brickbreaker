@@ -84,7 +84,7 @@ class Ball {
 	public void deflect(float[] normalForceDirection) {
 		float normalX = normalForceDirection[0];
 		float normalY = normalForceDirection[1];
-		float dotproduct = this.speedX*normalX + //
+		float dotproduct = this.speedX*normalX +
 				            this.speedY*normalY;
 		if (dotproduct < 0) {
             this.speedX -= 2*dotproduct*normalX;
@@ -99,17 +99,17 @@ class Ball {
         gl.glLoadIdentity();
         gl.glTranslatef( posX, posY, 0.0f );
         gl.glColor4f(1.0f,0.0f,0.0f, 1.0f);
-        //gl.glScalef( 0.01f, 0.01f, 0.01f );
 
         gl.glEnableClientState( GL10.GL_VERTEX_ARRAY );
         gl.glColor4f(1.0f,0.0f,0.0f, 1.0f);
         
         gl.glVertexPointer( 2, GL10.GL_FLOAT, 0, vertexBuffer );
+        gl.glDisable(GL10.GL_BLEND);
 
         gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, points+2);
         
         gl.glDisableClientState( GL10.GL_VERTEX_ARRAY );
-        gl.glDisableClientState( GL10.GL_COLOR_ARRAY );
+        gl.glEnable(GL10.GL_BLEND);
         
         gl.glPopMatrix();
     }
