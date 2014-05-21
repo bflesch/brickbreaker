@@ -9,14 +9,20 @@ Usuário selecionar entre 1P e PvP
 Integrar os dois branches
 Fazer a experiencia consistente através de devices (chamar STEP quantas vezes for necessário, dependendo do FPS)
 
-P1
+1P
 Implementar bola fora (como reset)
 
 -------------------------------------
 
 Opcional
 
-P1
+PvP
+Parar a música na hora da vitória/derrota
+Implementar várias bolas ao mesmo tempo
+Implementar as bolas cairem para fora da tela, e novas bolas surgirem
+Implementar colisão entre as bolas
+
+1P
 Melhorar bola fora (move bricks para baixo)
 Vitoria e derrota parecidas com as do PvP 
      (usa uma linha limite
@@ -24,7 +30,3 @@ Vitoria e derrota parecidas com as do PvP
       vitoria: expande paddle
       cor da paddle e da bola diferente da cor dos blocos)
 
-PvP
-Implementar várias bolas ao mesmo tempo
-Implementar as bolas cairem para fora da tela, e novas bolas surgirem
-Implementar colisão entre as bolas
