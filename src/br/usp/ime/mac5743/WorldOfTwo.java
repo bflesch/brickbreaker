@@ -6,21 +6,24 @@ import android.view.MotionEvent;
 
 public class WorldOfTwo {
 
-	private Paddle paddleHighSide;
-	private Paddle paddleLowSide;
+	private Paddle paddleHighSide; private Paddle paddleLowSide;
 	private Ball ball;
+	private Line lineHighSide; private Line lineLowSide;
 	public static float[] colorPlayerInTheHighSide = {1f,0f,0f,0f};
 	public static float[] colorPlayerInTheLowSide = {0f,0f,1f,0f};
 	public static float[] colorNeutral ={201f/256f,192f/256f,187f/256f,1};
-	
+	private float linePos = 0.6f;
+	private float paddlePos = 0.8f;
 	
 	private BrickList brickList;
 	
 	public WorldOfTwo(){
 		ball = new Ball();
-		paddleHighSide = new twoPlayerPaddle(0f,0.8f,colorPlayerInTheHighSide);
-		paddleLowSide = new twoPlayerPaddle(0f,-0.8f,colorPlayerInTheLowSide);
-	    brickList = new BrickList(2);
+		paddleHighSide = new twoPlayerPaddle(0f,paddlePos,colorPlayerInTheHighSide);
+		lineHighSide = new Line(linePos,colorPlayerInTheHighSide);
+		paddleLowSide = new twoPlayerPaddle(0f,-paddlePos,colorPlayerInTheLowSide);
+		lineLowSide = new Line(-linePos,colorPlayerInTheLowSide);
+		brickList = new BrickList(2);
 	}
 	
 	
@@ -42,6 +45,8 @@ public class WorldOfTwo {
 	}
 	
 	public void draw(GL10 gl) {
+		lineHighSide.draw(gl);
+		lineLowSide.draw(gl);
 		paddleHighSide.draw(gl);
 		paddleLowSide.draw(gl);
 		ball.draw(gl);
