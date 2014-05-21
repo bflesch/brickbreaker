@@ -13,7 +13,6 @@ class BrickList {
 		float x = -.6f;
 		float y = -.6f;
 		for(int i=0; i<bricks; i++) {
-			System.err.println(".");
 			Brick brick = new Brick (x,y);
 			brickV[i]=brick;
 			y += .06;
@@ -28,14 +27,11 @@ class BrickList {
 	//TODO meu deus, que gambiarra!
 	// temos dois construtores diferentes
 	public BrickList(int unused){
-		//bricks = 3;
-		bricks = 2;
+		bricks = 3;
 		brickV = new Brick[bricks];
-		//brickV[0] = new TwoPlayerBrick (-.4f,0);
-		//brickV[1] = new TwoPlayerBrick (.4f,0);
-		//brickV[2] = new TwoPlayerBrick (0f,0f);
-		brickV[0] = new TwoPlayerBrick (-.3f,-.05f);
-		brickV[1] = new TwoPlayerBrick (.3f,.3f);
+		brickV[0] = new TwoPlayerBrick (-.4f,0);
+		brickV[1] = new TwoPlayerBrick (.4f,0);
+		brickV[2] = new TwoPlayerBrick (0f,0f);
 
 	}
 	//never been used. Don't trust me

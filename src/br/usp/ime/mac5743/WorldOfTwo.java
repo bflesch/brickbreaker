@@ -68,7 +68,6 @@ public class WorldOfTwo {
         	ball.color = paddle2.color;
         }
         if (brickList.checkHitAndDeflect(ball)){ 
-        	System.err.println("speed: "+ball.speedX+","+ball.speedY);
         }
 	} 
 }

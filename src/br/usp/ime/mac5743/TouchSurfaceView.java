@@ -24,8 +24,8 @@ class TouchSurfaceView extends GLSurfaceView {
 
 	private class Renderer implements GLSurfaceView.Renderer {
 
-		World world = new World();
-		//WorldOfTwo world = new WorldOfTwo();
+		//World world = new World();
+		WorldOfTwo world = new WorldOfTwo();
 		
 		@Override
 		public void onDrawFrame( GL10 gl ) {
@@ -33,7 +33,6 @@ class TouchSurfaceView extends GLSurfaceView {
 			world.step();
 			world.draw(gl);
 		}
-
 
 		@Override
 		public void onSurfaceChanged( GL10 gl, int width, int height ) {

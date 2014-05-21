@@ -13,6 +13,8 @@ class Ball {
 	//TODO unificar a cor cinza em um lugar
 	public float[] color = {201f/256f, 192f/256f, 187f/256f,1};
 	
+	private float speedSize = 2f*1.0f/150.0f;
+	
     public float posX; //To be set by the paddle
     public float posY;
 
@@ -45,10 +47,16 @@ class Ball {
 
     }    
     
+    public void setDirection(float [] direction) {
+    	speedX = direction[0]*speedSize;
+    	speedY = direction[1]*speedSize;
+    }
+    
     public void launch(){
-    	//TODO deixar a velocidade mais explicita
-    	speedX = 1.6f*1.0f/150.0f;
-    	speedY = speedX;
+    	speedX = speedSize;
+    	float [] direction = {1,1};
+    	Brick.normalize(direction);
+    	setDirection(direction);
     }
     
     public void comeWithMe(float posXNew) {

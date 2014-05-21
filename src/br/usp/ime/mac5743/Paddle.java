@@ -16,7 +16,7 @@ public class Paddle extends Brick {
 	private static float max_speed = 0;
 	private Ball ball = null;
 	int lastCollisionSide;
-	float downPoint = -1.4f;
+	float deflectorPosition = .4f;
 
     //on a one player game. Needs a ball, knows where to start
 	public Paddle(Ball ball) {
@@ -37,21 +37,28 @@ public class Paddle extends Brick {
 		buildGlBuffer();
 	}
 
-	/*@Override
-	public void collide (int side,Ball unused2) {
-		lastCollisionSide = side;
-	}
-
-	public boolean gotHit(Ball ball, float[] direction) {
-		lastCollisionSide = Brick.WITH_UNUSED;
-		boolean ans = super.gotHit(ball,direction);
-		if (lastCollisionSide == Brick.WITH_TOP) {
-			direction[0] = ball.posX - this.posX;
-			direction[1] = ball.posY - downPoint;
+	public void changeSpeed(Ball ball) {
+		float[] normal = {0,0};
+		boolean[] gotHit = {false};
+		int [] withSide = {0};
+		checkHit(ball, normal,gotHit, withSide);
+		
+		
+		if (withSide[0] == WITH_TOP) {
+			float [] direction = {0,0};
+			direction[0] = ball.posX - this.posX; 
+			direction[1] = ball.posY - (this.posY-deflectorPosition);
 			normalize(direction);
+			ball.setDirection(direction);
 		}
-		return ans;
-	}*/
+		if (withSide[0] == WITH_BOTTOM) {
+			float [] direction = {0,0};
+			direction[0] = ball.posX - this.posX; 
+			direction[1] = ball.posY - (this.posY+deflectorPosition);
+			normalize(direction);
+			ball.setDirection(direction);
+		}
+	}
 	
 	public void setDestination( float x ) {
 		float ratio = TouchSurfaceView.getRatio();
