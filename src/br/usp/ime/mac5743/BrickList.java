@@ -5,7 +5,7 @@ import javax.microedition.khronos.opengles.GL10;
 class BrickList {
 
 	int bricks;
-    Brick brickV[]; 
+	Brick brickV[]; 
 
 	public BrickList(){
 		bricks = 120;
@@ -20,49 +20,58 @@ class BrickList {
 				y = -.6f;
 				x += .4f;
 			}
-				
+
 		}
 	}
 
 	//TODO meu deus, que gambiarra!
 	// temos dois construtores diferentes
 	public BrickList(int unused){
-		bricks = 3;
+		//bricks = 3;
+		bricks = 2;
 		brickV = new Brick[bricks];
-		brickV[0] = new TwoPlayerBrick (-.4f,0);
-		brickV[1] = new TwoPlayerBrick (.4f,0);
-		brickV[2] = new TwoPlayerBrick (0f,0f);
+		//brickV[0] = new TwoPlayerBrick (-.4f,0);
+		//brickV[1] = new TwoPlayerBrick (.4f,0);
+		//brickV[2] = new TwoPlayerBrick (0f,0f);
+		brickV[0] = new TwoPlayerBrick (-.3f,-.05f);
+		brickV[1] = new TwoPlayerBrick (.3f,.3f);
 
 	}
-    //never been used. Don't trust me
+	//never been used. Don't trust me
 	public boolean finished() {
 		for(int i=0;i<bricks;i++)
-        	if (brickV[i].isAlive)
-        		return false;
+			if (brickV[i].isAlive)
+				return false;
 		return true;
 	}
 	//TODO maybe combine many collision directions
 	//TODO maybe allow the ball to hit many targets
-	public boolean gotHit(Ball ball, float[] newSpeed) {
+	public boolean checkHitAndDeflect(Ball ball) {
 		boolean gotHit = false;
-        for(int i=0;i<bricks;i++)
-        	if (brickV[i].isAlive && 
-        	    brickV[i].gotHit(ball,newSpeed)) {
-        		ball.speedX = newSpeed[0];
-        		ball.speedY = newSpeed[1];
-        		gotHit = true;
-        	}
-        return gotHit;			
+		float[] normal = {0,0};
+		float[] normalTemp; 
+		for(int i=0;i<bricks;i++)
+			if (brickV[i].isAlive && 
+					brickV[i].gotHit(ball)) {
+				normalTemp = brickV[i].normal(ball);
+				normal[0] += normalTemp[0];normal[1] += normalTemp[1];
+				gotHit = true;
+			}
+		if(gotHit == true) {
+			Brick.normalize(normal);
+			Brick.reflect(ball,normal);
+		}
+		return gotHit;			
 	}
-	
+
 	public void step() {
-        for(int i=0;i<bricks;i++)
-        	brickV[i].step();	
+		for(int i=0;i<bricks;i++)
+			brickV[i].step();	
 	}
 
 	public void draw( GL10 gl ) {
-        for(int i=0;i<bricks;i++)
-        	if (brickV[i].isAlive)
-        	    brickV[i].draw(gl);
+		for(int i=0;i<bricks;i++)
+			if (brickV[i].isAlive)
+				brickV[i].draw(gl);
 	}
 }

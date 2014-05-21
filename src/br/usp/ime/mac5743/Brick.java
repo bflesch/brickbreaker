@@ -51,16 +51,16 @@ class Brick {
 	}
 	//TODO return speed ?
 	//Sets speed of the ball according to simple reflection
-	public void deflect(float[] normalForceDirection, float[] newSpeed, Ball ball) {
+	public static void reflect(Ball ball, float[] normalForceDirection) {
+		
 		float normalX = normalForceDirection[0];
 		float normalY = normalForceDirection[1];
-		float dotproduct = ball.speedX*normalX + //
+		float dotproduct = ball.speedX*normalX +
 				            ball.speedY*normalY;
 		if (dotproduct < 0) {
-            newSpeed[0] = ball.speedX - 2*dotproduct*normalX;
-            newSpeed[1] = ball.speedY - 2*dotproduct*normalY;
+            ball.speedX -= 2*dotproduct*normalX;
+            ball.speedY -= 2*dotproduct*normalY;
 		}
-			
 	}
 	
 	public void collide (int side, Ball ball) {
@@ -72,18 +72,16 @@ class Brick {
 		return (float) Math.sqrt(d);
 	}
 
-	protected void normalize(float[] vec) {
+	static public void normalize(float[] vec) {
 		float size = vec[0]*vec[0]+vec[1]*vec[1];
 		size = (float) Math.sqrt(size);
 		vec[0] /= size; vec[1] /= size;
 	}
 
-	private boolean gotHitOnCorner(Ball ball, float[] newSpeed) {
+	private boolean gotHitOnCorner(Ball ball, int[] withSide,float[] normal) {
 		float radius = ball.radius ;
 		float[] center =  {ball.posX,ball.posY};
 		
-		float normal[] = {0,0};
-
 		float[] corner1 = {posX + width/2,posY + height/2};
 		float[] corner2 = {posX - width/2,posY + height/2};
 		float[] corner3 = {posX + width/2,posY - height/2};
@@ -99,13 +97,12 @@ class Brick {
 				normal[0] = center[0]-corner[0];
 				normal[1] = center[1]-corner[1];
 				normalize(normal);
+				
 				if(i < 2) {
-					deflect(normal, newSpeed, ball); 
-					collide(Brick.WITH_TOP,ball);
+					withSide[0] = WITH_TOP;
 				}
 				else {
-					deflect(normal, newSpeed, ball); 
-					collide(Brick.WITH_BOTTOM,ball);
+					withSide[0] = WITH_BOTTOM;
 				}
 				return true;
 			}
@@ -113,7 +110,32 @@ class Brick {
 		return false;
 	}
 
-	public boolean gotHit(Ball ball, float[] newSpeed) {
+	public boolean gotHit(Ball ball) {
+		float[] normal = {0,0};
+		boolean[] gotHit = {false};
+		int [] withSide = {0};
+		checkHit(ball, normal,gotHit, withSide);
+		collide(withSide[0],ball);
+		return gotHit[0];
+	}
+
+	public float[] normal(Ball ball) {
+		float[] normal = {0,0};
+		boolean[] gotHit = {false};
+		int [] withSide = {0};
+		checkHit(ball, normal,gotHit, withSide);
+		return normal;
+	}
+	
+	public void changeSpeed(Ball ball) {
+		float[] normal = {0,0};
+		boolean[] gotHit = {false};
+		int [] withSide = {0};
+		checkHit(ball, normal,gotHit, withSide);
+		reflect(ball, normal);
+	}
+	
+	public void checkHit(Ball ball, float[] normal, boolean[] gotHit, int[] withSide) {
 		float r = ball.radius ;
 		float x = ball.posX;
 		float y = ball.posY;
@@ -123,50 +145,50 @@ class Brick {
 		float y_max = posY + height/2;
 		float y_min = posY - height/2;
 
-		float normal[] = {0,0};
-
 		//collide with the bottom
 		if (y_max > y + r && y + r > y_min)
 			if ( x_min < x  && x < x_max) {
-				this.collide(WITH_BOTTOM,ball);
+				withSide[0]=WITH_BOTTOM;
 				normal[0] = 0f; normal[1] = -1f;
-				deflect(normal,newSpeed,ball);
-				return true;
+				gotHit[0] = true;
+				return;
 			}
 
 		//collide with the top
 		if (y_max > y - r && y - r > y_min)
 			if ( x_min < x  && x < x_max) {
-				this.collide(WITH_TOP,ball);
+				withSide[0]=WITH_TOP;
 				normal[0] = 0f; normal[1] = 1f;
-				deflect(normal,newSpeed,ball);
-				return true;
+				gotHit[0] = true;
+				return;
 			}
 
 		//collide with the left
 		if (x_max > x + r && x + r > x_min)
 			if ( y_min < y  && y < y_max) {
-				this.collide(WITH_UNUSED,ball);
+				withSide[0]=WITH_UNUSED;
 				normal[0] = -1f; normal[1] = 0f;
-				deflect(normal,newSpeed,ball);
-				return true;
+				gotHit[0] = true;
+				return;
 			}
 
 		//collide with the right
 		if (x_max > x - r && x - r > x_min)
 			if ( y_min < y  && y < y_max) {
-				this.collide(WITH_UNUSED,ball);
+				withSide[0]=WITH_UNUSED;
 				normal[0] = 1f; normal[1] = 0f;
-				deflect(normal,newSpeed,ball);
-				return true;
+				gotHit[0] = true;
+				return;
 			}
 
-		if(gotHitOnCorner(ball,newSpeed)) {
-			return true;
+		if(gotHitOnCorner(ball,withSide,normal)) {
+			//WITH SIDE IS SET
+			//NORMAL IS SET
+			gotHit[0] = true;
+			return;
 		}
-
-		normal[0] = normal[1] = 0;
-		return false;
+		gotHit[0] = false;
+		return;
 	}
 
 	public void draw( GL10 gl ) {

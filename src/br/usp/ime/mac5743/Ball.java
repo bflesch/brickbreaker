@@ -46,8 +46,9 @@ class Ball {
     }    
     
     public void launch(){
+    	//speedX = 1.6f*1.0f/150.0f;
+    	//speedY = speedX;
     	speedX = 1.6f*1.0f/150.0f;
-    	speedY = speedX;
     }
     
     public void comeWithMe(float posXNew) {

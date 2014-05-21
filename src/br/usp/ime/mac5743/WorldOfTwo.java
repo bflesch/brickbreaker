@@ -49,6 +49,7 @@ public class WorldOfTwo {
 	}
 	
 	public void step() {
+
 		Paddle paddle1 = paddleHighSide;
 		Paddle paddle2 = paddleLowSide;
         paddle1.updatePosition();
@@ -57,17 +58,17 @@ public class WorldOfTwo {
         brickList.step();
         
         ball.updatePosition();
-        float [] newSpeed = {0f,0f};
-        if (paddle1.gotHit(ball,newSpeed)){ 
-        	ball.speedX = newSpeed[0];ball.speedY = newSpeed[1];
+        
+        if (paddle1.gotHit(ball)){
+        	paddle1.changeSpeed(ball);
         	ball.color = paddle1.color;
         }
-        if (paddle2.gotHit(ball,newSpeed)){ 
-        	ball.speedX = newSpeed[0];ball.speedY = newSpeed[1];
+        if (paddle2.gotHit(ball)){ 
+        	paddle2.changeSpeed(ball);
         	ball.color = paddle2.color;
         }
-        if (brickList.gotHit(ball,newSpeed)){ 
-        	ball.speedX = newSpeed[0];ball.speedY = newSpeed[1];
+        if (brickList.checkHitAndDeflect(ball)){ 
+        	System.err.println("speed: "+ball.speedX+","+ball.speedY);
         }
 	} 
 }

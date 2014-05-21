@@ -48,7 +48,7 @@ public class World {
 		bricks.draw(gl);
 	}
 	
-	public void step() {
+	public void step() {/*
         paddle.updatePosition();
         //TODO remove reference
         ball.updatePosition();
@@ -63,6 +63,6 @@ public class World {
         if (paddle.gotHit(ball,newSpeed)) {
         	ball.speedX = newSpeed[0];
         	ball.speedY = newSpeed[1];
-        }
+        }*/
 	} 
 }
