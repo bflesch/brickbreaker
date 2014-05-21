@@ -16,16 +16,19 @@ Fazer a experiencia consistente através de devices (chamar STEP quantas vezes f
 
 1P
 Implementar bola fora (como reset)
+Limpar o código de criação da fase
 
 -------------------------------------
 
 Opcional
 
+Colocar as constantes todas num lugar só, pra ser mais twekavel
+
 PvP
 Parar a música na hora da vitória/derrota
 Implementar várias bolas ao mesmo tempo
-Implementar as bolas cairem para fora da tela, e novas bolas surgirem
 Implementar colisão entre as bolas
+Implementar as bolas cairem para fora da tela, e novas bolas surgirem
 
 1P
 Melhorar bola fora (move bricks para baixo)
