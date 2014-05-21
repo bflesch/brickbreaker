@@ -16,7 +16,7 @@ public class WorldOfTwo {
 	private Line lineHighSide; private Line lineLowSide;
 	
 	private Brick highInvader; private Brick lowInvader;
-	private boolean game_over;
+	private boolean game_over; private int gameOverTimer;
 	
 	public static float[] colorPlayerInTheHighSide = {1f,0f,0f,0f};
 	public static float[] colorPlayerInTheLowSide = {0f,0f,1f,0f};
@@ -35,7 +35,7 @@ public class WorldOfTwo {
 	}
 	
 	private void start() {
-		game_over = false;
+		game_over = false;highInvader = null; lowInvader = null;
 		ball = new Ball();
 		paddleHighSide = new twoPlayerPaddle(0f,paddlePos,colorPlayerInTheHighSide);
 		lineHighSide = new Line(linePos,colorPlayerInTheHighSide);
@@ -125,7 +125,8 @@ public class WorldOfTwo {
 			highInvader.grow();
 		if(lowInvader != null)
 			lowInvader.grow();
-		//TODO check  reset timer
+		if (gameOverTimer-- == 0)
+			restart();
 	}
 	
 	private void verifyGameOver() {
@@ -135,9 +136,11 @@ public class WorldOfTwo {
 			highInvader.goHalfway();
 			lowInvader.goHalfway();
         }
+        
 		if (victory != NO_WINNER_YET) {
 			game_over = true;
-			//restart();
+			//TODO colocar esse timer nas constantes
+			gameOverTimer = 500;
 		}
 		
 			
