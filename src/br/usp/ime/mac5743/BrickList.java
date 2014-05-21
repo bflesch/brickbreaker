@@ -13,6 +13,7 @@ class BrickList {
 		float x = -.6f;
 		float y = -.6f;
 		for(int i=0; i<bricks; i++) {
+			System.err.println(".");
 			Brick brick = new Brick (x,y);
 			brickV[i]=brick;
 			y += .06;
@@ -44,8 +45,6 @@ class BrickList {
 				return false;
 		return true;
 	}
-	//TODO maybe combine many collision directions
-	//TODO maybe allow the ball to hit many targets
 	public boolean checkHitAndDeflect(Ball ball) {
 		boolean gotHit = false;
 		float[] normal = {0,0};

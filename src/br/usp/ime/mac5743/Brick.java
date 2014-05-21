@@ -115,7 +115,8 @@ class Brick {
 		boolean[] gotHit = {false};
 		int [] withSide = {0};
 		checkHit(ball, normal,gotHit, withSide);
-		collide(withSide[0],ball);
+		if (gotHit[0])
+		   collide(withSide[0],ball);
 		return gotHit[0];
 	}
 
