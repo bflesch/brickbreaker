@@ -69,4 +69,21 @@ class BrickList {
 			if (brickV[i].isAlive)
 				brickV[i].draw(gl);
 	}
+
+	public Brick brickAbove(float linePos) {
+		for(int i=0;i<bricks;i++)
+			if (brickV[i].isAlive)
+			    if (brickV[i].posY - brickV[i].height > linePos)
+			    	return brickV[i];
+		return null;
+	}
+	
+	public Brick brickBellow(float linePos) {
+		for(int i=0;i<bricks;i++)
+			if (brickV[i].isAlive)
+				if (brickV[i].posY + brickV[i].height < linePos)
+			    	return brickV[i];
+		return null;
+	}
+	
 }

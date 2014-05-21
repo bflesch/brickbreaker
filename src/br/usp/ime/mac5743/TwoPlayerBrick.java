@@ -10,7 +10,7 @@ import javax.microedition.khronos.opengles.GL10;
 class TwoPlayerBrick extends Brick {
 
 	float speed;
-	static float max_speed = 1.0f/150.0f;
+	static float max_speed = .1f/150.0f;
 	static float UP = max_speed;
 	static float DOWN = -max_speed;
 

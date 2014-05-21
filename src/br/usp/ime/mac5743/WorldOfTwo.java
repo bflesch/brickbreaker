@@ -6,9 +6,18 @@ import android.view.MotionEvent;
 
 public class WorldOfTwo {
 
+	private static final int DRAW = 123324;
+	private static final int LOW_WINS = 3423;
+	private static final int HIGH_WINS = 007;
+	private static final int NO_WINNER_YET = 31232;
+	
 	private Paddle paddleHighSide; private Paddle paddleLowSide;
 	private Ball ball;
 	private Line lineHighSide; private Line lineLowSide;
+	
+	private Brick highInvader; private Brick lowInvader;
+	private boolean game_over;
+	
 	public static float[] colorPlayerInTheHighSide = {1f,0f,0f,0f};
 	public static float[] colorPlayerInTheLowSide = {0f,0f,1f,0f};
 	public static float[] colorNeutral ={201f/256f,192f/256f,187f/256f,1};
@@ -18,6 +27,15 @@ public class WorldOfTwo {
 	private BrickList brickList;
 	
 	public WorldOfTwo(){
+		this.start();
+	}
+
+	private void restart() {
+		this.start();
+	}
+	
+	private void start() {
+		game_over = false;
 		ball = new Ball();
 		paddleHighSide = new twoPlayerPaddle(0f,paddlePos,colorPlayerInTheHighSide);
 		lineHighSide = new Line(linePos,colorPlayerInTheHighSide);
@@ -26,9 +44,21 @@ public class WorldOfTwo {
 		brickList = new BrickList(2);
 	}
 	
-	
 	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
 	}
+
+	private int whoWon() {
+		lowInvader = brickList.brickBellow(-linePos);
+		highInvader = brickList.brickAbove(linePos);
+		if (highInvader != null && lowInvader != null)
+			return DRAW;
+		if (highInvader != null)
+			return LOW_WINS;
+		if (lowInvader != null)
+			return HIGH_WINS;
+		return NO_WINNER_YET;
+	}
+	
 
 	
 	public void startBallIfNotStarted() {
@@ -51,28 +81,66 @@ public class WorldOfTwo {
 		paddleLowSide.draw(gl);
 		ball.draw(gl);
 		brickList.draw(gl);
+		if (game_over) {
+			//Eles já foram desenhados na BrickList
+			//mas precisamos garantir que eles fiquem por cima
+			if (highInvader != null)
+				highInvader.draw(gl);
+			if (lowInvader != null)
+			    lowInvader.draw(gl);
+		}
 	}
-	
+
 	public void step() {
 
-		Paddle paddle1 = paddleHighSide;
-		Paddle paddle2 = paddleLowSide;
-        paddle1.updatePosition();
-        paddle2.updatePosition();
-        
-        brickList.step();
-        
-        ball.updatePosition();
-        
-        if (paddle1.gotHit(ball)){
-        	paddle1.changeSpeed(ball);
-        	ball.color = paddle1.color;
+		if (!game_over) {
+			Paddle paddle1 = paddleHighSide;
+			Paddle paddle2 = paddleLowSide;
+			paddle1.updatePosition();
+			paddle2.updatePosition();
+
+			brickList.step();
+
+			ball.updatePosition();
+
+			if (paddle1.gotHit(ball)){
+				paddle1.changeSpeed(ball);
+				ball.color = paddle1.color;
+			}
+			if (paddle2.gotHit(ball)){ 
+				paddle2.changeSpeed(ball);
+				ball.color = paddle2.color;
+			}
+			if (brickList.checkHitAndDeflect(ball)){ 
+			}
+			verifyGameOver();
+		}
+		
+		if (game_over)
+			stepGameOver();
+	}
+
+	private void stepGameOver() {
+		if(highInvader != null)
+			highInvader.grow();
+		if(lowInvader != null)
+			lowInvader.grow();
+		//TODO check  reset timer
+	}
+	
+	private void verifyGameOver() {
+		int victory = whoWon();
+
+        if (victory == DRAW) {	
+			highInvader.goHalfway();
+			lowInvader.goHalfway();
         }
-        if (paddle2.gotHit(ball)){ 
-        	paddle2.changeSpeed(ball);
-        	ball.color = paddle2.color;
-        }
-        if (brickList.checkHitAndDeflect(ball)){ 
-        }
+		if (victory != NO_WINNER_YET) {
+			game_over = true;
+			//restart();
+		}
+		
+			
+		
 	} 
 }

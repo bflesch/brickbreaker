@@ -19,6 +19,8 @@ class Brick {
 	protected float height = .05f;
 	protected float width = .15f;
 	protected float[] color = {1.0f,0.0f,0.0f, 1.0f};
+	
+	private float growth_rate = 1.01f; private float maxHeight = 4f;
 
 
 	private static final int FLOAT_SIZE_BYTES = Float.SIZE / 8;
@@ -76,6 +78,18 @@ class Brick {
 		float size = vec[0]*vec[0]+vec[1]*vec[1];
 		size = (float) Math.sqrt(size);
 		vec[0] /= size; vec[1] /= size;
+	}
+	
+	public void grow() {
+		if (width < 4)
+		   this.width *= growth_rate;
+		if (height < maxHeight)
+		   this.height *= growth_rate;
+		buildGlBuffer();
+	}
+	
+	public void goHalfway () {
+		maxHeight = 2*Math.abs(posY);
 	}
 
 	private boolean gotHitOnCorner(Ball ball, int[] withSide,float[] normal) {
