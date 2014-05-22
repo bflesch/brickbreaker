@@ -12,7 +12,7 @@ public class WorldOfTwo {
 	private static final int NO_WINNER_YET = 31232;
 	
 	private Paddle paddleHighSide; private Paddle paddleLowSide;
-	private Ball ball;
+	private Ball ball;private Ball ball1;private Ball ball2;private Ball ball3;
 	private Line lineHighSide; private Line lineLowSide;
 	
 	private Brick highInvader; private Brick lowInvader;
