@@ -22,13 +22,23 @@ class TouchSurfaceView extends GLSurfaceView {
 	private static float ratio = 0.0f;
 
 	MainActivity context;
+	
+	long timeStamp = 0; long previousTime = 0;
+	int stepsPerSecond = 60; long timeForStep = 1000/stepsPerSecond;
 
+	//Se o jogo não estava rodando, resete o
+	//timeStamp (caso contrário, ao voltar
+	//rodariamos toda a fisica que "estamos devendo")
+	public void onResume () {
+		timeStamp = 0;
+		super.onResume();
+	}
+	
 	private class Renderer implements GLSurfaceView.Renderer {
 
 		//World world; 
 		WorldOfTwo world;
-		long timeStamp = 0; long previousTime = 0;
-		int stepsPerSecond = 60; long timeForStep = 1000/stepsPerSecond;
+		
 
 		private void createWorld (float ratio){
 			//world = new World(ratio);

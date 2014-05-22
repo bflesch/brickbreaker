@@ -127,7 +127,7 @@ public class WorldOfTwo {
 	}
 	
 	public void step() {
-
+        
 		if (!game_over) {
 			Paddle paddle1 = paddleHighSide;
 			Paddle paddle2 = paddleLowSide;
