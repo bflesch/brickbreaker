@@ -13,6 +13,12 @@ class Ball {
 	//TODO unificar a cor cinza em um lugar
 	public float[] color = {201f/256f, 192f/256f, 187f/256f,1};
 	
+	//Note: não faça com que twoPlayerBrick.maxSpeed 
+	//                        + ball.maxSpeed
+	//seja maior que a menor dimensão do bloquinho.
+	//caso contrário, poderá haver teleportes
+	// (i.e., o bloquinho e a bola deviam bater, mas
+	// passam reto um pelo outro)
 	private float speedSize = 2f*1.0f/150.0f;
 	
     public float posX; //To be set by the paddle

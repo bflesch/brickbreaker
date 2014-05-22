@@ -18,6 +18,12 @@ class Brick {
 
 	private FloatBuffer vertexBuffer;
 
+	//Note: não faça com que twoPlayerBrick.maxSpeed 
+	//                        + ball.maxSpeed
+	//seja maior que a menor dimensão do bloquinho.
+	//caso contrário, poderá haver teleportes
+	// (i.e., o bloquinho e a bola deviam bater, mas
+	// passam reto um pelo outro)
 	public static float defaultHeight = .05f;
 	protected float height = defaultHeight;
 	public static float defaultWidth = .15f;
