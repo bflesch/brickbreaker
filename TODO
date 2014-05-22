@@ -1,7 +1,9 @@
 Mendes:
+Pausa quando o usuário sai da aplicação
 
 Breno:
-Não parece haver nenhuma textura, sequer no branch master.
+A textura não parece funcionar, sequer no branch master.
+    Baixei manualmente o commit "will it blend ?" e nada.
     Acho que deve ser um erro de controle de versão.
     Vc pode dar uma olhada ?
 Testar o jogo em um celular mais lento
@@ -18,6 +20,7 @@ Integrar os dois branches
 Opcional
 
 Colocar as constantes todas num lugar só, pra ser mais twekavel
+Evitar que a bolinha "entre" na paddle
 
 PvP
 Parar a música na hora da vitória/derrota
@@ -25,6 +28,4 @@ Implementar colisão entre as bolas
 Implementar as bolas cairem para fora da tela, e novas bolas surgirem
 
 1P
-Melhorar bola fora (move bricks para baixo)
 Vitoria e derrota mais claras: do jeito que está a partida só reinicia 
-
