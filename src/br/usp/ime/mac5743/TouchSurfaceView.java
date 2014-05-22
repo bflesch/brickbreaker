@@ -27,6 +27,8 @@ class TouchSurfaceView extends GLSurfaceView {
 		
 		World world; 
 		//WorldOfTwo world;
+		long timeStamp = 0; long previousTime = 0;
+		int stepsPerSecond = 60; long timeForStep = 1000/stepsPerSecond;
 	
 		private void createWorld (float ratio){
 			world = new World(ratio);
@@ -37,8 +39,26 @@ class TouchSurfaceView extends GLSurfaceView {
 		@Override
 		public void onDrawFrame( GL10 gl ) {
 			gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
-			world.step();
+			
+			previousTime = timeStamp;
+			timeStamp = System.currentTimeMillis();
+			if (previousTime != 0) {
+				int steps = (int) ((timeStamp - previousTime)/timeForStep);
+				int missing = (int) ((timeStamp - previousTime)%timeForStep);
+				timeStamp -= missing;
+				steps = 2;
+				System.err.println(System.currentTimeMillis());
+				while (steps != 0) {
+					world.step();
+					System.err.println(System.currentTimeMillis());
+					steps--;
+				}
+				System.err.println("----");
+			}
+			
 			world.draw(gl);
+			System.err.println(System.currentTimeMillis());
+			System.err.println("----");
 		}
 
 		@Override
