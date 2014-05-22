@@ -26,12 +26,15 @@ class TouchSurfaceView extends GLSurfaceView {
 	long timeStamp = 0; long previousTime = 0;
 	int stepsPerSecond = 60; long timeForStep = 1000/stepsPerSecond;
 
+	boolean isPaused = false;
+	
 	//Se o jogo não estava rodando, resete o
 	//timeStamp (caso contrário, ao voltar
 	//rodariamos toda a fisica que "estamos devendo")
-	public void onResume () {
+	public void onPause() {
+		isPaused = true;
 		timeStamp = 0;
-		super.onResume();
+		super.onPause();
 	}
 	
 	private class Renderer implements GLSurfaceView.Renderer {
@@ -50,6 +53,11 @@ class TouchSurfaceView extends GLSurfaceView {
 		public void onDrawFrame( GL10 gl ) {
 			gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
 
+			world.draw(gl);
+			
+			if(isPaused)
+				return;
+			
 			previousTime = timeStamp;
 			timeStamp = System.currentTimeMillis();
 			if (previousTime != 0) {
@@ -61,7 +69,7 @@ class TouchSurfaceView extends GLSurfaceView {
 					steps--;
 				}
 			}
-			world.draw(gl);
+			
 		}
 
 		@Override
@@ -108,6 +116,9 @@ class TouchSurfaceView extends GLSurfaceView {
 
 
 	private void handleTouch( MotionEvent e, int index) {
+		
+		isPaused = false;
+		
 		final float screenX = e.getX(index);
 		final float screenY = screenHeight - e.getY(index);
 
