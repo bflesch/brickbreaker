@@ -14,6 +14,7 @@ class IronBrick extends Brick {
 		super(x,y);
 		posX=x; posY=y; height=h; width=w;
 		makesSound = false;
+		isKillable = false;
 		buildGlBuffer();
 	}
 	

@@ -71,5 +71,8 @@ public class World {
 		
 		if (lost())
 			reset();
+		
+		if (bricks.allBricksAreDead())
+			reset();
 	} 
 }

@@ -10,6 +10,7 @@ import javax.microedition.khronos.opengles.GL10;
 class Brick {
 
     public boolean isAlive = true;
+    public boolean isKillable = true;
 	public boolean makesSound = true;
     
 	protected float posX = 0.0f;
@@ -17,8 +18,11 @@ class Brick {
 
 	private FloatBuffer vertexBuffer;
 
-	protected float height = .05f;
-	protected float width = .15f;
+	public static float defaultHeight = .05f;
+	protected float height = defaultHeight;
+	public static float defaultWidth = .15f;
+	protected float width = defaultWidth;
+	
 	protected float[] color = {1.0f,0.0f,0.0f, 1.0f};
 	
 	private float growth_rate = 1.01f; private float maxHeight = 4f;

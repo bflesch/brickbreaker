@@ -18,18 +18,22 @@ class BrickList {
 	}
 	
 	private void buildOnePlayerGame (float ratio){
-		bricks = 120;
+		//bricks = 95;
+		bricks = 7;
 		movableBricks = 0;
 		brickV = new Brick[bricks];
-		float x = -.6f;
+		float xStart = -ratio + Brick.defaultWidth/2;
+		float x = xStart;
+		float xStep = ((2*ratio - 4*Brick.defaultWidth)/3)
+				        + Brick.defaultWidth;
 		float y = -.6f;
 		for(int i=0; i<bricks-3; i++) {
 			Brick brick = new Brick (x,y);
 			brickV[i]=brick;
-			y += .06;
-			if (y > .7) {
-				y = -.6f;
-				x += .4f;
+			x += xStep;
+			if (x > ratio) {
+				x = xStart;
+				y += .06f;
 			}
 		brickV[bricks-1] = new IronBrick(-ratio -0.1f, 0, 2.5f, 0.2f);
 		brickV[bricks-2] = new IronBrick(+ratio +0.1f, 0, 2.5f, 0.2f);
@@ -50,10 +54,10 @@ class BrickList {
 		brickV[5] = new IronBrick(0 , 1+0.1f, 0.2f, 2.5f);
 		brickV[6] = new IronBrick(0 , -1-0.1f, 0.2f, 2.5f);
 	}
-	//never been used. Don't trust me
-	public boolean finished() {
+
+	public boolean allBricksAreDead() {
 		for(int i=0;i<bricks;i++)
-			if (brickV[i].isAlive)
+			if (brickV[i].isAlive && brickV[i].isKillable)
 				return false;
 		return true;
 	}

@@ -27,8 +27,7 @@ class TouchSurfaceView extends GLSurfaceView {
 		
 		World world; 
 		//WorldOfTwo world;
-		
-		//depends on ratio!
+	
 		private void createWorld (float ratio){
 			world = new World(ratio);
 			//world = new WorldOfTwo(ratio);
