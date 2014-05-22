@@ -31,9 +31,9 @@ class BrickList {
 				y = -.6f;
 				x += .4f;
 			}
-		brickV[bricks-1] = new IronBrick(-ratio -0.1f, 0, 2.5f, 0.1f);
-		brickV[bricks-2] = new IronBrick(+ratio +0.1f, 0, 2.5f, 0.1f);
-		brickV[bricks-3] = new IronBrick(0 , 1+0.1f, 0.1f, 2.5f);
+		brickV[bricks-1] = new IronBrick(-ratio -0.1f, 0, 2.5f, 0.2f);
+		brickV[bricks-2] = new IronBrick(+ratio +0.1f, 0, 2.5f, 0.2f);
+		brickV[bricks-3] = new IronBrick(0 , 1+0.1f, 0.2f, 2.5f);
 		}
 	}
 
@@ -45,10 +45,10 @@ class BrickList {
 		brickV[1] = new TwoPlayerBrick (.4f,0);
 		brickV[2] = new TwoPlayerBrick (0f,0f);
 		
-		brickV[3] = new IronBrick(-screenRatio -0.1f, 0, 2.5f, 0.1f);
-		brickV[4] = new IronBrick(+screenRatio +0.1f, 0, 2.5f, 0.1f);
-		brickV[5] = new IronBrick(0 , 1+0.1f, 0.1f, 2.5f);
-		brickV[6] = new IronBrick(0 , -1-0.1f, 0.1f, 2.5f);
+		brickV[3] = new IronBrick(-screenRatio -0.1f, 0, 2.5f, 0.2f);
+		brickV[4] = new IronBrick(+screenRatio +0.1f, 0, 2.5f, 0.2f);
+		brickV[5] = new IronBrick(0 , 1+0.1f, 0.2f, 2.5f);
+		brickV[6] = new IronBrick(0 , -1-0.1f, 0.2f, 2.5f);
 	}
 	//never been used. Don't trust me
 	public boolean finished() {
