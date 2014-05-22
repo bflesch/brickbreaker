@@ -12,10 +12,8 @@ Obrigatorio
 
 Usuário selecionar entre 1P e PvP
 Integrar os dois branches
-Fazer a experiencia consistente através de devices (chamar STEP quantas vezes for necessário, dependendo do FPS)
 
 1P
-Limpar o código de criação da fase
 
 -------------------------------------
 
@@ -31,9 +29,5 @@ Implementar as bolas cairem para fora da tela, e novas bolas surgirem
 
 1P
 Melhorar bola fora (move bricks para baixo)
-Vitoria e derrota parecidas com as do PvP 
-     (usa uma linha limite
-      derrota: expande bloco invasor
-      vitoria: expande paddle
-      cor da paddle e da bola diferente da cor dos blocos)
+Vitoria e derrota mais claras: do jeito que está a partida só reinicia 
 
