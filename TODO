@@ -13,7 +13,6 @@ Obrigatorio
 Usuário selecionar entre 1P e PvP
 Integrar os dois branches
 
-1P
 
 -------------------------------------
 
@@ -23,7 +22,6 @@ Colocar as constantes todas num lugar só, pra ser mais twekavel
 
 PvP
 Parar a música na hora da vitória/derrota
-Implementar várias bolas ao mesmo tempo
 Implementar colisão entre as bolas
 Implementar as bolas cairem para fora da tela, e novas bolas surgirem
 
