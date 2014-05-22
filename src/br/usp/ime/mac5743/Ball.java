@@ -76,26 +76,9 @@ class Ball {
  
     
     public void updatePosition(){
-    	float futurePosX = posX + speedX;
-    	float futurePosY = posY + speedY;
-    	if(isOutOfBoundsX(futurePosX)){
-    		speedX = -speedX;
-    	}
-    	if(isOutOfBoundsY(futurePosY)){
-    		speedY = -speedY;
-    	}
     	posX = posX+speedX;
     	posY = posY+speedY;
     }
-    
-    private boolean isOutOfBoundsY(float futurePosY) {
-    	return ((futurePosY > 1.0f) || (futurePosY < -1.0f));
-	}
-
-	private boolean isOutOfBoundsX(float futurePosX) {
-		return ((futurePosX > TouchSurfaceView.getRatio()) || (futurePosX < -TouchSurfaceView.getRatio()));
-	}
-
 	
 	public void draw( GL10 gl ) {
         gl.glMatrixMode( GL10.GL_MODELVIEW );

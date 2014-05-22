@@ -21,11 +21,19 @@ class TouchSurfaceView extends GLSurfaceView {
 
 	private static float ratio = 0.0f;
 
+	MainActivity context;
 
 	private class Renderer implements GLSurfaceView.Renderer {
-
-		//World world = new World();
-		WorldOfTwo world = new WorldOfTwo();
+		
+		World world; 
+		//WorldOfTwo world;
+		
+		//depends on ratio!
+		private void createWorld (float ratio){
+			world = new World(ratio);
+			//world = new WorldOfTwo(ratio);
+			world.setHitBrickHandler(context);
+		}
 		
 		@Override
 		public void onDrawFrame( GL10 gl ) {
@@ -48,6 +56,7 @@ class TouchSurfaceView extends GLSurfaceView {
 
 			Matrix.orthoM( unprojectProjMatrix, 0, -ratio, ratio, -1.0f, 1.0f, -1.0f, 1.0f );
 			Matrix.setIdentityM( unprojectViewMatrix, 0 );
+			createWorld(ratio);
 		}
 
 
@@ -68,7 +77,7 @@ class TouchSurfaceView extends GLSurfaceView {
 		super( context );
 		renderer = new Renderer();
 		setRenderer( renderer );
-		renderer.world.setHitBrickHandler((MainActivity) context);
+		this.context = (MainActivity) context;
 	}
 
 

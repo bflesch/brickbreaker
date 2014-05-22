@@ -10,7 +10,8 @@ import javax.microedition.khronos.opengles.GL10;
 class Brick {
 
     public boolean isAlive = true;
-	
+	public boolean makesSound = true;
+    
 	protected float posX = 0.0f;
 	protected float posY = 0.0f;
 
@@ -32,6 +33,12 @@ class Brick {
 		posX = x; posY=y;
 		buildGlBuffer();
 	}
+	
+	public Brick(float x, float y, float h, float w){
+		posX=x; posY=y; height=h; width=w;
+		buildGlBuffer();
+	}
+	
 	protected void buildGlBuffer () {
 		float[] vertices= {
 				0.0f, 0.0f,

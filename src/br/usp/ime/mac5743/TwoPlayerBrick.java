@@ -17,6 +17,7 @@ class TwoPlayerBrick extends Brick {
 	public TwoPlayerBrick(float x, float y) {
 		super(x,y);
 		color = WorldOfTwo.colorNeutral;
+		makesSound = false;
 	}
 
 	private boolean equal_colors(float[] a, float[] b) {

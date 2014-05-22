@@ -24,9 +24,12 @@ public class WorldOfTwo {
 	private float linePos = 0.6f;
 	private float paddlePos = 0.8f;
 	
+	private float screenRatio;
+	
 	private BrickList brickList;
 	
-	public WorldOfTwo(){
+	public WorldOfTwo(float ratio){
+		this.screenRatio = ratio;
 		this.start();
 	}
 
@@ -41,7 +44,7 @@ public class WorldOfTwo {
 		lineHighSide = new Line(linePos,colorPlayerInTheHighSide);
 		paddleLowSide = new twoPlayerPaddle(0f,-paddlePos,colorPlayerInTheLowSide);
 		lineLowSide = new Line(-linePos,colorPlayerInTheLowSide);
-		brickList = new BrickList(2);
+		brickList = new BrickList(2,screenRatio);
 	}
 	
 	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {

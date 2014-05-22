@@ -10,14 +10,21 @@ public class World {
 	private Ball ball;
 	private BrickList bricks;
 	private HitBrickHandler hitBrickHandler;
+	
+	private float ratio;
 
 	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
 		this.hitBrickHandler = hitBrickHandler;
 	}
 
-	public World(){
+	public World(float ratio){
+		this.ratio = ratio;
+        reset();
+	}
+	
+	private void reset (){
 		ball = new Ball();
-		bricks = new BrickList();
+		bricks = new BrickList(1,ratio);
 		paddle = new Paddle(ball);
 	}
 
@@ -46,17 +53,23 @@ public class World {
 		ball.draw(gl);
 		bricks.draw(gl);
 	}
+	
+	private boolean lost(){
+		return (ball.posY < -1.2f);
+	}
 
 	public void step() {
 		paddle.updatePosition();
 		ball.updatePosition();
 
 		if (bricks.checkHitAndDeflect(ball)){
-			if(hitBrickHandler != null){
+			if(bricks.playHitSound() && hitBrickHandler != null)
 				hitBrickHandler.onHit();
-			}
 		}
 		if (paddle.gotHit(ball)) 
 			paddle.changeSpeed(ball);
+		
+		if (lost())
+			reset();
 	} 
 }

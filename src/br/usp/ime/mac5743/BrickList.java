@@ -5,14 +5,25 @@ import javax.microedition.khronos.opengles.GL10;
 class BrickList {
 
 	int bricks;
+	int movableBricks;
 	Brick brickV[]; 
+	boolean playSound;
 
-	public BrickList(){
+	
+	public BrickList(int players, float ratio) {
+		if(players == 1)
+			buildOnePlayerGame(ratio);
+		if(players == 2)
+			buildTwoPlayerGame(ratio);
+	}
+	
+	private void buildOnePlayerGame (float ratio){
 		bricks = 120;
+		movableBricks = 0;
 		brickV = new Brick[bricks];
 		float x = -.6f;
 		float y = -.6f;
-		for(int i=0; i<bricks; i++) {
+		for(int i=0; i<bricks-3; i++) {
 			Brick brick = new Brick (x,y);
 			brickV[i]=brick;
 			y += .06;
@@ -20,19 +31,24 @@ class BrickList {
 				y = -.6f;
 				x += .4f;
 			}
-
+		brickV[bricks-1] = new IronBrick(-ratio -0.1f, 0, 2.5f, 0.1f);
+		brickV[bricks-2] = new IronBrick(+ratio +0.1f, 0, 2.5f, 0.1f);
+		brickV[bricks-3] = new IronBrick(0 , 1+0.1f, 0.1f, 2.5f);
 		}
 	}
 
-	//TODO meu deus, que gambiarra!
-	// temos dois construtores diferentes
-	public BrickList(int unused){
-		bricks = 3;
+	public void buildTwoPlayerGame(float screenRatio){
+		bricks = 7;
+		movableBricks = 3;
 		brickV = new Brick[bricks];
 		brickV[0] = new TwoPlayerBrick (-.4f,0);
 		brickV[1] = new TwoPlayerBrick (.4f,0);
 		brickV[2] = new TwoPlayerBrick (0f,0f);
-
+		
+		brickV[3] = new IronBrick(-screenRatio -0.1f, 0, 2.5f, 0.1f);
+		brickV[4] = new IronBrick(+screenRatio +0.1f, 0, 2.5f, 0.1f);
+		brickV[5] = new IronBrick(0 , 1+0.1f, 0.1f, 2.5f);
+		brickV[6] = new IronBrick(0 , -1-0.1f, 0.1f, 2.5f);
 	}
 	//never been used. Don't trust me
 	public boolean finished() {
@@ -41,8 +57,14 @@ class BrickList {
 				return false;
 		return true;
 	}
+	
+	public boolean playHitSound (){
+		return playSound;
+	}
+	
 	public boolean checkHitAndDeflect(Ball ball) {
-		boolean gotHit = false;
+		boolean gotHit = false; 
+		playSound = false;
 		float[] normal = {0,0};
 		float[] normalTemp; 
 		for(int i=0;i<bricks;i++)
@@ -51,6 +73,8 @@ class BrickList {
 				normalTemp = brickV[i].normal(ball);
 				normal[0] += normalTemp[0];normal[1] += normalTemp[1];
 				gotHit = true;
+				if (brickV[i].makesSound)
+				    playSound = true;
 			}
 		if(gotHit == true) {
 			Brick.normalize(normal);
@@ -71,7 +95,7 @@ class BrickList {
 	}
 
 	public Brick brickAbove(float linePos) {
-		for(int i=0;i<bricks;i++)
+		for(int i=0;i<movableBricks;i++)
 			if (brickV[i].isAlive)
 			    if (brickV[i].posY - brickV[i].height > linePos)
 			    	return brickV[i];
@@ -79,7 +103,7 @@ class BrickList {
 	}
 	
 	public Brick brickBellow(float linePos) {
-		for(int i=0;i<bricks;i++)
+		for(int i=0;i<movableBricks;i++)
 			if (brickV[i].isAlive)
 				if (brickV[i].posY + brickV[i].height < linePos)
 			    	return brickV[i];
