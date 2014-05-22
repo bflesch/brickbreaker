@@ -24,22 +24,22 @@ class TouchSurfaceView extends GLSurfaceView {
 	MainActivity context;
 
 	private class Renderer implements GLSurfaceView.Renderer {
-		
-		World world; 
-		//WorldOfTwo world;
+
+		//World world; 
+		WorldOfTwo world;
 		long timeStamp = 0; long previousTime = 0;
 		int stepsPerSecond = 60; long timeForStep = 1000/stepsPerSecond;
-	
+
 		private void createWorld (float ratio){
-			world = new World(ratio);
-			//world = new WorldOfTwo(ratio);
+			//world = new World(ratio);
+			world = new WorldOfTwo(ratio);
 			world.setHitBrickHandler(context);
 		}
-		
+
 		@Override
 		public void onDrawFrame( GL10 gl ) {
 			gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
-			
+
 			previousTime = timeStamp;
 			timeStamp = System.currentTimeMillis();
 			if (previousTime != 0) {
@@ -56,6 +56,7 @@ class TouchSurfaceView extends GLSurfaceView {
 
 		@Override
 		public void onSurfaceChanged( GL10 gl, int width, int height ) {
+
 			gl.glViewport( 0, 0, width, height );
 			screenWidth = width;
 			screenHeight = height;
@@ -68,7 +69,10 @@ class TouchSurfaceView extends GLSurfaceView {
 
 			Matrix.orthoM( unprojectProjMatrix, 0, -ratio, ratio, -1.0f, 1.0f, -1.0f, 1.0f );
 			Matrix.setIdentityM( unprojectViewMatrix, 0 );
-			createWorld(ratio);
+			
+			if (world == null)
+				createWorld(ratio);
+
 		}
 
 

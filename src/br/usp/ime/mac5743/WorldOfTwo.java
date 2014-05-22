@@ -12,7 +12,7 @@ public class WorldOfTwo {
 	private static final int NO_WINNER_YET = 31232;
 	
 	private Paddle paddleHighSide; private Paddle paddleLowSide;
-	private Ball ball;private Ball ball1;private Ball ball2;private Ball ball3;
+	private Ball[] balls = {null,null,null,null};
 	private Line lineHighSide; private Line lineLowSide;
 	
 	private Brick highInvader; private Brick lowInvader;
@@ -39,12 +39,19 @@ public class WorldOfTwo {
 	
 	private void start() {
 		game_over = false;highInvader = null; lowInvader = null;
-		ball = new Ball();
+		
+		balls[0] = new Ball(.2f,.2f);
+		balls[1] = new Ball(-.2f,.2f);
+		balls[2] = new Ball(.2f,-.2f);
+		balls[3] = new Ball(-.2f,-.2f);
+		
 		paddleHighSide = new twoPlayerPaddle(0f,paddlePos,colorPlayerInTheHighSide);
 		lineHighSide = new Line(linePos,colorPlayerInTheHighSide);
 		paddleLowSide = new twoPlayerPaddle(0f,-paddlePos,colorPlayerInTheLowSide);
 		lineLowSide = new Line(-linePos,colorPlayerInTheLowSide);
 		brickList = new BrickList(2,screenRatio);
+		
+
 	}
 	
 	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
@@ -65,8 +72,16 @@ public class WorldOfTwo {
 
 	
 	public void startBallIfNotStarted() {
-		if (ball.stopped())
-		     ball.launch();
+		if (balls[0].stopped()) {
+			float[] direction0 = {1.0f,1.0f};
+			balls[0].setDirection(direction0);
+			float[] direction1 = {-1.0f,1.0f};
+			balls[1].setDirection(direction1);
+			float[] direction2 = {1.0f,-1.0f};
+			balls[2].setDirection(direction2);
+			float[] direction3 = {-1.0f,-1.0f};
+			balls[3].setDirection(direction3);
+		}
 	}
 	
 	public void handleTouch(MotionEvent unused, float x, float y ) {
@@ -82,7 +97,8 @@ public class WorldOfTwo {
 		lineLowSide.draw(gl);
 		paddleHighSide.draw(gl);
 		paddleLowSide.draw(gl);
-		ball.draw(gl);
+		for(int i=0; i < balls.length; i++)
+		        balls[i].draw(gl);
 		brickList.draw(gl);
 		if (game_over) {
 			//Eles já foram desenhados na BrickList
@@ -94,6 +110,22 @@ public class WorldOfTwo {
 		}
 	}
 
+	private void checkCollision(Ball ball) {
+		Paddle paddle1 = paddleHighSide;
+		Paddle paddle2 = paddleLowSide;
+		
+		if (paddle1.gotHit(ball)){
+			paddle1.changeSpeed(ball);
+			ball.color = paddle1.color;
+		}
+		if (paddle2.gotHit(ball)){ 
+			paddle2.changeSpeed(ball);
+			ball.color = paddle2.color;
+		}
+		if (brickList.checkHitAndDeflect(ball)){ 
+		}
+	}
+	
 	public void step() {
 
 		if (!game_over) {
@@ -104,18 +136,12 @@ public class WorldOfTwo {
 
 			brickList.step();
 
-			ball.updatePosition();
+			for(int i=0; i < balls.length; i++)
+				balls[i].updatePosition();
 
-			if (paddle1.gotHit(ball)){
-				paddle1.changeSpeed(ball);
-				ball.color = paddle1.color;
-			}
-			if (paddle2.gotHit(ball)){ 
-				paddle2.changeSpeed(ball);
-				ball.color = paddle2.color;
-			}
-			if (brickList.checkHitAndDeflect(ball)){ 
-			}
+			for(int i=0; i < balls.length; i++)
+				checkCollision(balls[i]);
+            
 			verifyGameOver();
 		}
 		
