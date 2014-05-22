@@ -1,5 +1,9 @@
+Feito:
+Pausa rudimentar
+
+------------------------------------
+
 Mendes:
-Pausa quando o usuário sai da aplicação
 
 Breno:
 A textura não parece funcionar, sequer no branch master.
@@ -21,6 +25,7 @@ Opcional
 
 Colocar as constantes todas num lugar só, pra ser mais twekavel
 Evitar que a bolinha "entre" na paddle
+Deixar a pausa mais bonita
 
 PvP
 Parar a música na hora da vitória/derrota
