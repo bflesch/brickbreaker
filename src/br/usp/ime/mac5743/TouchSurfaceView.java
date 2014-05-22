@@ -51,6 +51,12 @@ class TouchSurfaceView extends GLSurfaceView {
 
 		@Override
 		public void onDrawFrame( GL10 gl ) {
+			
+			if(isPaused)
+				gl.glClearColor(209f/256f,209f/256f,220f/256f,1f);
+			else
+				gl.glClearColor(1, 1, 1, 1);
+			
 			gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
 
 			world.draw(gl);
