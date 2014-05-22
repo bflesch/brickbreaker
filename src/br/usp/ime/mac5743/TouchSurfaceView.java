@@ -46,19 +46,12 @@ class TouchSurfaceView extends GLSurfaceView {
 				int steps = (int) ((timeStamp - previousTime)/timeForStep);
 				int missing = (int) ((timeStamp - previousTime)%timeForStep);
 				timeStamp -= missing;
-				steps = 2;
-				System.err.println(System.currentTimeMillis());
 				while (steps != 0) {
 					world.step();
-					System.err.println(System.currentTimeMillis());
 					steps--;
 				}
-				System.err.println("----");
 			}
-			
 			world.draw(gl);
-			System.err.println(System.currentTimeMillis());
-			System.err.println("----");
 		}
 
 		@Override
