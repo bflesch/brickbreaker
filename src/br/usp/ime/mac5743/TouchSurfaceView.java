@@ -21,26 +21,66 @@ class TouchSurfaceView extends GLSurfaceView {
 
 	private static float ratio = 0.0f;
 
+	MainActivity context;
+	
+	long timeStamp = 0; long previousTime = 0;
+	int stepsPerSecond = 60; long timeForStep = 1000/stepsPerSecond;
 
+	boolean isPaused = false;
+	
+	//Se o jogo não estava rodando, resete o
+	//timeStamp (caso contrário, ao voltar
+	//rodariamos toda a fisica que "estamos devendo")
+	public void onPause() {
+		isPaused = true;
+		timeStamp = 0;
+		super.onPause();
+	}
+	
 	private class Renderer implements GLSurfaceView.Renderer {
 
-		World world;
+		//World world; 
+		WorldOfTwo world;
+		
 
-		public Renderer() {
-			world = new World();
+		private void createWorld (float ratio){
+			//world = new World(ratio);
+			world = new WorldOfTwo(ratio);
+			world.setHitBrickHandler(context);
 		}
-
 
 		@Override
 		public void onDrawFrame( GL10 gl ) {
+			
+			if(isPaused)
+				gl.glClearColor(209f/256f,209f/256f,220f/256f,1f);
+			else
+				gl.glClearColor(1, 1, 1, 1);
+			
 			gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
-			world.step();
-			world.draw(gl);
-		}
 
+			world.draw(gl);
+			
+			if(isPaused)
+				return;
+			
+			previousTime = timeStamp;
+			timeStamp = System.currentTimeMillis();
+			if (previousTime != 0) {
+				int steps = (int) ((timeStamp - previousTime)/timeForStep);
+				int missing = (int) ((timeStamp - previousTime)%timeForStep);
+				timeStamp -= missing;
+				while (steps != 0) {
+					world.step();
+					steps--;
+				}
+			}
+			
+		}
 
 		@Override
 		public void onSurfaceChanged( GL10 gl, int width, int height ) {
+
 			gl.glViewport( 0, 0, width, height );
 			screenWidth = width;
 			screenHeight = height;
@@ -53,6 +93,10 @@ class TouchSurfaceView extends GLSurfaceView {
 
 			Matrix.orthoM( unprojectProjMatrix, 0, -ratio, ratio, -1.0f, 1.0f, -1.0f, 1.0f );
 			Matrix.setIdentityM( unprojectViewMatrix, 0 );
+			
+			if (world == null)
+				createWorld(ratio);
+
 		}
 
 
@@ -78,15 +122,16 @@ class TouchSurfaceView extends GLSurfaceView {
 		super( context );
 		renderer = new Renderer();
 		setRenderer( renderer );
-		renderer.world.setHitBrickHandler((MainActivity) context);
+		this.context = (MainActivity) context;
 	}
 
 
-	@Override
-	public boolean onTouchEvent( MotionEvent e ) {
-
-		final float screenX = e.getX();
-		final float screenY = screenHeight - e.getY();
+	private void handleTouch( MotionEvent e, int index) {
+		
+		isPaused = false;
+		
+		final float screenX = e.getX(index);
+		final float screenY = screenHeight - e.getY(index);
 
 		final int[] viewport = {
 				0, 0, screenWidth, screenHeight
@@ -101,15 +146,17 @@ class TouchSurfaceView extends GLSurfaceView {
 		resultWorldPos[1] /= resultWorldPos[3];
 		resultWorldPos[2] /= resultWorldPos[3];
 		resultWorldPos[3] = 1.0f;
-		
-		switch ( e.getAction() ) {
-		case MotionEvent.ACTION_MOVE:
-			renderer.world.updatePaddleSpeed( resultWorldPos[0], resultWorldPos[1] );
-			break;
-		case MotionEvent.ACTION_UP:
-			renderer.world.startBallIfNotStarted(resultWorldPos[1]);
-			break;
-		}
+
+		renderer.world.handleTouch(e ,resultWorldPos[0], resultWorldPos[1] );
+	}
+
+
+
+	@Override
+	public boolean onTouchEvent( MotionEvent e ) {
+
+		for(int i=0; i< e.getPointerCount(); i++)
+			handleTouch(e,i);
 		return true;
 	}
 

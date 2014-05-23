@@ -2,6 +2,8 @@ package br.usp.ime.mac5743;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.view.MotionEvent;
+
 public class World {
 
 	private Paddle paddle;
@@ -9,47 +11,68 @@ public class World {
 	private BrickList bricks;
 	private HitBrickHandler hitBrickHandler;
 	
+	private float ratio;
+
 	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
 		this.hitBrickHandler = hitBrickHandler;
 	}
 
-	public World(){
+	public World(float ratio){
+		this.ratio = ratio;
+        reset();
+	}
+	
+	private void reset (){
 		ball = new Ball();
-		bricks = new BrickList();
+		bricks = new BrickList(1,ratio);
 		paddle = new Paddle(ball);
 	}
-	
-	public void startBallIfNotStarted(float y) {
-         startBallIfNotStarted();
-	}
-	
-	private void startBallIfNotStarted() {
+
+	public void startBallIfNotStarted() {
 		if (ball.stopped())
-		     ball.launch();
+			ball.launch();
 	}
-	
+
+	public void handleTouch(MotionEvent e, float x, float y) {
+		switch ( e.getAction() ) {
+		case MotionEvent.ACTION_MOVE:
+			updatePaddleSpeed( x, y );
+			break;
+		case MotionEvent.ACTION_UP:
+			startBallIfNotStarted();
+			break;
+		}
+	}
+
 	public void updatePaddleSpeed( float x, float y ) {
 		paddle.setDestination( x );
 	}
-	
+
 	public void draw(GL10 gl) {
 		paddle.draw(gl);
 		ball.draw(gl);
 		bricks.draw(gl);
 	}
 	
+	private boolean lost(){
+		return (ball.posY < -1.2f);
+	}
+
 	public void step() {
-        paddle.updatePosition();
-        //TODO remove reference
-        ball.updatePosition();
-        float [] normalForceDirection = {0f,0f};
-        if (bricks.gotHit(ball,normalForceDirection)){
-        	ball.deflect(normalForceDirection);
-        	if(hitBrickHandler != null){
-        		hitBrickHandler.onHit();
-        	}
-        }
-        if (paddle.gotHit(ball,normalForceDirection)) 
-        	ball.deflect(normalForceDirection);
+		paddle.updatePosition();
+		ball.updatePosition();
+
+		if (bricks.checkHitAndDeflect(ball)){
+			if(bricks.playHitSound() && hitBrickHandler != null)
+				hitBrickHandler.onHit();
+		}
+		if (paddle.gotHit(ball)) 
+			paddle.changeSpeed(ball);
+		
+		if (lost())
+			reset();
+		
+		if (bricks.allBricksAreDead())
+			reset();
 	} 
 }
