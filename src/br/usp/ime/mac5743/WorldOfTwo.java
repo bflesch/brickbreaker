@@ -55,7 +55,8 @@ public class WorldOfTwo implements WorldInterface{
 		paddleLowSide = Paddle.createTwoPlayerPaddle(0f, -paddlePos);
 		paddleLowSide.setColor(colorPlayerInTheLowSide);
 		lineLowSide = new Line(-linePos,colorPlayerInTheLowSide);
-		brickList = new BrickList(2,screenRatio);
+		int unused = 1984;
+		brickList = new BrickList(2,unused,screenRatio);
 		
 
 	}

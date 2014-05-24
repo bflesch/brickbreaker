@@ -101,8 +101,8 @@ class TouchSurfaceView extends GLSurfaceView {
 	}
 	
 	private void createWorld (float ratio){
-		world = new WorldOfTwo(ratio);
 		//world = new WorldOfTwo(ratio);
+		world = new World(ratio);
 		world.setHitBrickHandler(context);
 		engine = new Engine();
 	}

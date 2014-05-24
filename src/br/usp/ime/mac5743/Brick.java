@@ -50,7 +50,7 @@ class Brick {
 	protected static final int WITH_UNUSED = 312120762;
 
 	public Brick(float x, float y){
-		posX = x; posY=y;
+		posX = x; posY=y; //TODO variar a largura em proporção a r
 		buildGlBuffer();
 	}
 	

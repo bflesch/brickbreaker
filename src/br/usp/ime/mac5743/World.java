@@ -26,7 +26,7 @@ public class World implements WorldInterface {
 	
 	private void reset (){
 		ball = new Ball();
-		bricks = new BrickList(1,ratio);
+		bricks = new BrickList(1,2,ratio);
 		paddle = new Paddle(ball);
 		paddle.setColor(paddleColor);
 	}
