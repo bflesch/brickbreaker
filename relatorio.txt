@@ -1,6 +1,6 @@
 OpenGL
 
-Escolhemos trabalhar com o OpenGL ES 1.0 por dois motivos, principalmente:
+Escolhemos trabalhar com o OpenGL ES 1.0  em vez do 2.0 por dois motivos, principalmente:
 
 1)simplicidade do pipeline: como dispúnhamos de tempo bastante limitado, principalmente para programar pareadamente, seria muito bom que mantivéssemos a complexidade a um mínimo
 

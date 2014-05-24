@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.usp.ime.mac5743"
     android:versionCode="1"
@@ -16,9 +17,15 @@
             android:name="br.usp.ime.mac5743.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
-            android:screenOrientation="userPortrait" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:screenOrientation="userPortrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="br.usp.ime.mac5743.MainMenu"
+            android:label="@string/title_activity_main_menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

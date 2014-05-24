@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.usp.ime.mac5743.MainMenu"
+    tools:ignore="MergeRootFrame" >
+
+    <Button
+        android:id="@+id/button_single_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startSinglePlayerGame"
+        android:text="Single Player" />
+
+    <Button
+        android:id="@+id/button_two_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startTwoPlayerGame"
+        android:text="Two Player" />
+
+</LinearLayout>

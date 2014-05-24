@@ -85,7 +85,7 @@ class TouchSurfaceView extends GLSurfaceView {
 			gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_BLEND);
 			gl.glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
 			gl.glDisable( GL10.GL_CULL_FACE );
-			gl.glShadeModel( GL10.GL_SMOOTH );
+			gl.glShadeModel( GL10.GL_FLAT );
 			gl.glDisable( GL10.GL_DEPTH_TEST );
 			System.err.println("VERSION: " + gl.glGetString(GL10.GL_VERSION));
 			Brick.loadGLTexture(gl, getContext().getApplicationContext());
