@@ -4,19 +4,18 @@ Pausa rudimentar
 ------------------------------------
 
 Mendes:
+Mais fases
+Paddle mais legal
+Descrever a parte da fisica
 
 Breno:
-A textura não parece funcionar, sequer no branch master.
-    Baixei manualmente o commit "will it blend ?" e nada.
-    Acho que deve ser um erro de controle de versão.
-    Vc pode dar uma olhada ?
-Testar o jogo em um celular mais lento
+Icone, nome
+menu funciona
+descrever a parte de musica, de textura e opengl
 ------------------------------------
 
 Obrigatorio
 
-Usuário selecionar entre 1P e PvP
-Integrar os dois branches
 
 
 -------------------------------------
