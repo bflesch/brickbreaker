@@ -22,33 +22,19 @@ class TouchSurfaceView extends GLSurfaceView {
 	private static float ratio = 0.0f;
 
 	MainActivity context;
+	Engine engine;
+	WorldInterface world;
 	
-	long timeStamp = 0; long previousTime = 0;
-	int stepsPerSecond = 60; long timeForStep = 1000/stepsPerSecond;
-
 	boolean isPaused = false;
 	
-	//Se o jogo não estava rodando, resete o
-	//timeStamp (caso contrário, ao voltar
-	//rodariamos toda a fisica que "estamos devendo")
 	public void onPause() {
 		isPaused = true;
-		timeStamp = 0;
+		engine.pause();
 		super.onPause();
 	}
 	
 	private class Renderer implements GLSurfaceView.Renderer {
-
-		//World world; 
-		WorldOfTwo world;
 		
-
-		private void createWorld (float ratio){
-			//world = new World(ratio);
-			world = new WorldOfTwo(ratio);
-			world.setHitBrickHandler(context);
-		}
-
 		@Override
 		public void onDrawFrame( GL10 gl ) {
 			
@@ -64,18 +50,7 @@ class TouchSurfaceView extends GLSurfaceView {
 			if(isPaused)
 				return;
 			
-			previousTime = timeStamp;
-			timeStamp = System.currentTimeMillis();
-			if (previousTime != 0) {
-				int steps = (int) ((timeStamp - previousTime)/timeForStep);
-				int missing = (int) ((timeStamp - previousTime)%timeForStep);
-				timeStamp -= missing;
-				while (steps != 0) {
-					world.step();
-					steps--;
-				}
-			}
-			
+			engine.runUpdates(world);
 		}
 
 		@Override
@@ -96,7 +71,6 @@ class TouchSurfaceView extends GLSurfaceView {
 			
 			if (world == null)
 				createWorld(ratio);
-
 		}
 
 
@@ -113,6 +87,7 @@ class TouchSurfaceView extends GLSurfaceView {
 			gl.glDisable( GL10.GL_CULL_FACE );
 			gl.glShadeModel( GL10.GL_SMOOTH );
 			gl.glDisable( GL10.GL_DEPTH_TEST );
+			System.err.println("VERSION: " + gl.glGetString(GL10.GL_VERSION));
 			Brick.loadGLTexture(gl, getContext().getApplicationContext());
 		}
 	}
@@ -124,7 +99,13 @@ class TouchSurfaceView extends GLSurfaceView {
 		setRenderer( renderer );
 		this.context = (MainActivity) context;
 	}
-
+	
+	private void createWorld (float ratio){
+		world = new WorldOfTwo(ratio);
+		//world = new WorldOfTwo(ratio);
+		world.setHitBrickHandler(context);
+		engine = new Engine();
+	}
 
 	private void handleTouch( MotionEvent e, int index) {
 		
@@ -147,7 +128,7 @@ class TouchSurfaceView extends GLSurfaceView {
 		resultWorldPos[2] /= resultWorldPos[3];
 		resultWorldPos[3] = 1.0f;
 
-		renderer.world.handleTouch(e ,resultWorldPos[0], resultWorldPos[1] );
+		world.handleTouch(e ,resultWorldPos[0], resultWorldPos[1] );
 	}
 
 

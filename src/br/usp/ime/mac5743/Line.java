@@ -3,8 +3,6 @@ package br.usp.ime.mac5743;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
-
 import javax.microedition.khronos.opengles.GL10;
 
 class Line {

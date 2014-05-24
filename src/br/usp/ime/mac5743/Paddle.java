@@ -1,14 +1,7 @@
 package br.usp.ime.mac5743;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-
-import javax.microedition.khronos.opengles.GL10;
-
 public class Paddle extends Brick {
 	
-	//TODO add code for special deflection on the upper side
 	//TODO corrigir paddle que invade a bola
 	
 	private float speed = 0.0f;
@@ -18,6 +11,17 @@ public class Paddle extends Brick {
 	int lastCollisionSide;
 	float deflectorPosition = .4f;
 
+	static Paddle createTwoPlayerPaddle(float x, float y){
+		return new Paddle(x,y);
+	}
+	
+	static Paddle createSinglePlayerPaddle(Ball ball){
+		Paddle toReturn = new Paddle(0f,-.8f);
+		toReturn.ball = ball;
+		ball.setPosition(toReturn.posX, toReturn.posY+(toReturn.height/2)+ball.radius);
+		return toReturn;
+	}
+	
     //on a one player game. Needs a ball, knows where to start
 	public Paddle(Ball ball) {
 		super(0f,-.8f);
@@ -30,7 +34,7 @@ public class Paddle extends Brick {
 	
 	//     on a two player game. Lacks a ball, 
 	//              does not know where to start
-	public Paddle(float x, float y) {
+	private Paddle(float x, float y) {
 		super(x,y);
 		height = .1f;
 		width = .4f;
@@ -85,9 +89,12 @@ public class Paddle extends Brick {
 		else {
 			posX = posX+speed;
 		}
-		//ball might be null for other types of paddle
 		if (ball != null && ball.stopped())
 			ball.comeWithMe(posX);
+	}
+	
+	void setColor(float[] color){
+		this.color = color;
 	}
 	
 }

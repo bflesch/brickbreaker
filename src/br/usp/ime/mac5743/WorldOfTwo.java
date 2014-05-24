@@ -4,16 +4,20 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.view.MotionEvent;
 
-public class WorldOfTwo {
+public class WorldOfTwo implements WorldInterface{
 
 	private static final int DRAW = 123324;
 	private static final int LOW_WINS = 3423;
 	private static final int HIGH_WINS = 007;
 	private static final int NO_WINNER_YET = 31232;
 	
-	private Paddle paddleHighSide; private Paddle paddleLowSide;
+	private Paddle paddleHighSide;
+	private Paddle paddleLowSide;
+	
+	private Line lineHighSide;
+	private Line lineLowSide;
+	
 	private Ball[] balls = {null,null,null,null};
-	private Line lineHighSide; private Line lineLowSide;
 	
 	private Brick highInvader; private Brick lowInvader;
 	private boolean game_over; private int gameOverTimer;
@@ -45,9 +49,11 @@ public class WorldOfTwo {
 		balls[2] = new Ball(.2f,-.2f);
 		balls[3] = new Ball(-.2f,-.2f);
 		
-		paddleHighSide = new twoPlayerPaddle(0f,paddlePos,colorPlayerInTheHighSide);
+		paddleHighSide = Paddle.createTwoPlayerPaddle(0f, paddlePos);
+		paddleHighSide.setColor(colorPlayerInTheHighSide);
 		lineHighSide = new Line(linePos,colorPlayerInTheHighSide);
-		paddleLowSide = new twoPlayerPaddle(0f,-paddlePos,colorPlayerInTheLowSide);
+		paddleLowSide = Paddle.createTwoPlayerPaddle(0f, -paddlePos);
+		paddleLowSide.setColor(colorPlayerInTheLowSide);
 		lineLowSide = new Line(-linePos,colorPlayerInTheLowSide);
 		brickList = new BrickList(2,screenRatio);
 		
@@ -68,8 +74,6 @@ public class WorldOfTwo {
 			return HIGH_WINS;
 		return NO_WINNER_YET;
 	}
-	
-
 	
 	public void startBallIfNotStarted() {
 		if (balls[0].stopped()) {
@@ -101,8 +105,7 @@ public class WorldOfTwo {
 		        balls[i].draw(gl);
 		brickList.draw(gl);
 		if (game_over) {
-			//Eles já foram desenhados na BrickList
-			//mas precisamos garantir que eles fiquem por cima
+			//precisamos garantir que eles fiquem por cima
 			if (highInvader != null)
 				highInvader.draw(gl);
 			if (lowInvader != null)

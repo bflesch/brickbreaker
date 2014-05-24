@@ -40,7 +40,7 @@ class Ball {
 			vertices[2*i+1]=radius *(float) Math.sin(rad);
 		}
 
-		ByteBuffer bBuff=ByteBuffer.allocateDirect(vertices.length*4);    
+		ByteBuffer bBuff=ByteBuffer.allocateDirect(vertices.length*FLOAT_SIZE_BYTES);    
 		bBuff.order(ByteOrder.nativeOrder());
 		vertexBuffer=bBuff.asFloatBuffer();
 		vertexBuffer.put(vertices);

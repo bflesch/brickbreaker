@@ -74,7 +74,7 @@ class Brick {
 	    		0.0f, 1.0f
 		};
 		
-		final float color[] = {    		
+		final float bg_color[] = {    		
 	    		1.0f, 1.0f,
 	    		1.0f, 0.05f
 		};
@@ -91,10 +91,10 @@ class Brick {
 		textureBuffer.put(texture);
 		textureBuffer.position(0);
 		
-		byteBuf = ByteBuffer.allocateDirect(color.length * FLOAT_SIZE_BYTES);
+		byteBuf = ByteBuffer.allocateDirect(bg_color.length * FLOAT_SIZE_BYTES);
 		byteBuf.order(ByteOrder.nativeOrder());
 		colorBuffer = byteBuf.asFloatBuffer();
-		colorBuffer.put(color);
+		colorBuffer.put(bg_color);
 		colorBuffer.position(0);
 	}    
 	
@@ -227,7 +227,7 @@ class Brick {
 				return;
 			}
 
-		//collide with the left
+		//collide with the left side
 		if (x_max > x + r && x + r > x_min)
 			if ( y_min < y  && y < y_max) {
 				withSide[0]=WITH_UNUSED;
@@ -236,7 +236,7 @@ class Brick {
 				return;
 			}
 
-		//collide with the right
+		//collide with the right side
 		if (x_max > x - r && x - r > x_min)
 			if ( y_min < y  && y < y_max) {
 				withSide[0]=WITH_UNUSED;
@@ -284,7 +284,7 @@ class Brick {
 	}
 	
 	public static void loadGLTexture(GL10 gl, Context context) {
-		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.raw.blox);
+		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.raw.quad);
 		if(textures == null){
 			textures = new int[2];
 		}
@@ -296,8 +296,8 @@ class Brick {
 		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
 		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
 
-		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_REPEAT);
-		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_REPEAT);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
 		
 		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, GL10.GL_RGBA, bitmap, 0);
 		

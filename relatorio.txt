@@ -1,0 +1,17 @@
+OpenGL
+
+Escolhemos trabalhar com o OpenGL ES 1.0 por dois motivos, principalmente:
+
+1)simplicidade do pipeline: como dispúnhamos de tempo bastante limitado, principalmente para programar pareadamente, seria muito bom que mantivéssemos a complexidade a um mínimo
+
+2)suporte a API legada: nos dispositivos que testamos, um Jelly Bean (4.2, API 16) e um KitKat (4.4, API 19), não haveria diferença. Mas, dado que o código de exemplo da TFG, no qual nos baseamos, suportava até a API 8 sem maiores problemas, decidimos que seria interessante manter o suporte para APIs baixas. Isso se mostrou razoável ao rodar o projeto em um Gingerbread (2.3, API 8).
+
+
+
+Referências
+
+http://insanitydesign.com/wp/projects/nehe-android-ports/
+http://www.opengl.org/archives/resources/faq/technical/transparency.htm
+http://developer.android.com/training/multiscreen/screendensities.html
+http://developer.android.com/guide/topics/manifest/activity-element.html#config
+https://www.khronos.org/opengles/sdk/1.1/docs/man/

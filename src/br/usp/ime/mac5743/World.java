@@ -4,7 +4,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.view.MotionEvent;
 
-public class World {
+public class World implements WorldInterface {
 
 	private Paddle paddle;
 	private Ball ball;
@@ -12,6 +12,8 @@ public class World {
 	private HitBrickHandler hitBrickHandler;
 	
 	private float ratio;
+	
+	private static float[] paddleColor = {0.0f,1.0f,1.0f,1.0f}; 
 
 	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
 		this.hitBrickHandler = hitBrickHandler;
@@ -26,6 +28,7 @@ public class World {
 		ball = new Ball();
 		bricks = new BrickList(1,ratio);
 		paddle = new Paddle(ball);
+		paddle.setColor(paddleColor);
 	}
 
 	public void startBallIfNotStarted() {
