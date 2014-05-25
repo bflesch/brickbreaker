@@ -36,8 +36,9 @@ class Brick {
 	// passam reto um pelo outro)
 	public static float defaultHeight = .05f;
 	protected float height = defaultHeight;
-	public static float defaultWidth = .15f;
-	protected float width = defaultWidth;
+	public static float widthBeforeRatio = .20f;
+	public static float ratio;
+	protected float width;
 	
 	protected float[] color = {1.0f,0.0f,0.0f, 1.0f};
 	
@@ -50,12 +51,14 @@ class Brick {
 	protected static final int WITH_UNUSED = 312120762;
 
 	public Brick(float x, float y){
-		posX = x; posY=y; //TODO variar a largura em proporção a r
+		posX = x; posY=y;
+		width = widthBeforeRatio*ratio;
 		buildGlBuffer();
 	}
 	
 	public Brick(float x, float y, float h, float w){
 		posX=x; posY=y; height=h; width=w;
+		width = widthBeforeRatio*ratio;
 		buildGlBuffer();
 	}
 	

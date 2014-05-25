@@ -4,12 +4,20 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.view.MotionEvent;
 
-public interface WorldInterface {
+public abstract class WorldInterface {
+	
+	float screenRatio;
 	
 	abstract public void step();
-	abstract public void setHitBrickHandler(HitSoundHandler hitBrickHandler);
+	abstract protected void start();
+	abstract public void setHitSoundHandler(HitSoundHandler hitBrickHandler);
 	abstract public void draw(GL10 gl);
 	abstract public void handleTouch(MotionEvent e, float x, float y);
-	abstract public void generate(float ratio);
+	
+	public void generate(float ratio){
+		this.screenRatio = ratio;
+		Brick.ratio = ratio;
+		start();
+	}
 
 }

@@ -47,10 +47,11 @@ class BrickList {
 		bricks = 95;
 		movableBricks = 0;
 		brickV = new Brick[bricks];
-		float xStart = -ratio + Brick.defaultWidth/2;
+		float brickWidth = Brick.widthBeforeRatio* Brick.ratio;
+		float xStart = -ratio + brickWidth/2;
 		float x = xStart;
-		float xStep = ((2*ratio - 4*Brick.defaultWidth)/3)
-				        + Brick.defaultWidth;
+		float xStep = ((2*ratio - 4*brickWidth)/3)
+				        + brickWidth;
 		float y = -.6f;
 		for(int i=0; i<bricks-3; i++) {
 			Brick brick = new Brick (x,y);

@@ -4,7 +4,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.view.MotionEvent;
 
-public class WorldOfTwo implements WorldInterface{
+public class WorldOfTwo extends WorldInterface{
 
 	private static final int DRAW = 123324;
 	private static final int LOW_WINS = 3423;
@@ -28,20 +28,14 @@ public class WorldOfTwo implements WorldInterface{
 	private float linePos = 0.6f;
 	private float paddlePos = 0.8f;
 	
-	private float screenRatio;
-	
 	private BrickList brickList;
 
-	public void generate(float ratio){
-		this.screenRatio = ratio;
-		this.start();
-	}
 	
 	private void restart() {
 		this.start();
 	}
 	
-	private void start() {
+	protected void start() {
 		game_over = false;highInvader = null; lowInvader = null;
 		
 		balls[0] = new Ball(.2f,.2f);
@@ -61,7 +55,7 @@ public class WorldOfTwo implements WorldInterface{
 
 	}
 	
-	public void setHitBrickHandler(HitSoundHandler hitBrickHandler) {
+	public void setHitSoundHandler(HitSoundHandler hitBrickHandler) {
 	}
 
 	private int whoWon() {

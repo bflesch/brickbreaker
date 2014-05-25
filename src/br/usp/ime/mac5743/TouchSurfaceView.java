@@ -71,7 +71,7 @@ class TouchSurfaceView extends GLSurfaceView {
 			
 			if (world != null){
 				world.generate(ratio);
-				world.setHitBrickHandler(context);
+				world.setHitSoundHandler(context);
 				engine = new Engine();
 			}
 		}

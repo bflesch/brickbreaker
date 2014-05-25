@@ -4,29 +4,27 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.view.MotionEvent;
 
-public class World implements WorldInterface {
+public class World extends WorldInterface {
 
 	private Paddle paddle;
 	private Ball ball;
 	private BrickList bricks;
-	private HitSoundHandler hitBrickHandler;
-	
-	private float ratio;
+	private HitSoundHandler hitBrickHandler;//TODO caçar esse nome
 	
 	private static float[] paddleColor = {0.0f,1.0f,1.0f,1.0f}; 
 
-	public void setHitBrickHandler(HitSoundHandler hitBrickHandler) {
+	public void setHitSoundHandler(HitSoundHandler hitBrickHandler) {
 		this.hitBrickHandler = hitBrickHandler;
 	}
 	
-	public void generate(float ratio){
-		this.ratio = ratio;
-		reset();
+	
+	private void restart() {
+		start();
 	}
 	
-	private void reset (){
+	protected void start (){
 		ball = new Ball();
-		bricks = new BrickList(1,2,ratio);
+		bricks = new BrickList(1,1,screenRatio);
 		paddle = new Paddle(ball);
 		paddle.setColor(paddleColor);
 	}
@@ -73,9 +71,9 @@ public class World implements WorldInterface {
 			paddle.changeSpeed(ball);
 		
 		if (lost())
-			reset();
+			restart();
 		
 		if (bricks.allBricksAreDead())
-			reset();
+			restart();
 	} 
 }

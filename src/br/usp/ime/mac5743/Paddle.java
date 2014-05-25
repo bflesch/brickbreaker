@@ -26,7 +26,7 @@ public class Paddle extends Brick {
 	public Paddle(Ball ball) {
 		super(0f,-.8f);
 		height = .1f;
-		width = .4f;
+		width = .6f*ratio;
 		this.ball = ball;
 		ball.setPosition(posX, posY+(height/2)+ball.radius);
 		buildGlBuffer();
