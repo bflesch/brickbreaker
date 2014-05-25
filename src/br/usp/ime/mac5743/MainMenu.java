@@ -32,11 +32,18 @@ public class MainMenu extends Activity {
 	
 	public void startSinglePlayerGame(View v){
 		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra(MainActivity.EXTRA_PLAYER_NUMBER, MainActivity.VALUE_SINGLE_PLAYER);
 		startActivity(intent);
 	}
 	
 	public void startTwoPlayerGame(View v){
 		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra(MainActivity.EXTRA_PLAYER_NUMBER, MainActivity.VALUE_TWO_PLAYER);
+		startActivity(intent);
+	}
+	
+	public void startCredits(View v){
+		Intent intent = new Intent(this, Credits.class);
 		startActivity(intent);
 	}
 

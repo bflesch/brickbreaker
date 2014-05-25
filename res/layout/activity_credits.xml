@@ -12,25 +12,10 @@
     tools:context="br.usp.ime.mac5743.MainMenu"
     tools:ignore="MergeRootFrame" >
 
-    <Button
-        android:id="@+id/button_single_player"
+    <TextView
+        android:id="@+id/textview_credits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="startSinglePlayerGame"
-        android:text="Single Player" />
-
-    <Button
-        android:id="@+id/button_two_player"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="startTwoPlayerGame"
-        android:text="Two Player" />
-    
-        <Button
-        android:id="@+id/button_two_player"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="startCredits"
-        android:text="Créditos" />
+        android:text="Programação,gráficos,SFX\nBreno Franco\nLucas Mendes\n\nMúsica\n Wallpaper, de Kevin McLeod\nwww,incompetech.com" />
 
 </LinearLayout>

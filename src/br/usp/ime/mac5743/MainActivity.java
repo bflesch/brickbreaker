@@ -11,6 +11,10 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends Activity implements HitBrickHandler {
+	
+	public final static String EXTRA_PLAYER_NUMBER = "br.usp.ime.mac5743.players";
+	public final static String VALUE_SINGLE_PLAYER = "SINGLE_PLAYER";
+	public final static String VALUE_TWO_PLAYER = "TWO_PLAYER";
 
     private GLSurfaceView glSurfaceView;
     private MediaPlayer bgmPlayer;
@@ -24,9 +28,19 @@ public class MainActivity extends Activity implements HitBrickHandler {
 	@Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
+        
 
         glSurfaceView = new TouchSurfaceView( this );
         setContentView( glSurfaceView );
+        
+        String players = getIntent().getStringExtra(EXTRA_PLAYER_NUMBER);
+        if (players.equals(VALUE_SINGLE_PLAYER)){
+        	((TouchSurfaceView) glSurfaceView).createSinglePlayerWorld(this); 
+        }
+        else {
+        	((TouchSurfaceView) glSurfaceView).createTwoPlayerWorld(this);
+        }
+
         
         glSurfaceView.requestFocus();
         glSurfaceView.setFocusableInTouchMode( true );

@@ -69,7 +69,7 @@ class TouchSurfaceView extends GLSurfaceView {
 			Matrix.orthoM( unprojectProjMatrix, 0, -ratio, ratio, -1.0f, 1.0f, -1.0f, 1.0f );
 			Matrix.setIdentityM( unprojectViewMatrix, 0 );
 			
-			if (world == null)
+			if (world == null) //TODO rever
 				createWorld(ratio);
 		}
 
@@ -144,5 +144,17 @@ class TouchSurfaceView extends GLSurfaceView {
 
 	public static float getRatio() {
 		return ratio;
+	}
+
+	public void createSinglePlayerWorld(Context activity) {
+		world = new World(ratio);
+		world.setHitBrickHandler(context);
+		engine = new Engine();
+	}
+	
+	public void createTwoPlayerWorld(Context activity) {
+		world = new WorldOfTwo(ratio);
+		world.setHitBrickHandler(context);
+		engine = new Engine();
 	}
 }
