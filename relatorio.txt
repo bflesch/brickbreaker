@@ -15,3 +15,4 @@ http://www.opengl.org/archives/resources/faq/technical/transparency.htm
 http://developer.android.com/training/multiscreen/screendensities.html
 http://developer.android.com/guide/topics/manifest/activity-element.html#config
 https://www.khronos.org/opengles/sdk/1.1/docs/man/
+http://www.pacdv.com/sounds/mechanical_sounds.html
