@@ -31,12 +31,12 @@ public class WorldOfTwo implements WorldInterface{
 	private float screenRatio;
 	
 	private BrickList brickList;
-	
-	public WorldOfTwo(float ratio){
+
+	public void generate(float ratio){
 		this.screenRatio = ratio;
 		this.start();
 	}
-
+	
 	private void restart() {
 		this.start();
 	}
@@ -61,7 +61,7 @@ public class WorldOfTwo implements WorldInterface{
 
 	}
 	
-	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
+	public void setHitBrickHandler(HitSoundHandler hitBrickHandler) {
 	}
 
 	private int whoWon() {

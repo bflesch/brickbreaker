@@ -10,7 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends Activity implements HitBrickHandler {
+public class MainActivity extends Activity implements HitSoundHandler {
 	
 	public final static String EXTRA_PLAYER_NUMBER = "br.usp.ime.mac5743.players";
 	public final static String VALUE_SINGLE_PLAYER = "SINGLE_PLAYER";

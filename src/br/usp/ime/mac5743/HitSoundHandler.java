@@ -1,5 +1,5 @@
 package br.usp.ime.mac5743;
 
-public interface HitBrickHandler {
+public interface HitSoundHandler {
 	abstract public void onHit();
 }

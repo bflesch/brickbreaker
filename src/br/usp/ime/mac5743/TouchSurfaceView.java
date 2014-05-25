@@ -69,8 +69,11 @@ class TouchSurfaceView extends GLSurfaceView {
 			Matrix.orthoM( unprojectProjMatrix, 0, -ratio, ratio, -1.0f, 1.0f, -1.0f, 1.0f );
 			Matrix.setIdentityM( unprojectViewMatrix, 0 );
 			
-			if (world == null) //TODO rever
-				createWorld(ratio);
+			if (world != null){
+				world.generate(ratio);
+				world.setHitBrickHandler(context);
+				engine = new Engine();
+			}
 		}
 
 
@@ -100,13 +103,6 @@ class TouchSurfaceView extends GLSurfaceView {
 		this.context = (MainActivity) context;
 	}
 	
-	private void createWorld (float ratio){
-		//world = new WorldOfTwo(ratio);
-		world = new World(ratio);
-		world.setHitBrickHandler(context);
-		engine = new Engine();
-	}
-
 	private void handleTouch( MotionEvent e, int index) {
 		
 		isPaused = false;
@@ -147,14 +143,10 @@ class TouchSurfaceView extends GLSurfaceView {
 	}
 
 	public void createSinglePlayerWorld(Context activity) {
-		world = new World(ratio);
-		world.setHitBrickHandler(context);
-		engine = new Engine();
+		world = new World();
 	}
 	
 	public void createTwoPlayerWorld(Context activity) {
-		world = new WorldOfTwo(ratio);
-		world.setHitBrickHandler(context);
-		engine = new Engine();
+		world = new WorldOfTwo();
 	}
 }

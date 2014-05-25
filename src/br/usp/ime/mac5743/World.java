@@ -9,19 +9,19 @@ public class World implements WorldInterface {
 	private Paddle paddle;
 	private Ball ball;
 	private BrickList bricks;
-	private HitBrickHandler hitBrickHandler;
+	private HitSoundHandler hitBrickHandler;
 	
 	private float ratio;
 	
 	private static float[] paddleColor = {0.0f,1.0f,1.0f,1.0f}; 
 
-	public void setHitBrickHandler(HitBrickHandler hitBrickHandler) {
+	public void setHitBrickHandler(HitSoundHandler hitBrickHandler) {
 		this.hitBrickHandler = hitBrickHandler;
 	}
-
-	public World(float ratio){
+	
+	public void generate(float ratio){
 		this.ratio = ratio;
-        reset();
+		reset();
 	}
 	
 	private void reset (){

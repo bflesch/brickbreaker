@@ -7,8 +7,9 @@ import android.view.MotionEvent;
 public interface WorldInterface {
 	
 	abstract public void step();
-	abstract public void setHitBrickHandler(HitBrickHandler hitBrickHandler);
+	abstract public void setHitBrickHandler(HitSoundHandler hitBrickHandler);
 	abstract public void draw(GL10 gl);
 	abstract public void handleTouch(MotionEvent e, float x, float y);
+	abstract public void generate(float ratio);
 
 }
