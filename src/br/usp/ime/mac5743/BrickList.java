@@ -26,14 +26,14 @@ class BrickList {
 		float positionY = 0.4f; //position of the center
 		float width = ratio*1.2f; // side of the box
 		float height = .5f; //height of the box
-		brickV[0] = new IronBrick(-width/2+side/2, positionY, 
-				                                      height, side);
+		brickV[0] = new IronBrick(-width/2+side/2, positionY-side/2, 
+				                                      height-side, side);
 		brickV[1] = new IronBrick(0, height/2-side/2 +positionY
 				                                    , side,  width);
 		brickV[2] = new IronBrick(+width/2-side/2, positionY, 
-				                                      height, side);
-		brickV[3] = new IronBrick(width/4,-height/2+side/2 + positionY, 
-				                                     side, ratio/2);
+				                                      height-2*side, side);
+		brickV[3] = new IronBrick(width/4-side/4,-height/2+side/2 + positionY, 
+				                                     side, width/2+side/2);
 		brickV[4] = new IronBrick(0,  -height/4+side + positionY,  
 				                                   height/2,  side);
 		brickV[5] = new Brick(width/4,-height*.3f+positionY);

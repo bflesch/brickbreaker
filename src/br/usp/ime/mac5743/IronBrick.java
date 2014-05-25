@@ -8,8 +8,7 @@ class IronBrick extends Brick {
 		posX=x; posY=y; height=h; width=w;
 		makesSound = false;
 		isKillable = false;
-		//TODO set color
-		color[0] = 0; color[1] = 1; color[2] = 0; color[3] = 1;
+		color[0] = 101/256; color[1] = 110/256; color[2] = 117/256; color[3] = 1;
 		buildGlBuffer();
 	}
 	
