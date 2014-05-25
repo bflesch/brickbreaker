@@ -24,7 +24,7 @@ public class World extends WorldInterface {
 	
 	protected void start (){
 		ball = new Ball();
-		bricks = new BrickList(1,1,screenRatio);
+		bricks = new BrickList(1,3,screenRatio);
 		paddle = new Paddle(ball);
 		paddle.setColor(paddleColor);
 	}
