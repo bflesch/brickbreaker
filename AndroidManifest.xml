@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name="br.usp.ime.mac5743.MainMenu"
-            android:label="@string/title_activity_main_menu" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
