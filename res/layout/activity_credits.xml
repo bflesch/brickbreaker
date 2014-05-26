@@ -16,6 +16,6 @@
         android:id="@+id/textview_credits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Programação,gráficos,SFX\nBreno Franco\nLucas Mendes\n\nMúsica\n Wallpaper, de Kevin McLeod\nwww,incompetech.com" />
+        android:text="@string/credits" />
 
 </LinearLayout>

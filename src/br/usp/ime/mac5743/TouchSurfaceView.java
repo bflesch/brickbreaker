@@ -71,7 +71,6 @@ class TouchSurfaceView extends GLSurfaceView {
 			
 			if (world != null){
 				world.generate(ratio);
-				world.setHitSoundHandler(context);
 				engine = new Engine();
 			}
 		}
@@ -142,11 +141,13 @@ class TouchSurfaceView extends GLSurfaceView {
 		return ratio;
 	}
 
-	public void createSinglePlayerWorld(Context activity) {
+	public WorldInterface createSinglePlayerWorld(Context activity) {
 		world = new World();
+		return world;
 	}
 	
-	public void createTwoPlayerWorld(Context activity) {
+	public WorldInterface createTwoPlayerWorld(Context activity) {
 		world = new WorldOfTwo();
+		return world;
 	}
 }

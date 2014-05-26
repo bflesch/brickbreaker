@@ -17,7 +17,6 @@ public class World extends WorldInterface {
 		this.hitBrickHandler = hitBrickHandler;
 	}
 	
-	
 	private void restart() {
 		start();
 	}
@@ -73,7 +72,9 @@ public class World extends WorldInterface {
 		if (lost())
 			restart();
 		
-		if (bricks.allBricksAreDead())
+		if (bricks.allBricksAreDead()){
+			hitBrickHandler.playApplause();
 			restart();
+		}
 	} 
 }

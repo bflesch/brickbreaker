@@ -5,5 +5,6 @@
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_credits">Créditos</string>
+    <string name="credits">Programação,gráficos,SFX\nBreno Franco\nLucas Mendes\n\nMúsica\n Wallpaper, de Kevin McLeod\nwww,incompetech.com</string>
 
 </resources>
