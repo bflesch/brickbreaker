@@ -10,6 +10,7 @@ public class World extends WorldInterface {
 	private Ball ball;
 	private BrickList bricks;
 	private HitSoundHandler hitBrickHandler;//TODO caçar esse nome
+	private int level = 1;
 	
 	private static float[] paddleColor = {0.0f,1.0f,1.0f,1.0f}; 
 
@@ -24,7 +25,7 @@ public class World extends WorldInterface {
 	
 	protected void start (){
 		ball = new Ball();
-		bricks = new BrickList(1,3,screenRatio);
+		bricks = new BrickList(1,level,screenRatio);
 		paddle = new Paddle(ball);
 		paddle.setColor(paddleColor);
 	}
@@ -73,7 +74,11 @@ public class World extends WorldInterface {
 		if (lost())
 			restart();
 		
-		if (bricks.allBricksAreDead())
+		if (bricks.allBricksAreDead()){
+			level +=1;
+			if (level > BrickList.maxLevels)
+				level = 1;
 			restart();
+		}
 	} 
 }
