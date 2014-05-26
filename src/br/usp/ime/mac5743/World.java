@@ -56,6 +56,10 @@ public class World extends WorldInterface {
 		bricks.draw(gl);
 	}
 	
+	public boolean isFinished() {
+		return (level > BrickList.maxLevels);
+	}
+	
 	private boolean lost(){
 		return (ball.posY < -1.2f);
 	}
@@ -76,9 +80,8 @@ public class World extends WorldInterface {
 		
 		if (bricks.allBricksAreDead()){
 			level +=1;
-			if (level > BrickList.maxLevels)
-				level = 1;
-			restart();
+			if (level <= BrickList.maxLevels)
+			    restart();
 		}
 	} 
 }

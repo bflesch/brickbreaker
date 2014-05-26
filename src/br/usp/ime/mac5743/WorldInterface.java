@@ -13,6 +13,7 @@ public abstract class WorldInterface {
 	abstract public void setHitSoundHandler(HitSoundHandler hitBrickHandler);
 	abstract public void draw(GL10 gl);
 	abstract public void handleTouch(MotionEvent e, float x, float y);
+	abstract public boolean isFinished(); 
 	
 	public void generate(float ratio){
 		this.screenRatio = ratio;

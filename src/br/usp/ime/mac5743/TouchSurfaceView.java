@@ -43,6 +43,9 @@ class TouchSurfaceView extends GLSurfaceView {
 			else
 				gl.glClearColor(1, 1, 1, 1);
 			
+			if (world.isFinished())
+				context.finish();
+			
 			gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
 
 			world.draw(gl);
@@ -51,6 +54,7 @@ class TouchSurfaceView extends GLSurfaceView {
 				return;
 			
 			engine.runUpdates(world);
+			
 		}
 
 		@Override
