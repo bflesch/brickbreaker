@@ -8,15 +8,15 @@ class BrickList {
 	int movableBricks;
 	Brick brickV[]; 
 	boolean playSound;
-
+    public static final int maxLevels = 3; 
 
 	public BrickList(int players, int level,float ratio) {
 		if(players == 1 && level == 1)
 			buildClassicalOnePlayerGame(ratio);
 		if(players == 1 && level == 2)
-			buildGolfOnePlayerGame(ratio);
-		if(players == 1 && level == 3)
 			buildStairsOnePlayerGame(ratio);
+		if(players == 1 && level == 3)
+			buildGolfOnePlayerGame(ratio);
 		if(players == 2)
 			buildTwoPlayerGame(ratio);
 	}
@@ -47,6 +47,7 @@ class BrickList {
 
 	private void buildClassicalOnePlayerGame (float ratio){
 		bricks = 95;
+		//bricks = 4; TODO
 		brickV = new Brick[bricks];
 		float brickWidth = Brick.widthBeforeRatio* Brick.ratio;
 		float xStart = -ratio + brickWidth/2;
@@ -69,7 +70,8 @@ class BrickList {
 	}
 
 	private void buildStairsOnePlayerGame (float ratio){
-		bricks = 20;
+		bricks = 52;
+		//bricks = 5; TODO
 		brickV = new Brick[bricks];
 		float brickWidth = Brick.widthBeforeRatio* Brick.ratio;
 		float xStart = -ratio + brickWidth/2;

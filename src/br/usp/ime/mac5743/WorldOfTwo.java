@@ -83,6 +83,10 @@ public class WorldOfTwo extends WorldInterface{
 		}
 	}
 	
+	public boolean isFinished() {
+		return false;
+	}
+	
 	public void handleTouch(MotionEvent unused, float x, float y ) {
 		if (y > 0)
 		   paddleHighSide.setDestination( x );
