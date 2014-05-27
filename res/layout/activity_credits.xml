@@ -13,9 +13,41 @@
     tools:ignore="MergeRootFrame" >
 
     <TextView
-        android:id="@+id/textview_credits"
+        android:id="@+id/textview_developers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/credits" />
+        android:text="@string/developers" />
+
+    <TextView
+        android:id="@+id/textview_developers_names"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/developers_names"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:id="@+id/textview_music"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/music" />
+
+    <TextView
+        android:id="@+id/textview_music_names"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/music_names"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:id="@+id/textview_applause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/applause" />
+
+    <TextView
+        android:id="@+id/textview_applause_names"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/applause_names" />
 
 </LinearLayout>

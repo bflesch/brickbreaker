@@ -32,6 +32,7 @@ public class TouchSurfaceView extends GLSurfaceView {
 	World world;
 	
 	boolean isPaused = false;
+	boolean inhibitPauseOverlay = false;
 	
 	public void onPause() {
 		isPaused = true;
@@ -54,8 +55,8 @@ public class TouchSurfaceView extends GLSurfaceView {
 			gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
 			world.draw(gl);			
 			if(isPaused){
-				//gl.glColor4f(0.3f,0.3f,0.3f, 0.4f);
-				pauseOverlay.draw(gl);
+				if(!world.isFinished() && !inhibitPauseOverlay)
+					pauseOverlay.draw(gl);
 			}
 			else {
 				engine.runUpdates(world);

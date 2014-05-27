@@ -2,9 +2,18 @@
 <resources>
 
     <string name="app_name">Brickbreaker</string>
-    <string name="title_activity_main_menu">MainMenu</string>
-    <string name="action_settings">Settings</string>
+    <string name="title_activity_main_menu">Menu Principal</string>
+    <string name="action_settings">Configurações</string>
     <string name="title_activity_credits">Créditos</string>
-    <string name="credits">Programação,gráficos,SFX\nBreno Franco\nLucas Mendes\n\nMúsica\n Wallpaper, de Kevin McLeod\nwww,incompetech.com</string>
+    <string name="full_credits">Programação, gráficos, SFX\nBreno Franco\nLucas Mendes\n\nMúsica\n Wallpaper, de Kevin McLeod\nwww.incompetech.com</string>
+    <string name="single_player">Um Jogador</string>
+    <string name="two_player">Dois Jogadores</string>
+    <string name="credits">Créditos</string>
+    <string name="developers">Programação, gráficos, SFX</string>
+    <string name="developers_names">Breno Franco\nLucas Mendes</string>
+    <string name="music">Música</string>
+    <string name="music_names">Wallpaper, de Kevin McLeod (<a href='http://www.incompetech.com'>incompetech.com</a>)</string>
+    <string name="applause">Som de Aplausos</string>
+    <string name="applause_names">http://www.freesound.org/people/Aiwha/sounds/189186/</string>
 
 </resources>

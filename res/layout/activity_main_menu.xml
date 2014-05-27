@@ -17,20 +17,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="startSinglePlayerGame"
-        android:text="Single Player" />
+        android:text="@string/single_player" />
 
     <Button
         android:id="@+id/button_two_player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="startTwoPlayerGame"
-        android:text="Two Player" />
+        android:text="@string/two_player" />
     
         <Button
-        android:id="@+id/button_two_player"
+        android:id="@+id/button_credits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="startCredits"
-        android:text="Créditos" />
+        android:text="@string/credits" />
 
 </LinearLayout>
