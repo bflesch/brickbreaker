@@ -66,6 +66,11 @@ public class MainActivity extends Activity  {
 		soundManager.pause();
 	}
 	
+	public void onBackPressed(){
+		glSurfaceView.inhibitPauseOverlay = true;
+		super.onBackPressed();
+	}
+	
 	public SoundManager getSoundHandler() {
 		return soundManager;
 	}
