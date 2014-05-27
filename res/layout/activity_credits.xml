@@ -16,6 +16,7 @@
         android:id="@+id/textview_developers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/developers" />
 
     <TextView
@@ -23,12 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/developers_names"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="40dp" />
 
     <TextView
         android:id="@+id/textview_music"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/music" />
 
     <TextView
@@ -36,12 +38,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/music_names"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="40dp" />
 
     <TextView
         android:id="@+id/textview_applause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/applause" />
 
     <TextView
