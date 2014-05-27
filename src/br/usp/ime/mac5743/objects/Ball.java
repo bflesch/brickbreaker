@@ -18,7 +18,7 @@ public class Ball {
 	//caso contrário, poderá haver teleportes
 	// (i.e., o bloquinho e a bola deviam bater, mas
 	// passam reto um pelo outro)
-	private float speedSize = 2f*1.0f/150.0f;
+	private float speedSize = 2.0f/150.0f;
 
 	public float posX;
 	public float posY;
@@ -56,6 +56,10 @@ public class Ball {
 		speedY = direction[1]*speedSize;
 	}
 
+	public void becomeQuick() {
+		this.speedSize = 3.0f/150.0f;
+	}
+	
 	public void launch(){
 		speedX = speedSize;
 		float [] direction = {1,1};
