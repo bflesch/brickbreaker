@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 public class MainActivity extends Activity  {
 
@@ -26,6 +27,7 @@ public class MainActivity extends Activity  {
 
 		glSurfaceView = new TouchSurfaceView( this );
 		setContentView( glSurfaceView );
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		String players = getIntent().getStringExtra(EXTRA_PLAYER_NUMBER);
 		if (players.equals(VALUE_SINGLE_PLAYER)){
