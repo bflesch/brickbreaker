@@ -1,4 +1,28 @@
-OpenGL
+Procure TODO antes de mandar!
+(aqui e no código =P)
+
+Nesse relatório, descrevemos a implementação de um jogo do estilo brickbreaker, realizada como exercício programa da disciplina "Computação Móvel", ministrada no primeiro semestre de 2014 no Instituto de Matemática e estatística da USP.
+
+
+Motivação do trabalho
+
+O trabalho consiste na implementação de um jogo no estilo brickbreaker na plataforma android. Esse modelo de jogo é bastante popular e tem diversas implementações disponíveis. 
+
+O interesse maior no trabalho era de aprendizado, tanto de desenvolvimento de jogos em geral, como das peculiaridades que surgem quando se implementa esse jogo em um dispositivo móvel. 
+
+Dispositivos móveis trazem muitas possibilidades para o desenvolvimento de jogos que não existem em consoles mais tradicionais: A interação com o usuário é normalmente feita via toque na tela (ao invés de teclado ou mouse); alguns dispositivos móveis oferece diversos sensores que podem ser explorados (como acelerômetro, magnetômetro e GPS); existe a possibilidade de usar a tela nas orientações retrato e paisagem (em oposição aos consoles tradicionais que costumam apenas oferecer a orientação "paisagem"); os jogos podem ser vistos de mais de ângulos distintos por diferentes jogadores (porque a tela é relativamente pequena e móvel).
+
+Nosso jogo explora bastante duas dessas características: a interação via toque e a possibilidade de diferentes jogadores verem a tela de ângulos diferentes (essa segunda, no modo multiplayer).
+
+TODO Descricao (manual do usuário)
+
+
+TODO Extrutura do código
+
+
+Comentários gerais sobre o código:
+
+Nosso código é construido usando a implementação de OpenGL ES 1.0 para android.
 
 Escolhemos trabalhar com o OpenGL ES 1.0  em vez do 2.0 por dois motivos, principalmente:
 
@@ -6,13 +30,103 @@ Escolhemos trabalhar com o OpenGL ES 1.0  em vez do 2.0 por dois motivos, princi
 
 2)suporte a API legada: nos dispositivos que testamos, um Jelly Bean (4.2, API 16) e um KitKat (4.4, API 19), não haveria diferença. Mas, dado que o código de exemplo da TFG, no qual nos baseamos, suportava até a API 8 sem maiores problemas, decidimos que seria interessante manter o suporte para APIs baixas. Isso se mostrou razoável ao rodar o projeto em um Gingerbread (2.3, API 8).
 
+TODO breno explicar openGL mais ?
 
+A tela:
+
+Dispositivos diferentes têm telas com proporções diferentes. Nosso jogo se adapta a essas proporções: O tamanho horizontal da tela é calculado na função OnSurfaceChanged, implementada no arquivo TouchSurfaceView. Essa informação é propagada por todo o código: World, Brick e Paddle precisam dela para se construir corretamente.
+
+Fisica, gráficos e Game Loop:
+
+O jogo é fortemente baseado no padrão GameLoop, como explicado em: http://gameprogrammingpatterns.com/game-loop.html
+
+A cada renderização da tela de jogo, calculamos quanto tempo se passou (desde a última renderização) e fazemos a quantidade correspondente de passos da engine de física.
+
+Infelizmente, a quantidade de tempo passado entre duas renderizações pode não ser mutipla da quantidade de tempo em que ocorre um passo da física  
+
+TODO half step
+A extrutura basica do gameloop:
+OnDraw, chama a física quantas vezes for necessário
+   essa extrutura é boa por criar um jogo consistente, independente da velocidade do preocessador
+half step, sutter
+runaway process é possível, mas não vimos
+testes em celulares diferentes 
+
+
+Detecção de colisão e colisão
+-> reflexão (em qq eixo)
+desenhos: bola na superficie, bola no corner
+-> agregação de normais
+desenho: ----
+            ----
+desenho:
+----
+        <-0
+----
+-> evitar teleporte
+-> problema da paddle: fizemos experiencias mas não achamos uma boa solução
+-> poderia ficar bem mais eficiente: 
+   verificar mais curto, setorizar
+ Profilling rudimentar indicou que isso não é um problema
+
+Paddle1 e paddle2 e paddle3
+paddle1: controle só com os cantos
+paddle2: reflexão com formato não trivial. ainda sim é dificil o controle: acertar a bolinha na posicao certa. A posicao depende da velocidade
+desenho: angulo de reflexão
+paddle3: posição causa velocidade. 
+desenho: nova velocidade
+desenho: nova velocidade, outro parametro
+É ajustável
+sai da tela um pouco: um bug promovido a feature
+
+Idéias, bugs e melhorias
+
+Ideias para "juiciness"
+sons diferentes piu piuuu poiull
+impacto: bloco some animadamente
+impacto: bola "vibra"
+impacto: paddle desce
+outra musica quando acontece a vitória
+you win, you lose
+trail
+paddle nao ser invadida
+
+Idéias para jogabilidade:
+     -> precisão versus survival
+     -> paddle calibravel
+     -> golf calibravel
+     -> Pacing (1P vs 2P)
+     -> vidas
+
+Ideias para desempenho
+ OpenGl: compartilhar o buffer dos bloquinhos
+ Colisão: teste de colisao podia falhar mais rápido
+          setorizar o espaço
+(nao temos certeza se é útil)
+
+Testes com usuários
+(o jogo de 2 players foi bem recebido, pelo menos num primeiro momento)
+Testes com outros celulares (roda, mas graficos meio meia boca. Seria legal fazer mais)
+
+Bug do android ? (temple run, smash e nóis)
+
+Aprendizado:
+
+GameLoop
+Colisão
+OpenGL
+Interação touch (muito fácil!)
+Questoes interessantes, respostas dificeis de achar:
+o que torna um jogo interessante ? quais sao as features a respeito das quais pensar ?
+Funcionamento do openGl: documentação meio esparsa
 
 Referências
 
+ http://gameprogrammingpatterns.com/game-loop.html
 http://insanitydesign.com/wp/projects/nehe-android-ports/
 http://www.opengl.org/archives/resources/faq/technical/transparency.htm
 http://developer.android.com/training/multiscreen/screendensities.html
 http://developer.android.com/guide/topics/manifest/activity-element.html#config
 https://www.khronos.org/opengles/sdk/1.1/docs/man/
 http://www.pacdv.com/sounds/mechanical_sounds.html
+
