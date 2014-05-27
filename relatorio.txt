@@ -30,7 +30,6 @@ Escolhemos trabalhar com o OpenGL ES 1.0 em vez do 2.0 por dois motivos, princip
 
 2)suporte a API legada: nos dispositivos que testamos, um Jelly Bean (4.2, API 16) e um KitKat (4.4, API 19), não haveria diferença. Mas, dado que o código de exemplo da TFG, no qual nos baseamos, suportava até a API 8 sem maiores problemas, decidimos que seria interessante manter o suporte para APIs baixas. Isso se mostrou razoável ao rodar o projeto em um Gingerbread (2.3, API 8).
 
-<<<<<<< HEAD
 As texturas são desenhadas em três passos: primeiro é pintado o fundo da textura (RGBA 255, 255, 255, 0), depois a textura em si, em tom de cinza, e depois a cor de overlay, com alpha blending source, one minus alpha source.
 
 Os arquivos de textura foram feitos no Inkscape e GIMP.
@@ -53,15 +52,11 @@ Todos os sons foram obtidos com licenças CC-BY
 Os efeitos sonoros são executados com um SoundPool; a música, com um MediaPlayer. Ambos foram colocados na classe SoundManager.
 
 
-=======
-TODO breno explicar openGL mais ?
-
 A tela:
 
 Dispositivos diferentes têm telas com proporções diferentes. Nosso jogo se adapta a essas proporções: O tamanho horizontal da tela é calculado na função OnSurfaceChanged, implementada no arquivo TouchSurfaceView. Essa informação é propagada por todo o código: World, Brick e Paddle precisam dela para se construir corretamente.
 
 Fisica, gráficos e Game Loop:
->>>>>>> 39a10dd31669a07a479ba81a92501f37ce1705fb
 
 O jogo é fortemente baseado no padrão GameLoop, como explicado em: http://gameprogrammingpatterns.com/game-loop.html
 
@@ -147,16 +142,12 @@ Funcionamento do openGl: documentação meio esparsa
 
 Referências
 
- http://gameprogrammingpatterns.com/game-loop.html
+http://gameprogrammingpatterns.com/game-loop.html
 http://insanitydesign.com/wp/projects/nehe-android-ports/
 http://www.opengl.org/archives/resources/faq/technical/transparency.htm
 http://developer.android.com/training/multiscreen/screendensities.html
 http://developer.android.com/guide/topics/manifest/activity-element.html#config
 https://www.khronos.org/opengles/sdk/1.1/docs/man/
 http://www.pacdv.com/sounds/mechanical_sounds.html
-<<<<<<< HEAD
 http://www.freesound.org/people/Aiwha/sounds/189186/
 http://www.bfxr.net
-=======
-
->>>>>>> 39a10dd31669a07a479ba81a92501f37ce1705fb
