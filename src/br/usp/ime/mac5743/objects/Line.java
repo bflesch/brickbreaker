@@ -11,18 +11,17 @@ public class Line {
 	    private float height;
 	    private float[] color = {0,0,0,0};
 
-	    public Line (float height, float[] color) {
+	    public Line (float height, float[] color, float ratio) {
 	    	this.height = height;
 	    	this.color = color;
-	    	buildGlBuffer();
+	    	buildGlBuffer(ratio);
 	    }
 	    
-    	protected void buildGlBuffer () {
+    	protected void buildGlBuffer (float ratio) {
 		float[] vertices= {
-				-1.0f, height,
-				1.0f, height,
+				-ratio, height,
+				ratio, height,
 				//yep, it gets drawn out of the screen
-				//TODO may it get too short ?
 		};
 
 		ByteBuffer bBuff=ByteBuffer.allocateDirect(vertices.length*4);    

@@ -13,7 +13,7 @@ public abstract class World {
 	
 	abstract public void step();
 	abstract protected void start();
-	abstract public void setHitSoundHandler(SoundManager hitBrickHandler);
+	abstract public void setHitSoundHandler(SoundManager hitSoundHandler);
 	abstract public void draw(GL10 gl);
 	abstract public void handleTouch(MotionEvent e, float x, float y);
 	abstract public boolean isFinished(); 
