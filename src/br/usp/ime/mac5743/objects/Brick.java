@@ -106,7 +106,6 @@ public class Brick {
 	
 	public void step() {
 	}
-	//TODO return speed ?
 	//Sets speed of the ball according to simple reflection
 	public static void reflect(Ball ball, float[] normalForceDirection) {
 		

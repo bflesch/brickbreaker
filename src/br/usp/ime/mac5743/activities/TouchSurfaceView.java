@@ -5,7 +5,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import br.usp.ime.mac5743.engine.Engine;
 import br.usp.ime.mac5743.engine.World;
-import br.usp.ime.mac5743.engine.WorldInterface;
+import br.usp.ime.mac5743.engine.WorldOfOne;
 import br.usp.ime.mac5743.engine.WorldOfTwo;
 import br.usp.ime.mac5743.objects.Brick;
 import br.usp.ime.mac5743.objects.Overlay;
@@ -29,7 +29,7 @@ public class TouchSurfaceView extends GLSurfaceView {
 
 	MainActivity mainActivity;
 	Engine engine;
-	WorldInterface world;
+	World world;
 	
 	boolean isPaused = false;
 	
@@ -152,12 +152,12 @@ public class TouchSurfaceView extends GLSurfaceView {
 		return ratio;
 	}
 
-	public WorldInterface createSinglePlayerWorld(Context activity) {
-		world = new World();
+	public World createSinglePlayerWorld(Context activity) {
+		world = new WorldOfOne();
 		return world;
 	}
 	
-	public WorldInterface createTwoPlayerWorld(Context activity) {
+	public World createTwoPlayerWorld(Context activity) {
 		world = new WorldOfTwo();
 		return world;
 	}

@@ -10,7 +10,6 @@ public class Ball {
 
 	private int points = 70;
 	public float radius=.05f;
-	//TODO unificar a cor cinza em um lugar
 	public float[] color = {201f/256f, 192f/256f, 187f/256f,1};
 
 	//Note: não faça com que twoPlayerBrick.maxSpeed 

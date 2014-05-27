@@ -53,17 +53,17 @@ public class WorldOfTwo extends World{
 		
 		paddleHighSide = Paddle.createTwoPlayerPaddle(0f, paddlePos);
 		paddleHighSide.setColor(colorPlayerInTheHighSide);
-		lineHighSide = new Line(linePos,colorPlayerInTheHighSide);
+		lineHighSide = new Line(linePos,colorPlayerInTheHighSide,screenRatio);
 		paddleLowSide = Paddle.createTwoPlayerPaddle(0f, -paddlePos);
 		paddleLowSide.setColor(colorPlayerInTheLowSide);
-		lineLowSide = new Line(-linePos,colorPlayerInTheLowSide);
+		lineLowSide = new Line(-linePos,colorPlayerInTheLowSide,screenRatio);
 		int unused = 1984;
 		brickList = new BrickList(2,unused,screenRatio);
 		
 
 	}
 	
-	public void setHitSoundHandler(SoundManager hitBrickHandler) {
+	public void setHitSoundHandler(SoundManager hitSoundHandler) {
 	}
 
 	private int whoWon() {

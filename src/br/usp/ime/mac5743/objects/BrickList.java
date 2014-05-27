@@ -47,7 +47,6 @@ public class BrickList {
 
 	private void buildClassicalOnePlayerGame (float ratio){
 		bricks = 95;
-		//bricks = 4; TODO
 		brickV = new Brick[bricks];
 		float brickWidth = Brick.widthBeforeRatio* Brick.ratio;
 		float xStart = -ratio + brickWidth/2;
@@ -71,7 +70,6 @@ public class BrickList {
 
 	private void buildStairsOnePlayerGame (float ratio){
 		bricks = 52;
-		//bricks = 5; TODO
 		brickV = new Brick[bricks];
 		float brickWidth = Brick.widthBeforeRatio* Brick.ratio;
 		float xStart = -ratio + brickWidth/2;

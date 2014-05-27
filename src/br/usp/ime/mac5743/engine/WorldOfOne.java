@@ -13,13 +13,13 @@ public class WorldOfOne extends World {
 	private Paddle paddle;
 	private Ball ball;
 	private BrickList bricks;
-	private SoundManager soundManager;//TODO caçar esse nome
+	private SoundManager soundManager;
 	private int level = 1;
 	
 	private static float[] paddleColor = {0.0f,0.7f,0.7f,1.0f}; 
 
-	public void setHitSoundHandler(SoundManager hitBrickHandler) {
-		this.soundManager = hitBrickHandler;
+	public void setHitSoundHandler(SoundManager hitSoundHandler) {
+		this.soundManager = hitSoundHandler;
 	}
 	
 	private void restart() {
