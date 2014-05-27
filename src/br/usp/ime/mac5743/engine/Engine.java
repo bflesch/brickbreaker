@@ -12,7 +12,7 @@ public class Engine {
 		timeStamp = 0;
 	}
 	
-	public void runUpdates(WorldInterface world){
+	public void runUpdates(World world){
 		previousTime = timeStamp;
 		timeStamp = System.currentTimeMillis();
 		if (previousTime != 0) {

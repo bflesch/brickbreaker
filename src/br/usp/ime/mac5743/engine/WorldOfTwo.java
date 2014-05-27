@@ -10,7 +10,7 @@ import br.usp.ime.mac5743.objects.Paddle;
 import br.usp.ime.mac5743.util.SoundManager;
 import android.view.MotionEvent;
 
-public class WorldOfTwo extends WorldInterface{
+public class WorldOfTwo extends World{
 
 	private static final int DRAW = 123324;
 	private static final int LOW_WINS = 3423;
