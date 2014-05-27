@@ -1,6 +1,6 @@
 package br.usp.ime.mac5743.activities;
 
-import br.usp.ime.mac5743.engine.WorldInterface;
+import br.usp.ime.mac5743.engine.World;
 import br.usp.ime.mac5743.util.SoundManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -29,11 +29,11 @@ public class MainActivity extends Activity  {
 
 		String players = getIntent().getStringExtra(EXTRA_PLAYER_NUMBER);
 		if (players.equals(VALUE_SINGLE_PLAYER)){
-			WorldInterface world = glSurfaceView.createSinglePlayerWorld(this);
+			World world = glSurfaceView.createSinglePlayerWorld(this);
 			world.setHitSoundHandler(soundManager);
 		}
 		else {
-			WorldInterface world = glSurfaceView.createTwoPlayerWorld(this);
+			World world = glSurfaceView.createTwoPlayerWorld(this);
 			world.setHitSoundHandler(soundManager);
 		}
 
