@@ -1,4 +1,6 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.objects;
+
+import br.usp.ime.mac5743.engine.WorldOfTwo;
 
 
 class TwoPlayerBrick extends Brick {
@@ -15,7 +17,7 @@ class TwoPlayerBrick extends Brick {
 
 	public TwoPlayerBrick(float x, float y) {
 		super(x,y);
-		color = WorldOfTwo.colorNeutral;
+		setColor(WorldOfTwo.colorNeutral);
 		makesSound = false;
         isKillable = false;
 	}
@@ -36,13 +38,13 @@ class TwoPlayerBrick extends Brick {
 		if (side == WITH_TOP && //
 				equal_colors(ball.color,WorldOfTwo.colorPlayerInTheHighSide)){
 			speed = DOWN;
-			this.color = ball.color;
+			this.setColor(ball.color);
 		}
 
 		if (side == WITH_BOTTOM && //
 				equal_colors(ball.color,WorldOfTwo.colorPlayerInTheLowSide)){
 			speed = UP;
-			this.color = ball.color;
+			this.setColor(ball.color);
 		}
 	}
 }

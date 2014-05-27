@@ -1,4 +1,5 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.objects;
+
 
 class IronBrick extends Brick {
 
@@ -8,7 +9,7 @@ class IronBrick extends Brick {
 		posX=x; posY=y; height=h; width=w;
 		makesSound = false;
 		isKillable = false;
-		color[0] = 101/256; color[1] = 110/256; color[2] = 117/256; color[3] = 1;
+		getColor()[0] = 101/256; getColor()[1] = 110/256; getColor()[2] = 117/256; getColor()[3] = 1;
 		buildGlBuffer();
 	}
 	

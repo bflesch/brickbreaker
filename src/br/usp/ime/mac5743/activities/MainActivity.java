@@ -1,5 +1,7 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.activities;
 
+import br.usp.ime.mac5743.engine.WorldInterface;
+import br.usp.ime.mac5743.util.SoundManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
@@ -62,7 +64,7 @@ public class MainActivity extends Activity  {
 		soundManager.pause();
 	}
 	
-	public HitSoundHandler getSoundHandler() {
+	public SoundManager getSoundHandler() {
 		return soundManager;
 	}
 

@@ -1,15 +1,20 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.activities;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import br.usp.ime.mac5743.engine.Engine;
+import br.usp.ime.mac5743.engine.World;
+import br.usp.ime.mac5743.engine.WorldInterface;
+import br.usp.ime.mac5743.engine.WorldOfTwo;
+import br.usp.ime.mac5743.objects.Brick;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.opengl.Matrix;
 import android.view.MotionEvent;
 
-class TouchSurfaceView extends GLSurfaceView {
+public class TouchSurfaceView extends GLSurfaceView {
 
 	private Renderer renderer;
 

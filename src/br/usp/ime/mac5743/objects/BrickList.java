@@ -1,8 +1,8 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.objects;
 
 import javax.microedition.khronos.opengles.GL10;
 
-class BrickList {
+public class BrickList {
 
 	int bricks;
 	int movableBricks;

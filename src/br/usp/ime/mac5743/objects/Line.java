@@ -1,11 +1,11 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.objects;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
-class Line {
+public class Line {
 	
 	    private FloatBuffer vertexBuffer;
 	    private float height;

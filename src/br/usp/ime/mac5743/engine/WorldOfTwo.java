@@ -1,7 +1,13 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.engine;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import br.usp.ime.mac5743.objects.Ball;
+import br.usp.ime.mac5743.objects.Brick;
+import br.usp.ime.mac5743.objects.BrickList;
+import br.usp.ime.mac5743.objects.Line;
+import br.usp.ime.mac5743.objects.Paddle;
+import br.usp.ime.mac5743.util.SoundManager;
 import android.view.MotionEvent;
 
 public class WorldOfTwo extends WorldInterface{
@@ -10,6 +16,8 @@ public class WorldOfTwo extends WorldInterface{
 	private static final int LOW_WINS = 3423;
 	private static final int HIGH_WINS = 007;
 	private static final int NO_WINNER_YET = 31232;
+	
+	private static final int GAME_OVER_ANIMATION_STEPS = 500;
 	
 	private Paddle paddleHighSide;
 	private Paddle paddleLowSide;
@@ -55,7 +63,7 @@ public class WorldOfTwo extends WorldInterface{
 
 	}
 	
-	public void setHitSoundHandler(HitSoundHandler hitBrickHandler) {
+	public void setHitSoundHandler(SoundManager hitBrickHandler) {
 	}
 
 	private int whoWon() {
@@ -118,11 +126,11 @@ public class WorldOfTwo extends WorldInterface{
 		
 		if (paddle1.gotHit(ball)){
 			paddle1.changeSpeed(ball);
-			ball.color = paddle1.color;
+			ball.color = paddle1.getColor();
 		}
 		if (paddle2.gotHit(ball)){ 
 			paddle2.changeSpeed(ball);
-			ball.color = paddle2.color;
+			ball.color = paddle2.getColor();
 		}
 		if (brickList.checkHitAndDeflect(ball)){ 
 		}
@@ -170,11 +178,8 @@ public class WorldOfTwo extends WorldInterface{
         
 		if (victory != NO_WINNER_YET) {
 			game_over = true;
-			//TODO colocar esse timer nas constantes
-			gameOverTimer = 500;
+			gameOverTimer = GAME_OVER_ANIMATION_STEPS;
 		}
-		
-			
 		
 	} 
 }

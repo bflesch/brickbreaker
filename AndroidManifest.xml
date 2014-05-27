@@ -14,14 +14,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="br.usp.ime.mac5743.MainActivity"
+            android:name="br.usp.ime.mac5743.activities.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="userPortrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="br.usp.ime.mac5743.MainMenu"
+            android:name="br.usp.ime.mac5743.activities.MainMenu"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-                <activity
-            android:name="br.usp.ime.mac5743.Credits"
+        <activity
+            android:name="br.usp.ime.mac5743.activities.Credits"
             android:label="@string/title_activity_credits" >
         </activity>
     </application>

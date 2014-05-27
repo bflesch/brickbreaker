@@ -1,4 +1,4 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.objects;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -7,12 +7,13 @@ import java.util.ArrayList;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import br.usp.ime.mac5743.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
 
-class Brick {
+public class Brick {
 
     public boolean isAlive = true;
     public boolean isKillable = true;
@@ -22,8 +23,8 @@ class Brick {
 	protected float posY = 0.0f;
 
 	private FloatBuffer vertexBuffer;
-	private FloatBuffer textureBuffer;
-	private FloatBuffer colorBuffer;
+	protected static FloatBuffer textureBuffer;
+	protected static FloatBuffer colorBuffer;
 	
 	private static int[] textures;
 
@@ -40,12 +41,13 @@ class Brick {
 	public static float ratio;
 	protected float width;
 	
-	protected float[] color = {1.0f,0.0f,0.0f, 1.0f};
+	private float[] color = {1.0f,0.0f,0.0f, 1.0f};
 	
 	private float growth_rate = 1.01f;
 	private float maxHeight = 4f;
 
 	private static final int FLOAT_SIZE_BYTES = Float.SIZE / 8;
+	
 	protected static final int WITH_TOP = 143223411;
 	protected static final int WITH_BOTTOM = 342382131;
 	protected static final int WITH_UNUSED = 312120762;
@@ -62,24 +64,37 @@ class Brick {
 		buildGlBuffer();
 	}
 	
-	protected void buildGlBuffer () {
+	protected void buildGlBuffer () {	
+		if(textureBuffer == null || colorBuffer == null ){		
+			final float texture[] = {    		
+		    		0.0f, 0.0f,
+		    		1.0f, 0.0f,
+		    		1.0f, 1.0f,
+		    		0.0f, 1.0f
+			};
+			
+			final float bg_color[] = {    		
+		    		1.0f, 1.0f,
+		    		1.0f, 0.05f
+			};
+			
+			ByteBuffer byteBuf = ByteBuffer.allocateDirect(texture.length * FLOAT_SIZE_BYTES);
+			byteBuf.order(ByteOrder.nativeOrder());
+			textureBuffer = byteBuf.asFloatBuffer();
+			textureBuffer.put(texture);
+			textureBuffer.position(0);
+			
+			byteBuf = ByteBuffer.allocateDirect(bg_color.length * FLOAT_SIZE_BYTES);
+			byteBuf.order(ByteOrder.nativeOrder());
+			colorBuffer = byteBuf.asFloatBuffer();
+			colorBuffer.put(bg_color);
+			colorBuffer.position(0);	
+		}
 		float[] vertices= {
 				-width/2, -height/2,
 				+width/2, -height/2,
 				+width/2, +height/2,
 				-width/2, +height/2
-		};
-		
-		final float texture[] = {    		
-	    		0.0f, 0.0f,
-	    		1.0f, 0.0f,
-	    		1.0f, 1.0f,
-	    		0.0f, 1.0f
-		};
-		
-		final float bg_color[] = {    		
-	    		1.0f, 1.0f,
-	    		1.0f, 0.05f
 		};
 
 		ByteBuffer bBuff=ByteBuffer.allocateDirect(vertices.length * FLOAT_SIZE_BYTES);    
@@ -87,18 +102,6 @@ class Brick {
 		vertexBuffer=bBuff.asFloatBuffer();
 		vertexBuffer.put(vertices);
 		vertexBuffer.position(0);
-		
-		ByteBuffer byteBuf = ByteBuffer.allocateDirect(texture.length * FLOAT_SIZE_BYTES);
-		byteBuf.order(ByteOrder.nativeOrder());
-		textureBuffer = byteBuf.asFloatBuffer();
-		textureBuffer.put(texture);
-		textureBuffer.position(0);
-		
-		byteBuf = ByteBuffer.allocateDirect(bg_color.length * FLOAT_SIZE_BYTES);
-		byteBuf.order(ByteOrder.nativeOrder());
-		colorBuffer = byteBuf.asFloatBuffer();
-		colorBuffer.put(bg_color);
-		colorBuffer.position(0);
 	}    
 	
 	public void step() {
@@ -264,7 +267,7 @@ class Brick {
 		gl.glLoadIdentity();
 		gl.glTranslatef( posX, posY, 0.0f );
 		//gl.glColor4f(1.0f,0.0f,0.0f, 0.9f);
-		gl.glColor4f(color[0],color[1],color[2],color[3]);
+		gl.glColor4f(getColor()[0],getColor()[1],getColor()[2],getColor()[3]);
 		
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);
 
@@ -305,5 +308,13 @@ class Brick {
 		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, GL10.GL_RGBA, bitmap, 0);
 		
 		bitmap.recycle();
+	}
+
+	public float[] getColor() {
+		return color;
+	}
+
+	public void setColor(float[] color) {
+		this.color = color;
 	}
 }

@@ -1,4 +1,5 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.engine;
+
 
 public class Engine {
 	

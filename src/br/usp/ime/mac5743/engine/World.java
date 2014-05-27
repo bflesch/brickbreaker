@@ -1,7 +1,11 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.engine;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import br.usp.ime.mac5743.objects.Ball;
+import br.usp.ime.mac5743.objects.BrickList;
+import br.usp.ime.mac5743.objects.Paddle;
+import br.usp.ime.mac5743.util.SoundManager;
 import android.view.MotionEvent;
 
 public class World extends WorldInterface {
@@ -9,13 +13,13 @@ public class World extends WorldInterface {
 	private Paddle paddle;
 	private Ball ball;
 	private BrickList bricks;
-	private HitSoundHandler hitBrickHandler;//TODO caçar esse nome
+	private SoundManager soundManager;//TODO caçar esse nome
 	private int level = 1;
 	
 	private static float[] paddleColor = {0.0f,1.0f,1.0f,1.0f}; 
 
-	public void setHitSoundHandler(HitSoundHandler hitBrickHandler) {
-		this.hitBrickHandler = hitBrickHandler;
+	public void setHitSoundHandler(SoundManager hitBrickHandler) {
+		this.soundManager = hitBrickHandler;
 	}
 	
 	private void restart() {
@@ -68,17 +72,19 @@ public class World extends WorldInterface {
 		ball.updatePosition();
 
 		if (bricks.checkHitAndDeflect(ball)){
-			if(bricks.playHitSound() && hitBrickHandler != null)
-				hitBrickHandler.onHit();
+			if(bricks.playHitSound() && soundManager != null)
+				soundManager.onHit();
 		}
 		if (paddle.gotHit(ball)) 
 			paddle.changeSpeed(ball);
 		
-		if (lost())
+		if (lost()){
+			soundManager.playTeleport();
 			restart();
+		}
 		
 		if (bricks.allBricksAreDead()){
-			hitBrickHandler.playApplause();
+			soundManager.playApplause();
 			level +=1;
 			if (level <= BrickList.maxLevels)
 			    restart();

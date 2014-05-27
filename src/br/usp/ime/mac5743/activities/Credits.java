@@ -1,9 +1,10 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import br.usp.ime.mac5743.R;
 
 public class Credits extends Activity {
 

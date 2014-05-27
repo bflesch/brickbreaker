@@ -1,4 +1,6 @@
-package br.usp.ime.mac5743;
+package br.usp.ime.mac5743.objects;
+
+import br.usp.ime.mac5743.activities.TouchSurfaceView;
 
 public class Paddle extends Brick {
 	
@@ -11,7 +13,7 @@ public class Paddle extends Brick {
 	int lastCollisionSide;
 	float deflectorPosition = .4f;
 
-	static Paddle createTwoPlayerPaddle(float x, float y){
+	public static Paddle createTwoPlayerPaddle(float x, float y){
 		return new Paddle(x,y);
 	}
 	
@@ -91,10 +93,6 @@ public class Paddle extends Brick {
 		}
 		if (ball != null && ball.stopped())
 			ball.comeWithMe(posX);
-	}
-	
-	void setColor(float[] color){
-		this.color = color;
 	}
 	
 }
