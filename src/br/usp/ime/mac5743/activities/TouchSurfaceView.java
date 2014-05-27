@@ -8,6 +8,7 @@ import br.usp.ime.mac5743.engine.World;
 import br.usp.ime.mac5743.engine.WorldInterface;
 import br.usp.ime.mac5743.engine.WorldOfTwo;
 import br.usp.ime.mac5743.objects.Brick;
+import br.usp.ime.mac5743.objects.Overlay;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
@@ -40,6 +41,8 @@ public class TouchSurfaceView extends GLSurfaceView {
 	
 	private class Renderer implements GLSurfaceView.Renderer {
 		
+		private Overlay pauseOverlay;
+
 		@Override
 		public void onDrawFrame( GL10 gl ) {
 			if(isPaused)
@@ -50,9 +53,13 @@ public class TouchSurfaceView extends GLSurfaceView {
 				mainActivity.finish();
 			gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
 			world.draw(gl);			
-			if(isPaused)
-				return;
-			engine.runUpdates(world);	
+			if(isPaused){
+				//gl.glColor4f(0.3f,0.3f,0.3f, 0.4f);
+				pauseOverlay.draw(gl);
+			}
+			else {
+				engine.runUpdates(world);
+			}
 		}
 
 		@Override
@@ -75,6 +82,10 @@ public class TouchSurfaceView extends GLSurfaceView {
 				world.generate(ratio);
 				engine = new Engine();
 			}
+			
+			if (pauseOverlay == null){
+				pauseOverlay = new Overlay(ratio);
+			}
 		}
 
 
@@ -92,7 +103,9 @@ public class TouchSurfaceView extends GLSurfaceView {
 			gl.glShadeModel( GL10.GL_FLAT );
 			gl.glDisable( GL10.GL_DEPTH_TEST );
 			System.err.println("VERSION: " + gl.glGetString(GL10.GL_VERSION));
-			Brick.loadGLTexture(gl, getContext().getApplicationContext());
+			Context applicationContex = getContext().getApplicationContext();
+			Brick.loadGLTexture(gl, applicationContex);
+			Overlay.loadGLTexture(gl, applicationContex);
 		}
 	}
 
