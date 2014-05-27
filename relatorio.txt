@@ -13,7 +13,7 @@ Nesse relatório, descrevemos a implementação de um jogo do estilo brickbreake
 
 Motivação do trabalho
 
-O trabalho consiste na implementação de um jogo no estilo brickbreaker na plataforma android. Esse modelo de jogo é bastante popular e tem diversas implementações disponíveis. 
+O trabalho consiste na implementação de um jogo no estilo brickbreaker na plataforma Android. Esse modelo de jogo é bastante popular e tem diversas implementações disponíveis. 
 
 O interesse maior no trabalho era de aprendizado, tanto de desenvolvimento de jogos em geral, como das peculiaridades que surgem quando se implementa esse jogo em um dispositivo móvel. 
 
@@ -33,7 +33,7 @@ O jogo implementado apresenta dois modos: um modo de um jogador, com três fases
 
 No modo de um jogador, o jogador deve utilizar a raquete (um retângulo que ele controla, que se encontra na parte inferior da tela) para evitar que a bolinha "caia" para fora da tela, e para, usando a bolinha, destruir os tijolos presentes no nível.
 
-Os dois primeiros níveis são níveis mais "clássicos", onde há muitos tijolos para serem destruídos. O ultimo nível é desenhado para exigir mais precisão do jogador: Há um único tijolo, mas ele está numa região de dificl acesso (cercado quase totalmente por paredes indestrutíveis).
+Os dois primeiros níveis são níveis mais "clássicos", onde há muitos tijolos para serem destruídos. O ultimo nível é desenhado para exigir mais precisão do jogador: Há um único tijolo, mas ele está numa região de difícil acesso (cercado quase totalmente por paredes indestrutíveis).
 
 
 Jogabilidade:
@@ -51,7 +51,7 @@ Nessa sessão, descrevemos o código da aplicação.
 
 OpenGL:
 
-Nosso código é construido usando a implementação de OpenGL ES 1.0 para android.
+Nosso código é construído usando a implementação de OpenGL ES 1.0 para Android.
 
 Escolhemos trabalhar com o OpenGL ES 1.0 em vez do 2.0 por dois motivos, principalmente:
 
@@ -69,14 +69,14 @@ Som
 
 Dois dos sons foram criados no BFXR, um aplicativo em Adobe AIR que permite sintetizar uma gama de sons "retrô".
 
-Todos os sons foram obtidos com licenças CC-BY. Suas origens podem ser vistas na sessão "créditos" da propria aplicação.
+Todos os sons foram obtidos com licenças CC-BY. Suas origens podem ser vistas na sessão "créditos" da própria aplicação.
 
 
 A tela:
 
 Dispositivos diferentes têm telas com proporções diferentes. Nosso jogo se adapta a essas proporções: O tamanho horizontal da tela é calculado na função OnSurfaceChanged, implementada no arquivo TouchSurfaceView. Essa informação é propagada por todo o código: World, Brick e Paddle precisam dela para se construir corretamente.
 
-Fisica, gráficos e Game Loop:
+Fisica, gráficos e GameLoop:
 
 O jogo é fortemente baseado no padrão GameLoop, como explicado em: http://gameprogrammingpatterns.com/game-loop.html
 
@@ -91,7 +91,7 @@ Detecção de colisão e efeitos da colisão
 
 A cada passo da engine de física, os objetos se movimentam de acordo com as suas velocidades atuais. Se dois deles ocuparem o mesmo espaço, o programa detecta uma colisão, e altera as velocidades apropriadamente. No caso do jogo de um jogador, a velocidade alterada é sempre a da bolinha. No caso de dois jogadores, os blocos móveis podem ter sua velocidade alterada também.
 
-Uma preocupação importante é utilizar velocidades suficientemente pequenas na engine de física para garantir que todas as colisões sejam detectadas: velocidades muito grandes poderiam permitir, por exemplo, que a bolinha "ultrapassasse" um bloquinho em um unico passo, sem nunca compartilhar espaço com ele. As velocidades utilizadas na engine de física respeitam essa restrição e evitam essas "ultrapassagens". Note que isso não restringe as velocidades possíveis de gameplay: para tornar o jogo mais rápido, basta executar mais passos da física por segundo.
+Uma preocupação importante é utilizar velocidades suficientemente pequenas na engine de física para garantir que todas as colisões sejam detectadas: velocidades muito grandes poderiam permitir, por exemplo, que a bolinha "ultrapassasse" um bloquinho em um único passo, sem nunca compartilhar espaço com ele. As velocidades utilizadas na engine de física respeitam essa restrição e evitam essas "ultrapassagens". Note que isso não restringe as velocidades possíveis de gameplay: para tornar o jogo mais rápido, basta executar mais passos da física por segundo.
 
 Após a colisão com um bloco, a bola sofre reflexão, em torno do eixo que, fisicamente, corresponderia à força normal. Essa colisão é especialmente interessante quando a bolinha colide com um vértice: nesse caso há muitos ângulos de saída possíveis, dependendo da forma exata da colisão.
 
@@ -107,7 +107,7 @@ O jogador controla um objeto que chamamos de raquete. Com essa raquete, ele impe
 
 Experimentamos três versões da raquete, buscando melhorar a jogabilidade do jogo.
 
-A primeira versão era simplesmente um Brick que se move. A reflexão na superficie superior era sempre a mesma, independente da posição relativa entre a raquete e a bola. A única maneira de o usuário direcionar a bola era com colisões nos vértices da raquete. Essa versão não oferecia ao usuário controle suficiente, e o jogo acabava ficando muito enfadonho.
+A primeira versão era simplesmente um Brick que se move. A reflexão na superfície superior era sempre a mesma, independente da posição relativa entre a raquete e a bola. A única maneira de o usuário direcionar a bola era com colisões nos vértices da raquete. Essa versão não oferecia ao usuário controle suficiente, e o jogo acabava ficando muito enfadonho.
 
 A segunda versão implementava alterava o comportamento da reflexão na superfície superior. Ao invés da normal ser a normal usual (i.e., uma normal vertical) utilizávamos uma normal dependente do ponto de colisão. Quanto mais a direita do centro da raquete a bola batesse, mais inclinada a direita ficaria a normal.
 
@@ -123,7 +123,7 @@ A raquete sai um pouco da tela. O toque do usuário determina o destino do centr
 A raquete se move até o destino indicado pelo jogador. Nesse movimento, a velocidade dela é maior do que a velocidade da bola. Assim, algumas colisões entre a raquete em movimento e a bola podem gerar imagens em que a bolinha e a raquete se intersectam. Experimentamos algumas soluções para esse problema, mas não achamos nenhuma satisfatória.
 
 
-Extrutura do código:
+Estrutura do código:
 
 Nessa sessão, descrevemos as principais classes que compõe a aplicação.
 
@@ -132,7 +132,7 @@ Instanciam e coordenam os objetos presentes no jogo (Paddles, Balls e Bricks, es
 São essas as classes que de fato interpretam o input do usuário (pois o input é interpretado diferentemente para o jogo de um jogador e o jogo de dois)
 
 
-Engine: controla os passos da física, para manter a equivalencia entre eles e o tempo real
+Engine: controla os passos da física, para manter a equivalência entre eles e o tempo real
 
 TouchSurfaceView: implementa as callbacks de OpenGl e as callbacks de input de usuário
 
@@ -140,7 +140,7 @@ BrickList: instancia os Bricks que compõe uma fase, e os administra (realiza mo
 
 Brick: representa um tijolo de jogo. Implementa a lógica de detecção de colisão e de reflexão
 
-TwoPlayerBrick: Um tipo especial de Brick que é móvel. É util para o jogo de dois jogadores.
+TwoPlayerBrick: Um tipo especial de Brick que é móvel. É útil para o jogo de dois jogadores.
 
 Ball: implementa uma bolinha. Realiza os movimentos da bolinha.
 
@@ -165,14 +165,14 @@ Melhorias de desempenho:
 Seria possível otimizar os testes de colisão: se dividirmos o espaço disponível em setores, isso poderia reduzir drasticamente o número de colisões que são verificadas a cada passo do engine de física. Pelos nossos testes, porém, o teste de colisão, ingênuo como está, não consome uma quantidade relevante de tempo. Cremos que essa otimização, apesar de natural, não seria muito útil.
 
 Bugs:
-O aplicativo continua rodando quando a status bar é invocada e cobre a tela. Isso ocorre apesar de nós implementarmos corretamente o método onPause. Curiosamente, esse mesmo bug pode ser visto em jogos comerciais
+O aplicativo continua rodando quando a status bar é invocada e cobre a tela. Isso ocorre apesar de nós implementarmos corretamente o método onPause. Curiosamente, esse mesmo bug pode ser visto em jogos comerciais. Suspeitamos que esse é, na verdade, um bug do Android.
 
 
 Aprendizado e comentários pessoais:
 
-O EP foi uma oportunidade de aprendizado interessante. Pudemos aprender sobre desenvolvimento de jogos (sobre o GameLoop, algoritmos de colisão, OpenGL) e sobre a interação com o dispostivo (lidar com a interação com a touchscreen foi surpreendentemente simples)
+O EP foi uma oportunidade de aprendizado interessante. Pudemos aprender sobre desenvolvimento de jogos (sobre o GameLoop, algoritmos de colisão, OpenGL) e sobre a interação com o dispositivo (lidar com a interação com a touchscreen foi surpreendentemente simples)
 
-A interação com os colegas de sala foi muito rica. Ficamos com muita curiosidade a respeito de desenvolvimento de jogos e quais são as váriaveis relevantes.
+A interação com os colegas de sala foi muito rica. Ficamos com muita curiosidade a respeito de desenvolvimento de jogos e quais são as variáveis relevantes.
 
 A documentação oficial do OpenGL ES é meio esparsa. Isso causou algum desgaste e trabalho um pouco improdutivos, em alguns momentos. Infelizmente, a documentação oferecida no "android developers" também não era muito forte nessa área.
 
