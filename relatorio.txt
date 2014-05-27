@@ -17,6 +17,25 @@ Nosso jogo explora bastante duas dessas características: a interação via toqu
 
 TODO descrição breve do jogo
 
+Jogabilidade:
+TODO current
+Em termos de jogabilidade
+Idéias para jogabilidade:
+     -> precisão versus survival
+     -> paddle calibravel
+     -> golf calibravel
+     -> tempo calibrável
+     -> Pacing (1P vs 2P)
+     -> vidas
+2P parece ter tido boa reação
+
+Features implementadas:
+Som
+TExturas
+Blocos móveis
+2P
+
+
 TODO deixar a bolinha mais legal no 1P
 
 TODO Descricao (manual do usuário)
@@ -124,36 +143,21 @@ Melhorias possíveis
 
 Listamos aqui algumas melhorias que poderiam ser feitas no jogo (e qual consideramos serem suas relevâncias)
 
-Ideias para "juiciness"
-sons diferentes piu piuuu poiull
-impacto: bloco some animadamente
-impacto: bola "vibra"
-impacto: paddle desce
-outra musica quando acontece a vitória
-you win, you lose
-trail
-paddle nao ser invadida
+Há uma série de pequenos feedbacks visuais e auditivos que, cremos, aumentariam relevantemente a imersão do jogador:
+* Seria interessante fazer com que a bola, ao destruir vários Bricks em um pequeno intervalo de tempo, emitisse  sons ligeiramente diferentes para cada bloquinho, gerando uma noção de "continuidade do movimento"
+* Seria interessante criar uma animação para a destruição dos blocos
+* Seria interessante um feedback visual na paddle para marcar o impacto. Ela poderia, por exemplo, oscilar brevemente
 
-Idéias para jogabilidade:
-     -> precisão versus survival
-     -> paddle calibravel
-     -> golf calibravel
-     -> tempo calibrável
-     -> Pacing (1P vs 2P)
-     -> vidas
+TODO ver
+Em termos de jogabilidade, seria interessante implementar vidas no jogo de um jogador. Isso aumentaria um pouco a dificuldade. Da maneira atual, o jogador tem infinitas chances de vencer uma fase.
 
-Ideias para desempenho
- OpenGl: compartilhar o buffer dos bloquinhos
- Colisão: teste de colisao podia falhar mais rápido
-          setorizar o espaço
-          Profilling rudimentar indicou que isso não é um problema
- testes em celulares diferentes 
+Melhorias de desempenho:
+ Na classe Brick, seria interessante compartilhar o buffer para desenhar cada Brick entre todos os objetos (dado que o desenho pode ser feito com translações). Não sabemos qual seria a relevância dessa otimização
+Seria possível otimizar os testes de colisão: se dividirmos o espaço disponível em setores, isso poderia reduzir drasticamente o número de colisões que são verificadas a cada passo do engine de física. Pelos nossos testes, porém, o teste de colisão, ingênuo como está, não consome uma quantidade relevante de tempo. Cremos que essa otimização, apesar de natural, não seria muito útil.
 
-Testes com usuários
-(o jogo de 2 players foi bem recebido, pelo menos num primeiro momento)
-Testes com outros celulares (roda, mas graficos meio meia boca. Seria legal fazer mais)
+Bugs:
+O aplicativo continua rodando quando a status bar é invocada e cobre a tela. Isso ocorre apesar de nós implementarmos corretamente o método onPause. Curiosamente, esse mesmo bug pode ser visto em jogos comerciais
 
-Bug do android ? (temple run, smash e nóis)
 
 Aprendizado:
 
