@@ -14,13 +14,22 @@ Dispositivos móveis trazem muitas possibilidades para o desenvolvimento de jogo
 
 Nosso jogo explora bastante duas dessas características: a interação via toque e a possibilidade de diferentes jogadores verem a tela de ângulos diferentes (essa segunda, no modo multiplayer).
 
+
+TODO descrição breve do jogo
+
+TODO deixar a bolinha mais legal no 1P
+
 TODO Descricao (manual do usuário)
+
+
 
 
 TODO Extrutura do código
 
 
 Comentários gerais sobre o código:
+
+OpenGL:
 
 Nosso código é construido usando a implementação de OpenGL ES 1.0 para android.
 
@@ -40,46 +49,60 @@ Fisica, gráficos e Game Loop:
 
 O jogo é fortemente baseado no padrão GameLoop, como explicado em: http://gameprogrammingpatterns.com/game-loop.html
 
-A cada renderização da tela de jogo, calculamos quanto tempo se passou (desde a última renderização) e fazemos a quantidade correspondente de passos da engine de física.
+A cada renderização da tela de jogo, calculamos quanto tempo se passou (desde a última renderização) e fazemos a quantidade correspondente de passos da engine de física. Um passo do engine de fisica corresponde a uma quantidade fixa de tempo real (de alguns milissegundos). Isso permite que a execução da física seja consistente, mesmo quando temos devices com capacidades de processamento muito diferentes.
 
-Infelizmente, a quantidade de tempo passado entre duas renderizações pode não ser mutipla da quantidade de tempo em que ocorre um passo da física  
+Infelizmente, a quantidade de tempo passado entre duas renderizações pode não ser multipla da quantidade de tempo em que ocorre um passo da física. Isso pode gerar artefatos visuais: a bolinha pode parecer se mover mais rapidamente numa mudança de frame, e mais lentamente na mudança de frame seguinte. Pudemos observar esse efeito quando testamos a aplicação em celulares mais antigos, mas ele não nos pareceu ser grande o bastante para comprometer a experiência do usuário.
 
-TODO half step
-A extrutura basica do gameloop:
-OnDraw, chama a física quantas vezes for necessário
-   essa extrutura é boa por criar um jogo consistente, independente da velocidade do preocessador
-half step, sutter
-runaway process é possível, mas não vimos
-testes em celulares diferentes 
+Outro problema que teoricamente poderia surgir seria o tempo de execução de um passo da física demorar mais do que o tempo real a que ele corresponde. Nesse caso, o jogo ficaria completamente impossível de jogar. Felizmente, não observamos esse comportamento em nenhum dos celulares em que testamos o jogo.
 
 
-Detecção de colisão e colisão
--> reflexão (em qq eixo)
-desenhos: bola na superficie, bola no corner
--> agregação de normais
-desenho: ----
-            ----
-desenho:
-----
-        <-0
-----
--> evitar teleporte
--> problema da paddle: fizemos experiencias mas não achamos uma boa solução
--> poderia ficar bem mais eficiente: 
-   verificar mais curto, setorizar
- Profilling rudimentar indicou que isso não é um problema
+Detecção de colisão e efeitos da colisão
 
-Paddle1 e paddle2 e paddle3
-paddle1: controle só com os cantos
-paddle2: reflexão com formato não trivial. ainda sim é dificil o controle: acertar a bolinha na posicao certa. A posicao depende da velocidade
+A cada passo da engine de física, os objetos se movimentam de acordo com as suas velocidades atuais. Se dois deles ocuparem o mesmo espaço, o programa detecta uma colisão, e altera as velocidades apropriadamente. No caso do jogo de um jogador, a velocidade alterada é sempre a da bolinha. No caso de dois jogadores, os blocos móveis podem ter sua velocidade alterada também.
+
+Uma preocupação importante é utilizar velocidades suficientemente pequenas na engine de física para garantir que todas as colisões sejam detectadas: velocidades muito grandes poderiam permitir, por exemplo, que a bolinha "ultrapassasse" um bloquinho em um unico passo, sem nunca compartilhar espaço com ele. As velocidades utilizadas na engine de física respeitam essa restrição e evitam essas "ultrapassagens". Note que isso não restringe as velocidades possíveis de gameplay: para tornar o jogo mais rápido, basta executar mais passos da física por segundo.
+
+Após a colisão com um bloco, a bola sofre reflexão, utilizando o eixo da força normal e um eixo paralelo como sistema de coordenadas
+
+TODO desenhos: bola na superficie, bola no corner
+
+Poderia haver um artefato na reflexão: se uma bola colidir com dois bloquinhos ao mesmo tempo, aplicar duas reflexões seguidas poderia gerar um artefato, como na ilustração
+
+TODO desenho agregação de normais
+
+Para evitar isso, implementamos da BrickList o seguinte comportamento: Ao detectar duas ou mais colisões, ao invés de realizar duas reflexões, somamos as direções das forças normais para obter uma nova força normal e realizar a reflexão
+
+Paddle
+
+O jogador controla a um objeto que chamamos de Paddle. Com essa Paddle, ele impede que a bolinha caia e direciona a bolinha.
+
+Experimentamos três versões da Paddle, buscando melhorar a jogabilidade do jogo.
+
+A primeira versão era simplesmente um Brick que se move. A reflexão na superficie superior era sempre a mesma, independente da posição relativa entre a Paddle e a bola. A única maneira de o usuário direcionar a bola era com colisões nos vértices da Paddle. Essa versão não oferecia ao usuário controle suficiente, e o jogo acabava ficando muito enfadonho.
+
+A segunda versão implementava alterava o comportamento da reflexão na superfície superior. Ao invés da normal ser a normal usual (i.e., uma normal vertical) utilizávamos uma normal dependente do ponto de colisão. Quanto mais a direita do centro da Paddle a bola batesse, mais inclinada a direita ficaria a normal.
+
+TODO: desenho da reflexão bizarra 
+
+Infelizmente, esse modelo ainda pareceu complicado demais para permitir uma boa jogabilidade: a posição ideal para o jogador colocar a paddle dependia de muitas variáveis: a posição da bolinha, a velocidade da bolinha e o alvo que ele pretendia acertar.
+
 desenho: angulo de reflexão
-paddle3: posição causa velocidade. 
+
+A ultima implementação da Paddle ignora a física para melhorar a jogabilidade. Nessa implementação, a direção da bola após a colisão é determinada pelo ponto de contato entre a Paddle e a bola. Quanto mais a direita do centro da Paddle a bola bate, mais a direita ela sai.
+
+Uma coisa interessante nas ultimas duas implementações é que elas são parametrizadas: podemos facilmente alterar o código para aumentar ou diminuir os desvios causados pela Paddle. Assim, pudemos experimentar um pouco com diferentes desvios, para otimizar a jogabilidade. Seria interessante fazer um ajuste mais fino desses parâmetros. 
+ 
 desenho: nova velocidade
 desenho: nova velocidade, outro parametro
-É ajustável
-sai da tela um pouco: um bug promovido a feature
 
-Idéias, bugs e melhorias
+Bugs da Paddle:
+A Paddle sai um pouco da tela. O toque do usuário determina o destino do centro da Paddle, assim, um toque no canto da tela faz com que um pedaço da Paddle deixe de estar visível. Isso seria trivial de corrigir, mas chegamos à conclusão de que ajuda um pouco na jogabilidade. It's not a bug, It's a feature!
+
+A Paddle se move até o destino indicado pelo jogador. Nesse movimento, a velocidade dela é maior do que a velocidade da bola. Assim, algumas colisões entre a Paddle em movimento e a bola podem gerar imagens em que a bolinha e a Paddle se intersectam. Experimentamos algumas soluções para esse problema, mas não achamos nenhuma satisfatória.
+
+Melhorias possíveis
+
+Listamos aqui algumas melhorias que poderiam ser feitas no jogo (e qual consideramos serem suas relevâncias)
 
 Ideias para "juiciness"
 sons diferentes piu piuuu poiull
@@ -95,6 +118,7 @@ Idéias para jogabilidade:
      -> precisão versus survival
      -> paddle calibravel
      -> golf calibravel
+     -> tempo calibrável
      -> Pacing (1P vs 2P)
      -> vidas
 
@@ -102,7 +126,8 @@ Ideias para desempenho
  OpenGl: compartilhar o buffer dos bloquinhos
  Colisão: teste de colisao podia falhar mais rápido
           setorizar o espaço
-(nao temos certeza se é útil)
+          Profilling rudimentar indicou que isso não é um problema
+ testes em celulares diferentes 
 
 Testes com usuários
 (o jogo de 2 players foi bem recebido, pelo menos num primeiro momento)
@@ -122,7 +147,7 @@ Funcionamento do openGl: documentação meio esparsa
 
 Referências
 
- http://gameprogrammingpatterns.com/game-loop.html
+http://gameprogrammingpatterns.com/game-loop.html
 http://insanitydesign.com/wp/projects/nehe-android-ports/
 http://www.opengl.org/archives/resources/faq/technical/transparency.htm
 http://developer.android.com/training/multiscreen/screendensities.html
