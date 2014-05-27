@@ -26,7 +26,7 @@ public class TouchSurfaceView extends GLSurfaceView {
 
 	private static float ratio = 0.0f;
 
-	MainActivity context;
+	MainActivity mainActivity;
 	Engine engine;
 	WorldInterface world;
 	
@@ -42,24 +42,17 @@ public class TouchSurfaceView extends GLSurfaceView {
 		
 		@Override
 		public void onDrawFrame( GL10 gl ) {
-			
 			if(isPaused)
 				gl.glClearColor(209f/256f,209f/256f,220f/256f,1f);
 			else
 				gl.glClearColor(1, 1, 1, 1);
-			
 			if (world.isFinished())
-				context.finish();
-			
+				mainActivity.finish();
 			gl.glClear( GL10.GL_COLOR_BUFFER_BIT );
-
-			world.draw(gl);
-			
+			world.draw(gl);			
 			if(isPaused)
 				return;
-			
-			engine.runUpdates(world);
-			
+			engine.runUpdates(world);	
 		}
 
 		@Override
@@ -78,7 +71,7 @@ public class TouchSurfaceView extends GLSurfaceView {
 			Matrix.orthoM( unprojectProjMatrix, 0, -ratio, ratio, -1.0f, 1.0f, -1.0f, 1.0f );
 			Matrix.setIdentityM( unprojectViewMatrix, 0 );
 			
-			if (world != null){
+			if (!world.isGenerated()){
 				world.generate(ratio);
 				engine = new Engine();
 			}
@@ -108,7 +101,7 @@ public class TouchSurfaceView extends GLSurfaceView {
 		super( context );
 		renderer = new Renderer();
 		setRenderer( renderer );
-		this.context = (MainActivity) context;
+		this.mainActivity = (MainActivity) context;
 	}
 	
 	private void handleTouch( MotionEvent e, int index) {
@@ -135,16 +128,12 @@ public class TouchSurfaceView extends GLSurfaceView {
 		world.handleTouch(e ,resultWorldPos[0], resultWorldPos[1] );
 	}
 
-
-
 	@Override
 	public boolean onTouchEvent( MotionEvent e ) {
-
 		for(int i=0; i< e.getPointerCount(); i++)
 			handleTouch(e,i);
 		return true;
 	}
-
 
 	public static float getRatio() {
 		return ratio;

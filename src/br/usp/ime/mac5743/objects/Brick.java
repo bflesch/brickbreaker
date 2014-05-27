@@ -290,10 +290,12 @@ public class Brick {
 	}
 	
 	public static void loadGLTexture(GL10 gl, Context context) {
-		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.raw.quad);
+		
 		if(textures == null){
 			textures = new int[2];
 		}
+		
+		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.raw.blox2);
 		
 		gl.glGenTextures(1, textures, 0);
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]);

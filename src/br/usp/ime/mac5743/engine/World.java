@@ -16,7 +16,7 @@ public class World extends WorldInterface {
 	private SoundManager soundManager;//TODO caçar esse nome
 	private int level = 1;
 	
-	private static float[] paddleColor = {0.0f,1.0f,1.0f,1.0f}; 
+	private static float[] paddleColor = {0.0f,0.7f,0.7f,1.0f}; 
 
 	public void setHitSoundHandler(SoundManager hitBrickHandler) {
 		this.soundManager = hitBrickHandler;
@@ -73,7 +73,7 @@ public class World extends WorldInterface {
 
 		if (bricks.checkHitAndDeflect(ball)){
 			if(bricks.playHitSound() && soundManager != null)
-				soundManager.onHit();
+				soundManager.playHit();
 		}
 		if (paddle.gotHit(ball)) 
 			paddle.changeSpeed(ball);
