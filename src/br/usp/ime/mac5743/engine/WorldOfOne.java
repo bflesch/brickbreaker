@@ -28,7 +28,7 @@ public class WorldOfOne extends World {
 	
 	protected void start (){
 		ball = new Ball();
-		ball.increaseSpeed();
+		ball.becomeQuick();
 		bricks = new BrickList(1,level,screenRatio);
 		paddle = new Paddle(ball);
 		paddle.setColor(paddleColor);

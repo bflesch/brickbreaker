@@ -56,7 +56,7 @@ public class Ball {
 		speedY = direction[1]*speedSize;
 	}
 
-	public void increaseSpeed() {
+	public void becomeQuick() {
 		this.speedSize = 3.0f/150.0f;
 	}
 	
