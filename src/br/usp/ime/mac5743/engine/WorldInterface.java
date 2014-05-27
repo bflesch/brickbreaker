@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 public abstract class WorldInterface {
 	
 	float screenRatio;
+	boolean generated = false;
 	
 	abstract public void step();
 	abstract protected void start();
@@ -18,9 +19,13 @@ public abstract class WorldInterface {
 	abstract public boolean isFinished(); 
 	
 	public void generate(float ratio){
+		this.generated = true;
 		this.screenRatio = ratio;
 		Brick.ratio = ratio;
 		start();
+	}
+	public boolean isGenerated() {
+		return generated;
 	}
 
 }

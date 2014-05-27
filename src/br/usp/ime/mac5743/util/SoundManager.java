@@ -29,7 +29,7 @@ public class SoundManager {
 		started = false;
 	}
 
-	protected void playHit() {
+	public void playHit() {
 		if(started){
 			sfxPool.play(hitSoundId, 0.8f, 0.8f, 1, 0, 1);
 		}
@@ -45,10 +45,6 @@ public class SoundManager {
 		if(started){
 			sfxPool.play(teleportSoundId, 0.8f, 0.8f, 2, 0, 1);
 		}
-	}
-
-	public void onHit() {
-		playHit();
 	}
 
 	public void start() {
